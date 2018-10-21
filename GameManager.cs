@@ -31,11 +31,11 @@ namespace Capstonia
 
 
         // Game Variable Declarations
-        public static readonly int levelWidth = 21;
-        public static readonly int levelHeight = 21;
+        public static readonly int levelWidth = 35;
+        public static readonly int levelHeight = 35;
         public int mapLevel = 1;
         public int tileSize = 48;
-        public float scale = 1.2f;
+        public float scale = .65f;
 
         private bool renderRequired = true;
        
@@ -85,16 +85,7 @@ namespace Capstonia
             floor = Content.Load<Texture2D>("floor_extra_12");
             wall = Content.Load<Texture2D>("wall_stone_11");
 
-            mainFont = Content.Load<SpriteFont>("MainFont");
-
-            ICell startingCell = GetRandomEmptyCell();
-            Player = new Player(this)
-            {
-                X = startingCell.X,
-                Y = startingCell.Y,
-                Scale = scale,
-                Sprite = Content.Load<Texture2D>("dknight_1")
-            };
+            mainFont = Content.Load<SpriteFont>("MainFont");           
         }
 
         /// <summary>

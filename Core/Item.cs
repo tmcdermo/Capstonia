@@ -33,12 +33,14 @@ namespace Capstonia.Core
         //IDrawable
         public int X { get; set; }
         public int Y { get; set; }
+        public float Scale { get; set; }
 
         protected GameManager game;
 
         public  Item(GameManager instance)
         {
             game = instance;
+            Scale = game.scale;
         }
 
         /// <summary>

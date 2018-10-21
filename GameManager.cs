@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RogueSharp;
 using RogueSharp.Random;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Capstonia
         SpriteBatch spriteBatch;
         public Texture2D floor;
         public Texture2D wall;
+        private SpriteFont mainFont;
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -80,7 +82,19 @@ namespace Capstonia
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            floor = Content.Load<Texture2D>("floor_extra_12");
+            wall = Content.Load<Texture2D>("wall_stone_11");
+
+            mainFont = Content.Load<SpriteFont>("MainFont");
+
+            ICell startingCell = GetRandomEmptyCell();
+            Player = new Player(this)
+            {
+                X = startingCell.X,
+                Y = startingCell.Y,
+                Scale = scale,
+                Sprite = Content.Load<Texture2D>("dknight_1")
+            };
         }
 
         /// <summary>
@@ -118,11 +132,30 @@ namespace Capstonia
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
             Level.Draw(spriteBatch);
-            //Player.Draw(spriteBatch);
+            Player.Draw(spriteBatch, Level);
             //messages.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
+
+
+        private ICell GetRandomEmptyCell()
+        {
+            IRandom random = new DotNetRandom();
+
+            while (true)
+            {
+                int x = random.Next(7);
+                int y = random.Next(7);
+                if (Level.IsWalkable(x, y))
+                {
+                    return Level.GetCell(x, y);
+                }
+            }
+        }
+
 
         // GenerateLevel()
         // DESC:    Generates the entire level grid in which individual rooms will be placed.     
@@ -132,7 +165,7 @@ namespace Capstonia
         {
             LevelGenerator levelGenerator = new LevelGenerator(this, levelWidth, levelHeight, mapLevel);
             Level = levelGenerator.CreateLevel();
-            masterConsole.GenerateLevel(Level);
+            //masterConsole.GenerateLevel(Level);
         }
 
         // messageDeliver()
@@ -141,7 +174,7 @@ namespace Capstonia
         // RETURNS: None.
         public void messageDeliver(Queue<string> messageList)
         {
-            masterConsole.messageDeliver(messageList);
+            //masterConsole.messageDeliver(messageList);
         }
 
         //SetLevelCell()
@@ -185,58 +218,58 @@ namespace Capstonia
         {
             bool didPlayerAct = false;
 
-            UserInputCommands command = masterConsole.GetUserCommand();
+            //UserInputCommands command = masterConsole.GetUserCommand();
 
-            if (CommandSystem.IsPlayerTurn)
-            {
-                switch (command)
-                {
-                    case UserInputCommands.UpLeft:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.UpLeft);
-                        break;
-                    case UserInputCommands.Up:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
-                        break;
-                    case UserInputCommands.UpRight:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.UpRight);
-                        break;
-                    case UserInputCommands.Left:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
-                        break;
-                    case UserInputCommands.Right:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
-                        break;
-                    case UserInputCommands.DownLeft:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.DownLeft);
-                        break;
-                    case UserInputCommands.Down:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
-                        break;
-                    case UserInputCommands.DownRight:
-                        didPlayerAct = CommandSystem.MovePlayer(Direction.DownRight);
-                        break;
-                    case UserInputCommands.ChangeLevel:
-                        // TODO - Implement
-                        break;
-                    case UserInputCommands.CloseGame:
-                        masterConsole.CloseApplication();
-                        break;
-                    default:
-                        break;
-                }
+            //if (CommandSystem.IsPlayerTurn)
+            //{
+            //    switch (command)
+            //    {
+            //        case UserInputCommands.UpLeft:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.UpLeft);
+            //            break;
+            //        case UserInputCommands.Up:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+            //            break;
+            //        case UserInputCommands.UpRight:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.UpRight);
+            //            break;
+            //        case UserInputCommands.Left:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
+            //            break;
+            //        case UserInputCommands.Right:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
+            //            break;
+            //        case UserInputCommands.DownLeft:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.DownLeft);
+            //            break;
+            //        case UserInputCommands.Down:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
+            //            break;
+            //        case UserInputCommands.DownRight:
+            //            didPlayerAct = CommandSystem.MovePlayer(Direction.DownRight);
+            //            break;
+            //        case UserInputCommands.ChangeLevel:
+            //            // TODO - Implement
+            //            break;
+            //        case UserInputCommands.CloseGame:
+            //            //masterConsole.CloseApplication();
+            //            break;
+            //        default:
+            //            break;
+            //    }
 
-                if (didPlayerAct)
-                {
-                    renderRequired = true;
-                    CommandSystem.EndPlayerTurn();
-                }
-            }
-            else
-            {
+                //if (didPlayerAct)
+                //{
+                //    renderRequired = true;
+                //    CommandSystem.EndPlayerTurn();
+                //}
+            //}
+            //else
+            //{
                 // TODO - Add monster support
                 // CommandSystem.ActivateMonsters();
                 // renderRequired = true;
-            }
+            //}
 
         }
     }

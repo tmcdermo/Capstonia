@@ -6,6 +6,7 @@ namespace Capstonia.Interfaces
     {
         int X { get; set; }
         int Y { get; set; }
+        float Scale { get; set; }
 
         void Draw(IMap level);
     }

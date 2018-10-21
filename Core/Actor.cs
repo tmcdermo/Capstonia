@@ -1,4 +1,7 @@
-﻿using Capstonia.Controller;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Capstonia.Controller;
 using Capstonia.Interfaces;
 using RogueSharp;
 
@@ -25,28 +28,31 @@ namespace Capstonia.Core
         // IDrawable
         public int X { get; set; }
         public int Y { get; set; }
-        public char Sprite { get; set; }
+        public Texture2D Sprite { get; set; }
+        public float Scale { get; set; }
 
         protected GameManager game;
 
         public Actor(GameManager game)
         {
             this.game = game;
+            Scale = game.scale;
         }
 
-        public void Draw(IMap level)
+        public void Draw(SpriteBatch spriteBatch, IMap level)
         {
             if (game.Player == this)
             {
-                game.SetLevelCell(X, Y, ObjectType.Player, level.GetCell(X, Y).IsExplored);
+                //game.SetLevelCell(X, Y, ObjectType.Player, level.GetCell(X, Y).IsExplored);
+                float multiplier = Scale * Sprite.Width;
             }
             else
             {
                 // Actor is not player, only draw if in same room as player
-                if (game.IsInRoomWithPlayer(X, Y))
-                {
-                    game.SetLevelCell(X, Y, ObjectType.Monster, level.GetCell(X, Y).IsExplored);
-                }                
+                //if (game.IsInRoomWithPlayer(X, Y))
+                //{
+                //    game.SetLevelCell(X, Y, ObjectType.Monster, level.GetCell(X, Y).IsExplored);
+                //}                
             }
         }
     }

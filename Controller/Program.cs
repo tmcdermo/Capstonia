@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Capstonia
+namespace Capstonia.Controller
 {
     /// <summary>
     /// The main class.
@@ -13,7 +13,7 @@ namespace Capstonia
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = new GameManager())
                 game.Run();
         }
     }

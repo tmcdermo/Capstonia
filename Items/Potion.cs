@@ -66,11 +66,11 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.messages.AddMessage("No self hurt here.");
+            game.Messages.AddMessage("No self hurt here.");
         }
         public override void Broadcast()
         {
-            game.messages.AddMessage("Cherry-Limeade?");
+            game.Messages.AddMessage("Cherry-Limeade?");
         }
 
         // UseItem()

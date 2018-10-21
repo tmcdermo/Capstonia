@@ -74,12 +74,12 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.messages.AddMessage("Cannot unread a book you nitwit.");
+            game.Messages.AddMessage("Cannot unread a book you nitwit.");
         }
 
         public override void Broadcast()
         {
-            game.messages.AddMessage("Look Book!");
+            game.Messages.AddMessage("Look Book!");
         }
     }
 }

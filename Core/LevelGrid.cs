@@ -16,7 +16,7 @@ namespace Capstonia.Core
         private GameManager game;
         private LevelGenerator levelGenerator;
 
-        //public Exit Exit { get; set; }
+        public Exit LevelExit { get; set; }
 
         public List<Rectangle> Rooms;    
 

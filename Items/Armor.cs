@@ -44,7 +44,7 @@ namespace Capstonia.Items
 
         public override void Broadcast()
         {
-            game.messages.AddMessage("Armor, Mi Amor!");
+            game.Messages.AddMessage("Armor, Mi Amor!");
         }
 
         //Overrides parent class function

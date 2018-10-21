@@ -36,13 +36,13 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.messages.AddMessage("Food only works if it goes in 1 way and out another.");
+            game.Messages.AddMessage("Food only works if it goes in 1 way and out another.");
         }
 
         public override void Broadcast()
         {
             string tmp = String.Format("You found a drumstick: boosts your hunger by {0}", Value);
-            game.messages.AddMessage("tmp");
+            game.Messages.AddMessage("tmp");
         }
 
         // UseItem()

@@ -31,14 +31,14 @@ namespace Capstonia.Items
         }
         public override void RemoveStat()
         {
-            game.messages.AddMessage("Something something useless gems");
+            game.Messages.AddMessage("Something something useless gems");
         }
 
         public override void Broadcast()
         {
             //https://stackoverflow.com/questions/7227413/c-sharp-variables-in-strings //
             string tmp = String.Format("Found {0} worth of Gems!.", Value);
-            game.messages.AddMessage(tmp);
+            game.Messages.AddMessage(tmp);
         }
 
         // UseItem()

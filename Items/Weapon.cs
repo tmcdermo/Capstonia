@@ -33,7 +33,7 @@ namespace Capstonia.Items
         }
         public override void Broadcast()
         {
-            game.messages.AddMessage("Occupational Hazard Found!");
+            game.Messages.AddMessage("Occupational Hazard Found!");
         }
 
         // UseItem()

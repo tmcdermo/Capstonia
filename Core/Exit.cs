@@ -9,6 +9,7 @@ namespace Capstonia.Core
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public float Scale { get; set; }
 
         private GameManager game;
 
@@ -16,6 +17,7 @@ namespace Capstonia.Core
         public Exit(GameManager game)
         {
             this.game = game;
+            Scale = game.scale;
         }
 
         // Draw()

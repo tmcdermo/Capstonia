@@ -34,17 +34,18 @@ namespace Capstonia.Core
         // RETURNS: None.
         public void Draw(SpriteBatch spriteBatch)
         {
+            // 
             //Loop through each cell and substitute it for a tile from our tileset
             foreach(Cell cell in GetAllCells())
             {
                 var position = new Vector2(cell.X * game.tileSize * game.scale, cell.Y * game.tileSize * game.scale);
-                if (cell.IsWalkable)
+                if (cell.IsWalkable || (cell.X == game.Player.X && cell.Y == game.Player.Y))
                 {
                     spriteBatch.Draw(game.floor, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                 }
                 else
                 {
-                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);                   
                 }
             }
 

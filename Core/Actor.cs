@@ -45,6 +45,8 @@ namespace Capstonia.Core
             {
                 //game.SetLevelCell(X, Y, ObjectType.Player, level.GetCell(X, Y).IsExplored);
                 float multiplier = Scale * Sprite.Width;
+
+                spriteBatch.Draw(Sprite, new Vector2(X*multiplier, Y*multiplier), null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
             }
             else
             {

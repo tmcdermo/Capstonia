@@ -1,7 +1,12 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using RogueSharp;
+using Rectangle = RogueSharp.Rectangle;
+using Point = RogueSharp.Point;
 using Capstonia;
 using Capstonia.Core;
 
@@ -10,8 +15,8 @@ namespace Capstonia.Systems
     public class LevelGenerator
     {
         // columns and rows should remain equal
-        private readonly int columns = 3;
-        private readonly int rows = 3;
+        private readonly int columns = 4;
+        private readonly int rows = 4;
 
         private readonly int levelWidth;
         private readonly int levelHeight;
@@ -145,6 +150,7 @@ namespace Capstonia.Systems
             if(game.Player == null)
             {
                 Player player = new Player(game);
+                player.Sprite = game.Content.Load<Texture2D>("dknight_1");
                 game.Player = player;
             }
 

@@ -36,17 +36,18 @@ namespace Capstonia.Core
         public Actor(GameManager game)
         {
             this.game = game;
-            Scale = game.scale;
+            this.Scale = Scale;
         }
 
         public void Draw(SpriteBatch spriteBatch, IMap level)
         {
             if (game.Player == this)
             {
-                //game.SetLevelCell(X, Y, ObjectType.Player, level.GetCell(X, Y).IsExplored);
-                float multiplier = Scale * Sprite.Width;
+                 // scale sprite 
+                float multiplier = this.Scale * Sprite.Width;
 
-                spriteBatch.Draw(Sprite, new Vector2(X*multiplier, Y*multiplier), null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                // draw sprite
+                spriteBatch.Draw(Sprite, new Vector2(X * game.tileSize * game.scale, Y * game.tileSize * game.scale), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
             }
             else
             {

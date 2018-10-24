@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using RogueSharp;
 using Rectangle = RogueSharp.Rectangle;
+using Point = RogueSharp.Point;
 using Capstonia;
 using Capstonia.Systems;
 
@@ -66,18 +67,19 @@ namespace Capstonia.Core
         // RETURNS: None.
         public void OldDraw(SpriteBatch spriteBatch)
         {
+            float testScale = 0.5f;
 
             // Loop through each cell and substitute it for a tile from our tileset
             foreach (Cell cell in GetAllCells())
             {
-                var position = new Vector2(cell.X * game.tileSize * game.scale, cell.Y * game.tileSize * game.scale);
+                var position = new Vector2(cell.X * game.tileSize * testScale, cell.Y * game.tileSize * testScale);
                 if (cell.IsWalkable || (cell.X == game.Player.X && cell.Y == game.Player.Y))
                 {
-                    spriteBatch.Draw(game.floor, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(game.floor, position, null, Color.White, 0f, Vector2.Zero, testScale, SpriteEffects.None, 0f);
                 }
                 else
                 {
-                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, testScale, SpriteEffects.None, 0f);
                 }
             }
 
@@ -91,7 +93,6 @@ namespace Capstonia.Core
         public void AddPlayer(Player player)
         {
             game.Player = player;
-            //SetIsWalkable(player.X, player.Y, false);
             SetActorPosition(player, player.X, player.Y);
 
         }
@@ -117,6 +118,8 @@ namespace Capstonia.Core
                 // Flag Actor's current location as not walkable
                 SetIsWalkable(actor.X, actor.Y, false);
 
+                game.Messages.AddMessage(game.Player.X + ", " + game.Player.Y);
+
                 // Update FOV if Player was just repositioned
                 //if (actor is Player)
                 //{
@@ -135,11 +138,14 @@ namespace Capstonia.Core
         {
             foreach(Rectangle room in Rooms)
             {
-                if (room.Contains(game.Player.X, game.Player.Y))
+                if (game.Player.X >= room.Left && game.Player.X <= room.Right && game.Player.Y >= room.Top && game.Player.Y <= room.Bottom )
+                {
                     return room;
+                }                    
             }
 
             // should never reach this as player should always be on board
+            game.Messages.AddMessage("IT HIT THE FAN!!!");
             return Rooms[0];
         }
 

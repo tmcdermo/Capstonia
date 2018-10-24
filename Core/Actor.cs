@@ -42,7 +42,7 @@ namespace Capstonia.Core
             if (game.Player == this)
             {
                  // scale sprite 
-                float multiplier = game.Scale * Sprite.Width;
+                float multiplier = game.scale * Sprite.Width;
 
                 // draw sprite
                 spriteBatch.Draw(Sprite, new Vector2(X * multiplier, Y * multiplier), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);

@@ -20,7 +20,7 @@ namespace Capstonia
         SpriteBatch spriteBatch;
         public Texture2D floor;
         public Texture2D wall;
-        private SpriteFont mainFont;
+        public SpriteFont mainFont;
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -51,11 +51,22 @@ namespace Capstonia
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1000;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferHeight = 830;
             Content.RootDirectory = "Content";
 
             //link the messageLog and game instance
             Messages = new MessageLog(this);
+
+            Messages.AddMessage("Test 1");
+            Messages.AddMessage("Test 2");
+            Messages.AddMessage("Test 3");
+            Messages.AddMessage("Test 4");
+            Messages.AddMessage("Test 5");
+            Messages.AddMessage("Test 6");
+            Messages.AddMessage("Test 7");
+            Messages.AddMessage("Test 8");
+            Messages.AddMessage("Test 9");
+
 
             // Player provided commands
             CommandSystem = new CommandSystem(this);
@@ -130,9 +141,10 @@ namespace Capstonia
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
+            Messages.Draw(spriteBatch);
             Level.Draw(spriteBatch);
             Player.Draw(spriteBatch);
-            //messages.Draw(spriteBatch);
+            
 
             spriteBatch.End();
 
@@ -141,13 +153,11 @@ namespace Capstonia
 
 
         private ICell GetRandomEmptyCell()
-        {
-            IRandom random = new DotNetRandom();
-
+        { 
             while (true)
             {
-                int x = random.Next(7);
-                int y = random.Next(7);
+                int x = Random.Next(7);
+                int y = Random.Next(7);
                 if (Level.IsWalkable(x, y))
                 {
                     return Level.GetCell(x, y);
@@ -164,16 +174,6 @@ namespace Capstonia
         {
             LevelGenerator levelGenerator = new LevelGenerator(this, levelWidth, levelHeight, levelRows, levelCols, mapLevel);
             Level = levelGenerator.CreateLevel();
-            //masterConsole.GenerateLevel(Level);
-        }
-
-        // messageDeliver()
-        // DESC: Sends a Queue of messages to the Main User Interface to be printed via UI_Messages
-        // PARAMS: Queue of strings
-        // RETURNS: None.
-        public void messageDeliver(Queue<string> messageList)
-        {
-            //masterConsole.messageDeliver(messageList);
         }
 
         //SetLevelCell()

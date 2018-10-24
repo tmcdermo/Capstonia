@@ -29,24 +29,23 @@ namespace Capstonia.Core
         public int X { get; set; }
         public int Y { get; set; }
         public Texture2D Sprite { get; set; }
-        public float Scale { get; set; }
 
         protected GameManager game;
 
         public Actor(GameManager game)
         {
             this.game = game;
-            Scale = game.scale;
         }
 
         public void Draw(SpriteBatch spriteBatch, IMap level)
         {
             if (game.Player == this)
             {
-                //game.SetLevelCell(X, Y, ObjectType.Player, level.GetCell(X, Y).IsExplored);
-                float multiplier = Scale * Sprite.Width;
+                 // scale sprite 
+                float multiplier = game.Scale * Sprite.Width;
 
-                spriteBatch.Draw(Sprite, new Vector2(X*multiplier, Y*multiplier), null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                // draw sprite
+                spriteBatch.Draw(Sprite, new Vector2(X * multiplier, Y * multiplier), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
             }
             else
             {

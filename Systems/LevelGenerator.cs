@@ -15,9 +15,8 @@ namespace Capstonia.Systems
     public class LevelGenerator
     {
         // columns and rows should remain equal
-        private readonly int columns = 4;
-        private readonly int rows = 4;
-
+        private readonly int columns;
+        private readonly int rows;
         private readonly int levelWidth;
         private readonly int levelHeight;
         private readonly int roomWidth;
@@ -31,10 +30,12 @@ namespace Capstonia.Systems
         private Rectangle exitRoom;
 
         // constructor
-        public LevelGenerator(GameManager game, int width, int height, int mapLevel)
+        public LevelGenerator(GameManager game, int width, int height, int gameRows, int gameCols, int mapLevel)
         {
             levelWidth = width;
             levelHeight = height;
+            columns = gameCols;
+            rows = gameRows;
             roomWidth = width / columns;
             roomHeight = height / rows;
 
@@ -297,27 +298,27 @@ namespace Capstonia.Systems
                 if(ExitPath[x+1].Center.X > ExitPath[x].Center.X)       // next room is to the right
                 {
                     // open center of right wall in this room and center of left wall in next room
-                    level.SetIsWalkable(ExitPath[x].Center.X + (roomWidth / 2), ExitPath[x].Center.Y, true);
-                    level.SetIsWalkable(ExitPath[x].Center.X + (roomWidth / 2) + 1, ExitPath[x].Center.Y, true);
+                    level.SetIsWalkable(ExitPath[x].Right, ExitPath[x].Center.Y, true);
+                    level.SetIsWalkable(ExitPath[x+1].Left, ExitPath[x+1].Center.Y, true);
 
                 }
                 else if(ExitPath[x+1].Center.X < ExitPath[x].Center.X)  // next room is to the left
                 {
                     // open center of left wall in this room and center of right wall in next room
-                    level.SetIsWalkable(ExitPath[x].Center.X - (roomWidth / 2), ExitPath[x].Center.Y, true);
-                    level.SetIsWalkable(ExitPath[x].Center.X - (roomWidth / 2) - 1, ExitPath[x].Center.Y, true);
+                    level.SetIsWalkable(ExitPath[x].Left, ExitPath[x].Center.Y, true);
+                    level.SetIsWalkable(ExitPath[x+1].Right, ExitPath[x+1].Center.Y, true);
                 }
                 else if(ExitPath[x+1].Center.Y > ExitPath[x].Center.Y)  // next room is below
                 {
                     // open center of bottom wall in this room and center of top wall in next room
-                    level.SetIsWalkable(ExitPath[x].Center.X, ExitPath[x].Center.Y + (roomHeight / 2), true);
-                    level.SetIsWalkable(ExitPath[x].Center.X, ExitPath[x].Center.Y + (roomHeight / 2) + 1, true);
+                    level.SetIsWalkable(ExitPath[x].Center.X, ExitPath[x].Bottom, true);
+                    level.SetIsWalkable(ExitPath[x+1].Center.X, ExitPath[x+1].Top, true);
                 } 
                 else if(ExitPath[x+1].Center.Y < ExitPath[x].Center.Y)  // next room is above
                 {
                     // open center of top wall in this room and center of bottom wall in next room
-                    level.SetIsWalkable(ExitPath[x].Center.X, ExitPath[x].Center.Y - (roomHeight / 2), true);
-                    level.SetIsWalkable(ExitPath[x].Center.X, ExitPath[x].Center.Y - (roomHeight / 2) - 1, true);
+                    level.SetIsWalkable(ExitPath[x].Center.X, ExitPath[x].Top, true);
+                    level.SetIsWalkable(ExitPath[x+1].Center.X, ExitPath[x+1].Bottom, true);
                 }
 
             }

@@ -30,13 +30,45 @@ namespace Capstonia.Core
 
         // Draw()
         // DESC:    Displays the current level onscreen.            
-        // PARAMS:  None.
+        // PARAMS:  SpriteBatch containing assets
         // RETURNS: None.
         public void Draw(SpriteBatch spriteBatch)
         {
-            // 
-            //Loop through each cell and substitute it for a tile from our tileset
-            foreach(Cell cell in GetAllCells())
+            float multiplier = game.tileSize * game.scale;
+
+            Rectangle currRoom = GetPlayerRoom();
+
+            for(int x = currRoom.Left; x <= currRoom.Right; x++)
+            {
+                for(int y = currRoom.Top; y <= currRoom.Bottom; y++)
+                {
+                    var drawPosition = new Vector2((x - currRoom.Left) * multiplier, (y - currRoom.Top) * multiplier);
+
+                    if(GetCell(x, y).IsWalkable || (game.Player.X == x && game.Player.Y == y))
+                    {
+                        spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(game.wall, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    }
+                }
+            }
+
+            //Exit.Draw(this);
+
+            
+        }
+
+        // OldDraw()
+        // DESC:    Old method of drawing level.  Kept for debugging purposes.           
+        // PARAMS:  SpriteBatch containing assets
+        // RETURNS: None.
+        public void OldDraw(SpriteBatch spriteBatch)
+        {
+
+            // Loop through each cell and substitute it for a tile from our tileset
+            foreach (Cell cell in GetAllCells())
             {
                 var position = new Vector2(cell.X * game.tileSize * game.scale, cell.Y * game.tileSize * game.scale);
                 if (cell.IsWalkable || (cell.X == game.Player.X && cell.Y == game.Player.Y))
@@ -45,13 +77,11 @@ namespace Capstonia.Core
                 }
                 else
                 {
-                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);                   
+                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                 }
             }
 
             //Exit.Draw(this);
-
-            
         }
 
         // AddPlayer()
@@ -61,12 +91,13 @@ namespace Capstonia.Core
         public void AddPlayer(Player player)
         {
             game.Player = player;
-            SetIsWalkable(player.X, player.Y, false);
+            //SetIsWalkable(player.X, player.Y, false);
+            SetActorPosition(player, player.X, player.Y);
 
         }
 
         // SetActorPosition(...)
-        // DESC:    Place Player on level.       
+        // DESC:    Place actor on level.     
         // PARAMS:  An Actor instance and the x, y coordinates for where the
         //          Actor should be placed on the level.
         // RETURNS: Returns a Boolean.  True = succesful placement; 
@@ -86,16 +117,30 @@ namespace Capstonia.Core
                 // Flag Actor's current location as not walkable
                 SetIsWalkable(actor.X, actor.Y, false);
 
-                // OpenDoor(actor, x, y);
-
                 // Update FOV if Player was just repositioned
-                if (actor is Player)
-                {
-                    UpdatePlayerFieldOfView(actor as Player);
-                }
+                //if (actor is Player)
+                //{
+                //    UpdatePlayerFieldOfView(actor as Player);
+                //}
                 return true;
             }
             return false;
+        }
+
+        // GetPlayerRoom()
+        // DESC:    Search through rooms for room player is currently in.       
+        // PARAMS:  None
+        // RETURNS: Returns a Rectangle representing the room the player is in.
+        public Rectangle GetPlayerRoom()
+        {
+            foreach(Rectangle room in Rooms)
+            {
+                if (room.Contains(game.Player.X, game.Player.Y))
+                    return room;
+            }
+
+            // should never reach this as player should always be on board
+            return Rooms[0];
         }
 
 
@@ -109,68 +154,17 @@ namespace Capstonia.Core
             SetCellProperties(cell.X, cell.Y, cell.IsTransparent, isWalkable, cell.IsExplored);
         }
 
-        // SetLevelTileForCell()
-        // DESC:    TODO
-        // PARAMS:  TODO
-        // RETURNS: TODO
-        //private void SetLevelTileForCell(Cell cell)
+        //public void UpdatePlayerFieldOfView(Player player)
         //{
-        //    if (cell.IsWalkable) // floor cell
+        //    ComputeFov(player.X, player.Y, 40, true);
+        //    foreach(Cell cell in GetAllCells())
         //    {
-        //        game.SetLevelCell(cell.X, cell.Y, ObjectType.Floor, cell.IsExplored);
+        //        if(IsInFov(cell.X, cell.Y))
+        //        {
+        //            SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
+        //        }
         //    }
-        //    else
-        //    {
-        //        if (game.Player.X == cell.X && game.Player.Y == cell.Y)
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Player, cell.IsExplored);
-        //        }
-        //        else if (cell.X == 0)
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Left, cell.IsExplored);
-        //        }
-        //        else if (cell.X == GameManager.levelWidth - 1)
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Right, cell.IsExplored);
-        //        }
-        //        else if (cell.Y == 0)
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Top, cell.IsExplored);
-        //        }
-        //        else if (cell.Y == GameManager.levelHeight - 1)
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Bottom, cell.IsExplored);
-        //        }
-        //        else if (IsWalkable(cell.X - 1, cell.Y))
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Right, cell.IsExplored);
-        //        }
-        //        else if (IsWalkable(cell.X + 1, cell.Y))
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Left, cell.IsExplored);
-        //        }
-        //        else if (IsWalkable(cell.X, cell.Y - 1))
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Top, cell.IsExplored);
-        //        }
-        //        else
-        //        {
-        //            game.SetLevelCell(cell.X, cell.Y, ObjectType.Wall_Bottom, cell.IsExplored);
-        //        }
-        //    }          
         //}
-
-        public void UpdatePlayerFieldOfView(Player player)
-        {
-            ComputeFov(player.X, player.Y, 40, true);
-            foreach(Cell cell in GetAllCells())
-            {
-                if(IsInFov(cell.X, cell.Y))
-                {
-                    SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
-                }
-            }
-        }
 
         //public bool IsInRoomWithPlayer(int x, int y)
         //{

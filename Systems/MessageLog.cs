@@ -1,3 +1,6 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Capstonia.Core;
 
@@ -30,7 +33,7 @@ namespace Capstonia.Systems
         public void AddMessage(string message)
         {
             messageList.Enqueue(message);
-            //check to see if we've exceepded our number of messages limit//
+            //check to see if we've exceeded our number of messages limit
             if (messageList.Count > numberMessages)
             {
                 messageList.Dequeue();
@@ -41,9 +44,16 @@ namespace Capstonia.Systems
         /// Draw function gets called for every scene refresh;
         /// We "send off the list" to our game object which will use the View namespace to print to the UI
         /// </summary>
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            gameObj.messageDeliver(messageList);
+            int baseLog = 690;
+            int offset = 0;
+
+            foreach(string message in messageList)
+            {
+                spriteBatch.DrawString(gameObj.mainFont, message, new Vector2(20, baseLog + offset), Color.White);
+                offset += 18;
+            }
         }
     }
 }

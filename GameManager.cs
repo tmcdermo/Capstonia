@@ -22,7 +22,7 @@ namespace Capstonia
         SpriteBatch spriteBatch;
         public Texture2D floor;
         public Texture2D wall;
-        private SpriteFont mainFont;
+        public SpriteFont mainFont;
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -33,29 +33,42 @@ namespace Capstonia
 
 
         // Game Variable Declarations
-        public InventorySystem Inventory;
-        Rectangle inventoryScreen;
-        Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
-        public static readonly int levelWidth = 35;
-        public static readonly int levelHeight = 35;
+        public readonly int levelWidth = 70;
+        public readonly int levelHeight = 70;
+        public readonly int levelRows = 5;
+        public readonly int levelCols = 5;
         public int mapLevel = 1;
-        public int tileSize = 48;
-        public float scale = .65f;
+        public readonly int tileSize = 48;
+        public float scale = 1.0f;
 
         private bool renderRequired = true;
        
 
-        
+        // track keyboard state (i.e. capture key presses)
+        public KeyboardState currentKeyboardState;
+        public KeyboardState previousKeyboardState;
+
         public GameManager() : base()
         {
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1000;
+            graphics.PreferredBackBufferHeight = 830;
             Content.RootDirectory = "Content";
 
             //link the messageLog and game instance
             Messages = new MessageLog(this);
+
+            Messages.AddMessage("Test 1");
+            Messages.AddMessage("Test 2");
+            Messages.AddMessage("Test 3");
+            Messages.AddMessage("Test 4");
+            Messages.AddMessage("Test 5");
+            Messages.AddMessage("Test 6");
+            Messages.AddMessage("Test 7");
+            Messages.AddMessage("Test 8");
+            Messages.AddMessage("Test 9");
+
 
             // Player provided commands
             CommandSystem = new CommandSystem(this);
@@ -128,11 +141,14 @@ namespace Capstonia
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            // Handle keyboard input
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            // move player
+            Player.Move();
 
+            // update game state
             base.Update(gameTime);
         }
 
@@ -142,13 +158,14 @@ namespace Capstonia
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
+            Messages.Draw(spriteBatch);
             Level.Draw(spriteBatch);
-            Player.Draw(spriteBatch, Level);
-            //messages.Draw(spriteBatch);
+            Player.Draw(spriteBatch);
+            
 
             Inventory.Draw(spriteBatch, emptyTexture, inventoryScreen, mainFont);
 
@@ -159,13 +176,11 @@ namespace Capstonia
 
 
         private ICell GetRandomEmptyCell()
-        {
-            IRandom random = new DotNetRandom();
-
+        { 
             while (true)
             {
-                int x = random.Next(7);
-                int y = random.Next(7);
+                int x = Random.Next(7);
+                int y = Random.Next(7);
                 if (Level.IsWalkable(x, y))
                 {
                     return Level.GetCell(x, y);
@@ -180,18 +195,8 @@ namespace Capstonia
         // RETURNS: None.
         private void GenerateLevel()
         {
-            LevelGenerator levelGenerator = new LevelGenerator(this, levelWidth, levelHeight, mapLevel);
+            LevelGenerator levelGenerator = new LevelGenerator(this, levelWidth, levelHeight, levelRows, levelCols, mapLevel);
             Level = levelGenerator.CreateLevel();
-            //masterConsole.GenerateLevel(Level);
-        }
-
-        // messageDeliver()
-        // DESC: Sends a Queue of messages to the Main User Interface to be printed via UI_Messages
-        // PARAMS: Queue of strings
-        // RETURNS: None.
-        public void messageDeliver(Queue<string> messageList)
-        {
-            //masterConsole.messageDeliver(messageList);
         }
 
         //SetLevelCell()
@@ -225,69 +230,6 @@ namespace Capstonia
 
             // player should always be located in the list of Rooms so we should never reach this point
             return false;
-        }
-
-        // GetKeyboardInput()
-        // DESC:    Takes player input to move character around and perform character duties.
-        // PARAMS:  None.
-        // RETURNS: None.
-        private void GetKeyboardInput()
-        {
-            bool didPlayerAct = false;
-
-            //UserInputCommands command = masterConsole.GetUserCommand();
-
-            //if (CommandSystem.IsPlayerTurn)
-            //{
-            //    switch (command)
-            //    {
-            //        case UserInputCommands.UpLeft:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.UpLeft);
-            //            break;
-            //        case UserInputCommands.Up:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
-            //            break;
-            //        case UserInputCommands.UpRight:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.UpRight);
-            //            break;
-            //        case UserInputCommands.Left:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
-            //            break;
-            //        case UserInputCommands.Right:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
-            //            break;
-            //        case UserInputCommands.DownLeft:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.DownLeft);
-            //            break;
-            //        case UserInputCommands.Down:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
-            //            break;
-            //        case UserInputCommands.DownRight:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.DownRight);
-            //            break;
-            //        case UserInputCommands.ChangeLevel:
-            //            // TODO - Implement
-            //            break;
-            //        case UserInputCommands.CloseGame:
-            //            //masterConsole.CloseApplication();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-
-                //if (didPlayerAct)
-                //{
-                //    renderRequired = true;
-                //    CommandSystem.EndPlayerTurn();
-                //}
-            //}
-            //else
-            //{
-                // TODO - Add monster support
-                // CommandSystem.ActivateMonsters();
-                // renderRequired = true;
-            //}
-
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Capstonia.Controller;
 using Capstonia.Interfaces;
 using RogueSharp;
+using Rectangle = RogueSharp.Rectangle;
 
 namespace Capstonia.Core
 {
@@ -29,24 +30,44 @@ namespace Capstonia.Core
         public int X { get; set; }
         public int Y { get; set; }
         public Texture2D Sprite { get; set; }
-        public float Scale { get; set; }
 
         protected GameManager game;
 
         public Actor(GameManager game)
         {
             this.game = game;
-            Scale = game.scale;
         }
 
-        public void Draw(SpriteBatch spriteBatch, IMap level)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if (game.Player == this)
             {
-                //game.SetLevelCell(X, Y, ObjectType.Player, level.GetCell(X, Y).IsExplored);
-                float multiplier = Scale * Sprite.Width;
+                Rectangle currRoom = game.Level.GetPlayerRoom();
+                float multiplier = game.scale * game.tileSize;
 
-                spriteBatch.Draw(Sprite, new Vector2(X*multiplier, Y*multiplier), null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                var drawPosition = new Vector2((X - currRoom.Left) * multiplier, (Y - currRoom.Top) * multiplier);
+
+                spriteBatch.Draw(Sprite, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+            }
+            else
+            {
+                // Actor is not player, only draw if in same room as player
+                //if (game.IsInRoomWithPlayer(X, Y))
+                //{
+                //    game.SetLevelCell(X, Y, ObjectType.Monster, level.GetCell(X, Y).IsExplored);
+                //}                
+            }
+        }
+
+        public void OldDraw(SpriteBatch spriteBatch, IMap level)
+        {
+            if (game.Player == this)
+            {
+                 // scale sprite 
+                float multiplier = game.scale * Sprite.Width;
+
+                // draw sprite
+                spriteBatch.Draw(Sprite, new Vector2(X * multiplier, Y * multiplier), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
             }
             else
             {

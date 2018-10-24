@@ -71,9 +71,9 @@ namespace Capstonia.Core
 
         // Move(...)
         // DESC:    Moves player 1 tile from current location.
-        // PARAMS:  GameManager instance
+        // PARAMS:  None.
         // RETURNS: None.
-        public void Move(GameManager game)
+        public void Move()
         {
             // get current keyboard state
             game.currentKeyboardState = Keyboard.GetState();

@@ -45,12 +45,12 @@ namespace Capstonia
         public InventorySystem Inventory;
         public Rectangle inventoryScreen;
         public Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
-        public Texture2D Armor;
-        public Texture2D Food;
-        public Texture2D Weapon;
-        public Texture2D Potion;
-        public Texture2D Book;
-        public Texture2D Gem;
+        public Texture2D armor;
+        public Texture2D food;
+        public Texture2D weapon;
+        public Texture2D potion;
+        public Texture2D book;
+        public Texture2D gem;
         public Texture2D Outline;
         ///////////////////////
 
@@ -143,11 +143,11 @@ namespace Capstonia
             emptyTexture = new Texture2D(GraphicsDevice, 1, 1);
             emptyTexture.SetData(new[] { Color.White });
 
-            Armor = Content.Load<Texture2D>("armor");
-            Food = Content.Load<Texture2D>("drumstick");
-            Weapon = Content.Load<Texture2D>("weapon");
-            Potion = Content.Load<Texture2D>("potion") ;
-            Book = Content.Load<Texture2D>("book"); ;
+            armor = Content.Load<Texture2D>("armor");
+            food = Content.Load<Texture2D>("drumstick");
+            weapon = Content.Load<Texture2D>("weapon");
+            potion = Content.Load<Texture2D>("potion") ;
+            book = Content.Load<Texture2D>("book"); ;
             Outline = Content.Load<Texture2D>("inventory_gui");
 
         }

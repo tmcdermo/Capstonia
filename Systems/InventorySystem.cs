@@ -21,17 +21,15 @@ namespace Capstonia.Systems
         private Vector2[] coords =
         {
             new Vector2(670,50),
-            new Vector2(670,100),
-            new Vector2(670,150),
             new Vector2(779,50),
-            new Vector2(779,100),
-            new Vector2(779,150),
             new Vector2(888,50),
+            new Vector2(670,100),
+            new Vector2(779,100),
             new Vector2(888,100),
+            new Vector2(670,150),
+            new Vector2(779,150),
             new Vector2(888,150),
         };
-
-        private Dictionary<string, Texture2D> shortHand;// https://stackoverflow.com/questions/9183041/string-as-variable-name
         //coordinates for each slot on the inventory outline
 
 
@@ -43,22 +41,10 @@ namespace Capstonia.Systems
         {
             this.game = game;
             Inventory = new List<Item>();
-            shortHand = new Dictionary<string, Texture2D>();
-            populateDict();
+
         }
 
-        // populateDict()
-        // DESC: Fills our dictionary with Item names to correlate to game texture objects
-        // PARAMS: None
-        // RETURNS: None
-        private void populateDict()
-        {
-            shortHand.Add("Armor", game.Armor);
-            shortHand.Add("Food", game.Food);
-            shortHand.Add("Weapon", game.Weapon);
-            shortHand.Add("Potion", game.Potion);
-            shortHand.Add("Book", game.Book);
-        }
+
         // AddItem()
         // DESC:    Adds item to the inventory.
         // PARAMS:  Item object.
@@ -120,9 +106,30 @@ namespace Capstonia.Systems
             int index = 0; // used for accessing coordinates
             foreach (Item things in Inventory)
             {
-                Texture2D tmp = shortHand[things.Name];
-                spriteBatch.Draw(tmp, coords[index], Color.White);
-                index++;
+                switch (things.Name)
+                {
+                    case "Armor":
+                        spriteBatch.Draw(game.armor, coords[index], Color.White);
+                        index++;
+                        break;
+                    case "Food":
+                        spriteBatch.Draw(game.food, coords[index], Color.White);
+                        index++;
+                        break;
+                    case "Weapon":
+                        spriteBatch.Draw(game.weapon, coords[index], Color.White);
+                        index++;
+                        break;
+                    case "Book":
+                        spriteBatch.Draw(game.book, coords[index], Color.White);
+                        index++;
+                        break;
+                    case "Potion":
+                        spriteBatch.Draw(game.potion, coords[index], Color.White);
+                        index++;
+                        break;
+
+                }
             }
         }
     }

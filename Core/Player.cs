@@ -84,7 +84,8 @@ namespace Capstonia.Core
             {
                 if (game.Level.IsWalkable(game.Player.X, game.Player.Y + 1))
                 {
-                    game.Player.Y += 1;
+                    //game.Player.Y += 1;
+                    game.Level.SetActorPosition(this, X, Y + 1);
                 }
             } // move player down
             else if (game.currentKeyboardState.IsKeyDown(Keys.Up) &&
@@ -92,15 +93,17 @@ namespace Capstonia.Core
             {
                 if (game.Level.IsWalkable(game.Player.X, game.Player.Y - 1))
                 {
-                    game.Player.Y -= 1;
+                    //game.Player.Y -= 1;
+                    game.Level.SetActorPosition(this, X, Y - 1);
                 }
             } // move player left
             else if (game.currentKeyboardState.IsKeyDown(Keys.Left) &&
                      game.previousKeyboardState.IsKeyUp(Keys.Left))
             {
                 if (game.Level.IsWalkable(game.Player.X - 1, game.Player.Y))
-                {
-                    game.Player.X -= 1;
+                {                 
+                    //game.Player.X -= 1;
+                    game.Level.SetActorPosition(this, X - 1, Y);
                 }
             } // move player right
             else if (game.currentKeyboardState.IsKeyDown(Keys.Right) &&
@@ -108,7 +111,8 @@ namespace Capstonia.Core
             {
                 if (game.Level.IsWalkable(game.Player.X + 1, game.Player.Y))
                 {
-                    game.Player.X += 1;
+                    //game.Player.X += 1;
+                    game.Level.SetActorPosition(this, X + 1, Y);
                 }
             }
 

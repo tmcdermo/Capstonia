@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using Capstonia.Systems;
 using Capstonia.Core;
+using Capstonia.Items;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Capstonia
 {
@@ -31,6 +33,9 @@ namespace Capstonia
 
 
         // Game Variable Declarations
+        public InventorySystem Inventory;
+        Rectangle inventoryScreen;
+        Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
         public static readonly int levelWidth = 35;
         public static readonly int levelHeight = 35;
         public int mapLevel = 1;
@@ -54,6 +59,20 @@ namespace Capstonia
 
             // Player provided commands
             CommandSystem = new CommandSystem(this);
+
+            //Create Inventory for player
+            Inventory = new InventorySystem(this);
+            inventoryScreen = new Rectangle(200, 100, 1200, 0);   //Height, Width, X, Y
+
+            //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
+            //inventoryScreen = new Texture2D(graphics.GraphicsDevice, 200, 100);
+            //inventoryScreen.SetData(new[] { Color.White });
+
+            //Testing manual inventory
+            Armor leather = new Armor(this);
+            Food drummy = new Food(this);
+            Inventory.AddItem(leather);
+            Inventory.AddItem(drummy);
         }
 
         /// <summary>
@@ -85,7 +104,12 @@ namespace Capstonia
             floor = Content.Load<Texture2D>("floor_extra_12");
             wall = Content.Load<Texture2D>("wall_stone_11");
 
-            mainFont = Content.Load<SpriteFont>("MainFont");           
+            mainFont = Content.Load<SpriteFont>("MainFont");
+
+            //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
+            emptyTexture = new Texture2D(GraphicsDevice, 1, 1);
+            emptyTexture.SetData(new[] { Color.White });
+
         }
 
         /// <summary>
@@ -125,6 +149,8 @@ namespace Capstonia
             Level.Draw(spriteBatch);
             Player.Draw(spriteBatch, Level);
             //messages.Draw(spriteBatch);
+
+            Inventory.Draw(spriteBatch, emptyTexture, inventoryScreen, mainFont);
 
             spriteBatch.End();
 

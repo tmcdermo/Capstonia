@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Capstonia.Controller;
 using Capstonia.Interfaces;
 using RogueSharp;
+using Rectangle = RogueSharp.Rectangle;
 
 namespace Capstonia.Core
 {
@@ -38,6 +39,27 @@ namespace Capstonia.Core
         }
 
         public void Draw(SpriteBatch spriteBatch, IMap level)
+        {
+            if (game.Player == this)
+            {
+                Rectangle currRoom = game.Level.GetPlayerRoom();
+                float multiplier = game.scale * game.tileSize;
+
+                var drawPosition = new Vector2((X - currRoom.Left) * multiplier, (Y - currRoom.Top) * multiplier);
+
+                spriteBatch.Draw(Sprite, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+            }
+            else
+            {
+                // Actor is not player, only draw if in same room as player
+                //if (game.IsInRoomWithPlayer(X, Y))
+                //{
+                //    game.SetLevelCell(X, Y, ObjectType.Monster, level.GetCell(X, Y).IsExplored);
+                //}                
+            }
+        }
+
+        public void OldDraw(SpriteBatch spriteBatch, IMap level)
         {
             if (game.Player == this)
             {

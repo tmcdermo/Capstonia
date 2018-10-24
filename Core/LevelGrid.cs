@@ -30,13 +30,47 @@ namespace Capstonia.Core
 
         // Draw()
         // DESC:    Displays the current level onscreen.            
-        // PARAMS:  None.
+        // PARAMS:  SpriteBatch containing assets
         // RETURNS: None.
         public void Draw(SpriteBatch spriteBatch)
         {
-            // 
-            //Loop through each cell and substitute it for a tile from our tileset
-            foreach(Cell cell in GetAllCells())
+
+
+            Rectangle currRoom = GetPlayerRoom();
+
+            for(int x = currRoom.Left; x <= currRoom.Right; x++)
+            {
+                for(int y = currRoom.Top; y <= currRoom.Bottom; y++)
+                {
+                    Cell currCell = (Cell)GetCell(x, y);
+                    //var drawPosition = new Vector2(currCell.X * game.tileSize * game.scale, currCell.Y * game.tileSize * game.scale);
+                    var drawPosition = new Vector2((x - currRoom.Left) * game.tileSize * game.scale, (y - currRoom.Top) * game.tileSize * game.scale);
+
+                    if(currCell.IsWalkable || (currCell.X == game.Player.X && currCell.Y == game.Player.Y))
+                    {
+                        spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(game.wall, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    }
+                }
+            }
+
+            //Exit.Draw(this);
+
+            
+        }
+
+        // OldDraw()
+        // DESC:    Old method of drawing level.  Kept for debugging purposes.           
+        // PARAMS:  SpriteBatch containing assets
+        // RETURNS: None.
+        public void OldDraw(SpriteBatch spriteBatch)
+        {
+
+            // Loop through each cell and substitute it for a tile from our tileset
+            foreach (Cell cell in GetAllCells())
             {
                 var position = new Vector2(cell.X * game.tileSize * game.scale, cell.Y * game.tileSize * game.scale);
                 if (cell.IsWalkable || (cell.X == game.Player.X && cell.Y == game.Player.Y))
@@ -45,13 +79,11 @@ namespace Capstonia.Core
                 }
                 else
                 {
-                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);                   
+                    spriteBatch.Draw(game.wall, position, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                 }
             }
 
             //Exit.Draw(this);
-
-            
         }
 
         // AddPlayer()
@@ -66,7 +98,7 @@ namespace Capstonia.Core
         }
 
         // SetActorPosition(...)
-        // DESC:    Place Player on level.       
+        // DESC:    Place actor on level.     
         // PARAMS:  An Actor instance and the x, y coordinates for where the
         //          Actor should be placed on the level.
         // RETURNS: Returns a Boolean.  True = succesful placement; 
@@ -96,6 +128,22 @@ namespace Capstonia.Core
                 return true;
             }
             return false;
+        }
+
+        // GetPlayerRoom()
+        // DESC:    Search through rooms for room player is currently in.       
+        // PARAMS:  None
+        // RETURNS: Returns a Rectangle representing the room the player is in.
+        public Rectangle GetPlayerRoom()
+        {
+            foreach(Rectangle room in Rooms)
+            {
+                if (room.Contains(game.Player.X, game.Player.Y))
+                    return room;
+            }
+
+            // should never reach this as player should always be on board
+            return Rooms[0];
         }
 
 

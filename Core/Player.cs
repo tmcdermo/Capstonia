@@ -39,8 +39,6 @@ namespace Capstonia.Core
             Strength = 10;  // every point above 10 gives a dmg bonus
             WeaponType = "Club";
             WeaponValue = 2;  // used in dmg calc during battle
-            //Sprite = '#';
-            Scale = game.scale;
         }
 
         // CalculateHungerPenalty

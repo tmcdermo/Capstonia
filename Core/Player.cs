@@ -115,6 +115,12 @@ namespace Capstonia.Core
                     game.Level.SetActorPosition(this, X + 1, Y);
                 }
             }
+            //testing numpad1
+            else if(game.currentKeyboardState.IsKeyDown(Keys.NumPad1)&&
+                    game.previousKeyboardState.IsKeyUp(Keys.NumPad1))
+            {
+                game.Inventory.UseItem(1);
+            }
 
             // save current state to previous and get ready for next move
             game.previousKeyboardState = game.currentKeyboardState;

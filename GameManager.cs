@@ -178,15 +178,14 @@ namespace Capstonia
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            
-            Messages.Draw(spriteBatch);            
-            
+            Inventory.Draw(spriteBatch);
+            Messages.Draw(spriteBatch);
             Level.Draw(spriteBatch);
             Player.Draw(spriteBatch);
 
 
             //Inventory.Draw(spriteBatch, emptyTexture, inventoryScreen, mainFont);
-            Inventory.Draw(spriteBatch);
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

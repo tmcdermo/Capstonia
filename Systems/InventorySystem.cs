@@ -16,7 +16,7 @@ namespace Capstonia.Systems
     {
         private GameManager game;
         public readonly List<Item> Inventory;   //public because player needs to manipulate inventory
-        private readonly int maxItems = 10;
+        private readonly int maxItems = 9;
         private int currentItems = 0;
         private Vector2[] coords =
         {
@@ -75,29 +75,21 @@ namespace Capstonia.Systems
             }
         }
 
+        // useItem()
+        // DESC:    attempts to use item in inventory slot
+        // PARAMS:  slot number.
+        // RETURNS: None.
+        public void UseItem(int slot)
+        {
+            int index = slot - 1;
+            Inventory[index].Broadcast();
+        }
+
         // Draw()
         // DESC:    Draws the contents of the inventory to the screen
         // PARAMS:  None.
         // RETURNS: None.
-        public void TylerDraw(SpriteBatch spriteBatch, Texture2D texture, Rectangle screen, SpriteFont font)
-        {
-            //TODO - WHY DOESN'T THIS WORK???
-            Vector2 displayVector = new Vector2(1200, 10);
-            spriteBatch.DrawString(font, "Inventory", displayVector, Color.White);
-            spriteBatch.Draw(texture, screen, Color.Black);
-            displayVector.Y += 15;
 
-
-            int i;
-            for (i = 0; i < currentItems; i++)
-            {
-                //TODO - Draw name of object to screen
-                //Output should look like "i. Inventory[i].Name"
-                spriteBatch.DrawString(font, "i. Inventory[i].Name", displayVector, Color.White);
-                displayVector.Y += 15;
-            }
-        }
-        
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draw our skeleton //

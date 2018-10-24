@@ -38,7 +38,7 @@ namespace Capstonia.Core
             this.game = game;
         }
 
-        public void Draw(SpriteBatch spriteBatch, IMap level)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if (game.Player == this)
             {

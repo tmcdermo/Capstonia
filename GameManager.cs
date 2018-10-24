@@ -50,7 +50,7 @@ namespace Capstonia
         {
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferWidth = 1000;
             graphics.PreferredBackBufferHeight = 900;
             Content.RootDirectory = "Content";
 
@@ -126,12 +126,12 @@ namespace Capstonia
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
             Level.Draw(spriteBatch);
-            Player.Draw(spriteBatch, Level);
+            Player.Draw(spriteBatch);
             //messages.Draw(spriteBatch);
 
             spriteBatch.End();

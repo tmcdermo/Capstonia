@@ -179,7 +179,7 @@ namespace Capstonia.Systems
             exitRoom = SelectRandomRoom();
 
             //Ensures the exit room does not choose the same room that the player starts in
-            while(exitRoom.Contains(game.Player.X, game.Player.Y))
+            while(game.Player.X >= exitRoom.Left && game.Player.X <= exitRoom.Right && game.Player.Y >= exitRoom.Top && game.Player.Y <= exitRoom.Bottom)
             {
                 exitRoom = SelectRandomRoom();
             }            

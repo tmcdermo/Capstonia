@@ -18,7 +18,21 @@ namespace Capstonia.Systems
         public readonly List<Item> Inventory;   //public because player needs to manipulate inventory
         private readonly int maxItems = 10;
         private int currentItems = 0;
+        private Vector2[] coords =
+        {
+            new Vector2(670,50),
+            new Vector2(670,100),
+            new Vector2(670,150),
+            new Vector2(779,50),
+            new Vector2(779,100),
+            new Vector2(779,150),
+            new Vector2(888,50),
+            new Vector2(888,100),
+            new Vector2(888,150),
+        };
 
+        private Dictionary<string, Texture2D> shortHand;// https://stackoverflow.com/questions/9183041/string-as-variable-name
+        //coordinates for each slot on the inventory outline
 
 
         // InventorySystem()
@@ -27,10 +41,24 @@ namespace Capstonia.Systems
         // RETURNS: None.
         public InventorySystem(GameManager game)
         {
-            Inventory = new List<Item>();
             this.game = game;
+            Inventory = new List<Item>();
+            shortHand = new Dictionary<string, Texture2D>();
+            populateDict();
         }
 
+        // populateDict()
+        // DESC: Fills our dictionary with Item names to correlate to game texture objects
+        // PARAMS: None
+        // RETURNS: None
+        private void populateDict()
+        {
+            shortHand.Add("Armor", game.Armor);
+            shortHand.Add("Food", game.Food);
+            shortHand.Add("Weapon", game.Weapon);
+            shortHand.Add("Potion", game.Potion);
+            shortHand.Add("Book", game.Book);
+        }
         // AddItem()
         // DESC:    Adds item to the inventory.
         // PARAMS:  Item object.
@@ -65,7 +93,7 @@ namespace Capstonia.Systems
         // DESC:    Draws the contents of the inventory to the screen
         // PARAMS:  None.
         // RETURNS: None.
-        public void Draw(SpriteBatch spriteBatch, Texture2D texture, Rectangle screen, SpriteFont font)
+        public void TylerDraw(SpriteBatch spriteBatch, Texture2D texture, Rectangle screen, SpriteFont font)
         {
             //TODO - WHY DOESN'T THIS WORK???
             Vector2 displayVector = new Vector2(1200, 10);
@@ -81,6 +109,20 @@ namespace Capstonia.Systems
                 //Output should look like "i. Inventory[i].Name"
                 spriteBatch.DrawString(font, "i. Inventory[i].Name", displayVector, Color.White);
                 displayVector.Y += 15;
+            }
+        }
+        
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            // Draw our skeleton //
+            spriteBatch.Draw(game.Outline, new Vector2(672, 1), Color.White);
+            spriteBatch.DrawString(game.mainFont, "INVENTORY", new Vector2(795, 15), Color.White);
+            int index = 0; // used for accessing coordinates
+            foreach (Item things in Inventory)
+            {
+                Texture2D tmp = shortHand[things.Name];
+                spriteBatch.Draw(tmp, coords[index], Color.White);
+                index++;
             }
         }
     }

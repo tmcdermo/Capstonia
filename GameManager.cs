@@ -131,7 +131,7 @@ namespace Capstonia
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
             Level.Draw(spriteBatch);
-            Player.Draw(spriteBatch, Level);
+            Player.Draw(spriteBatch);
             //messages.Draw(spriteBatch);
 
             spriteBatch.End();

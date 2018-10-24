@@ -42,24 +42,15 @@ namespace Capstonia.Core
             {
                 for(int y = currRoom.Top; y <= currRoom.Bottom; y++)
                 {
-                    Cell currCell = (Cell)GetCell(x, y);
-
                     var drawPosition = new Vector2((x - currRoom.Left) * multiplier, (y - currRoom.Top) * multiplier);
 
-                    if(currCell.IsWalkable)
+                    if(GetCell(x, y).IsWalkable || (game.Player.X == x && game.Player.Y == y))
                     {
                         spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                     }
                     else
                     {
-                        if(currCell.X == game.Player.X && currCell.Y == game.Player.Y)
-                        {
-                            spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
-                        }
-                        else
-                        {
-                            spriteBatch.Draw(game.wall, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
-                        }
+                        spriteBatch.Draw(game.wall, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                     }
                 }
             }

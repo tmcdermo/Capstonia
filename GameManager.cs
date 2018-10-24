@@ -31,11 +31,13 @@ namespace Capstonia
 
 
         // Game Variable Declarations
-        public static readonly int levelWidth = 35;
-        public static readonly int levelHeight = 35;
+        public readonly int levelWidth = 70;
+        public readonly int levelHeight = 70;
+        public readonly int levelRows = 5;
+        public readonly int levelCols = 5;
         public int mapLevel = 1;
-        public int tileSize = 48;
-        public float scale = .65f;
+        public readonly int tileSize = 48;
+        public float scale = 1.0f;
 
         private bool renderRequired = true;
        
@@ -45,8 +47,8 @@ namespace Capstonia
         {
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
             Content.RootDirectory = "Content";
 
             //link the messageLog and game instance
@@ -154,7 +156,7 @@ namespace Capstonia
         // RETURNS: None.
         private void GenerateLevel()
         {
-            LevelGenerator levelGenerator = new LevelGenerator(this, levelWidth, levelHeight, mapLevel);
+            LevelGenerator levelGenerator = new LevelGenerator(this, levelWidth, levelHeight, levelRows, levelCols, mapLevel);
             Level = levelGenerator.CreateLevel();
             //masterConsole.GenerateLevel(Level);
         }

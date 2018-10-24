@@ -15,9 +15,8 @@ namespace Capstonia.Systems
     public class LevelGenerator
     {
         // columns and rows should remain equal
-        private readonly int columns = 4;
-        private readonly int rows = 4;
-
+        private readonly int columns;
+        private readonly int rows;
         private readonly int levelWidth;
         private readonly int levelHeight;
         private readonly int roomWidth;
@@ -31,10 +30,12 @@ namespace Capstonia.Systems
         private Rectangle exitRoom;
 
         // constructor
-        public LevelGenerator(GameManager game, int width, int height, int mapLevel)
+        public LevelGenerator(GameManager game, int width, int height, int gameRows, int gameCols, int mapLevel)
         {
             levelWidth = width;
             levelHeight = height;
+            columns = gameCols;
+            rows = gameRows;
             roomWidth = width / columns;
             roomHeight = height / rows;
 

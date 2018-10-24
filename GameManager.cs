@@ -124,6 +124,7 @@ namespace Capstonia
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            Messages.AddMessage(Player.X + ", " + Player.Y);
             // move player
             Player.Move();
 

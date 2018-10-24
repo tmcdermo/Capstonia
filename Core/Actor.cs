@@ -29,14 +29,12 @@ namespace Capstonia.Core
         public int X { get; set; }
         public int Y { get; set; }
         public Texture2D Sprite { get; set; }
-        public float Scale { get; set; }
 
         protected GameManager game;
 
         public Actor(GameManager game)
         {
             this.game = game;
-            this.Scale = Scale;
         }
 
         public void Draw(SpriteBatch spriteBatch, IMap level)
@@ -44,10 +42,10 @@ namespace Capstonia.Core
             if (game.Player == this)
             {
                  // scale sprite 
-                float multiplier = this.Scale * Sprite.Width;
+                float multiplier = game.Scale * Sprite.Width;
 
                 // draw sprite
-                spriteBatch.Draw(Sprite, new Vector2(X * game.tileSize * game.scale, Y * game.tileSize * game.scale), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(Sprite, new Vector2(X * multiplier, Y * multiplier), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
             }
             else
             {

@@ -72,17 +72,6 @@ namespace Capstonia
             //link the messageLog and game instance
             Messages = new MessageLog(this);
 
-            Messages.AddMessage("Test 1");
-            Messages.AddMessage("Test 2");
-            Messages.AddMessage("Test 3");
-            Messages.AddMessage("Test 4");
-            Messages.AddMessage("Test 5");
-            Messages.AddMessage("Test 6");
-            Messages.AddMessage("Test 7");
-            Messages.AddMessage("Test 8");
-            Messages.AddMessage("Test 9");
-
-
             // Player provided commands
             CommandSystem = new CommandSystem(this);
 
@@ -189,7 +178,9 @@ namespace Capstonia
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            Messages.Draw(spriteBatch);
+            
+            Messages.Draw(spriteBatch);            
+            
             Level.Draw(spriteBatch);
             Player.Draw(spriteBatch);
 
@@ -241,10 +232,10 @@ namespace Capstonia
             int RoomIndex;
             for (RoomIndex = 0; RoomIndex < Level.Rooms.Count; RoomIndex++)
             {
-                if (Level.Rooms[RoomIndex].Contains(Player.X, Player.Y))
+                if(Player.X >= Level.Rooms[RoomIndex].Left && Player.X <= Level.Rooms[RoomIndex].Right && Player.Y >= Level.Rooms[RoomIndex].Top && Player.Y <= Level.Rooms[RoomIndex].Bottom)
                 {
                     // found player room, now check if passed in coordinates exist within it
-                    if (Level.Rooms[RoomIndex].Contains(x, y))
+                    if(x >= Level.Rooms[RoomIndex].Left && x <= Level.Rooms[RoomIndex].Right && y >= Level.Rooms[RoomIndex].Top && y <= Level.Rooms[RoomIndex].Bottom)
                     {
                         return true;
                     }

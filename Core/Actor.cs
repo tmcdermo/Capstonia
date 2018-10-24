@@ -59,15 +59,17 @@ namespace Capstonia.Core
             }
         }
 
-        public void OldDraw(SpriteBatch spriteBatch, IMap level)
+        public void OldDraw(SpriteBatch spriteBatch)
         {
+            float testScale = 0.5f;
+
             if (game.Player == this)
             {
                  // scale sprite 
-                float multiplier = game.scale * Sprite.Width;
+                float multiplier = testScale * Sprite.Width;
 
                 // draw sprite
-                spriteBatch.Draw(Sprite, new Vector2(X * multiplier, Y * multiplier), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(Sprite, new Vector2(X * multiplier, Y * multiplier), null, Color.White, 0f, Vector2.Zero, testScale, SpriteEffects.None, 0f);
             }
             else
             {

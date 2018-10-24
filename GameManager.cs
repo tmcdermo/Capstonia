@@ -42,7 +42,10 @@ namespace Capstonia
         private bool renderRequired = true;
        
 
-        
+        // track keyboard state (i.e. capture key presses)
+        public KeyboardState currentKeyboardState;
+        public KeyboardState previousKeyboardState;
+
         public GameManager() : base()
         {
             // MonoGame Graphic/Content setup
@@ -106,11 +109,14 @@ namespace Capstonia
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            // Handle keyboard input
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            // move player
+            Player.Move();
 
+            // update game state
             base.Update(gameTime);
         }
 
@@ -201,69 +207,6 @@ namespace Capstonia
 
             // player should always be located in the list of Rooms so we should never reach this point
             return false;
-        }
-
-        // GetKeyboardInput()
-        // DESC:    Takes player input to move character around and perform character duties.
-        // PARAMS:  None.
-        // RETURNS: None.
-        private void GetKeyboardInput()
-        {
-            bool didPlayerAct = false;
-
-            //UserInputCommands command = masterConsole.GetUserCommand();
-
-            //if (CommandSystem.IsPlayerTurn)
-            //{
-            //    switch (command)
-            //    {
-            //        case UserInputCommands.UpLeft:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.UpLeft);
-            //            break;
-            //        case UserInputCommands.Up:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
-            //            break;
-            //        case UserInputCommands.UpRight:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.UpRight);
-            //            break;
-            //        case UserInputCommands.Left:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
-            //            break;
-            //        case UserInputCommands.Right:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
-            //            break;
-            //        case UserInputCommands.DownLeft:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.DownLeft);
-            //            break;
-            //        case UserInputCommands.Down:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
-            //            break;
-            //        case UserInputCommands.DownRight:
-            //            didPlayerAct = CommandSystem.MovePlayer(Direction.DownRight);
-            //            break;
-            //        case UserInputCommands.ChangeLevel:
-            //            // TODO - Implement
-            //            break;
-            //        case UserInputCommands.CloseGame:
-            //            //masterConsole.CloseApplication();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-
-                //if (didPlayerAct)
-                //{
-                //    renderRequired = true;
-                //    CommandSystem.EndPlayerTurn();
-                //}
-            //}
-            //else
-            //{
-                // TODO - Add monster support
-                // CommandSystem.ActivateMonsters();
-                // renderRequired = true;
-            //}
-
         }
     }
 }

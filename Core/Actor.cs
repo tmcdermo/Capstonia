@@ -63,9 +63,10 @@ namespace Capstonia.Core
         {
             if (game.Player == this)
             {
-                //game.SetLevelCell(X, Y, ObjectType.Player, level.GetCell(X, Y).IsExplored;
+                 // scale sprite 
                 float multiplier = game.scale * Sprite.Width;
 
+                // draw sprite
                 spriteBatch.Draw(Sprite, new Vector2(X * multiplier, Y * multiplier), null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
             }
             else

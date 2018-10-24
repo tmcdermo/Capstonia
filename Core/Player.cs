@@ -1,6 +1,4 @@
-﻿using Capstonia.Controller;
-using System; // need access to Math functions
-
+﻿using Microsoft.Xna.Framework.Input;
 
 namespace Capstonia.Core
 {
@@ -69,6 +67,53 @@ namespace Capstonia.Core
                 hungerPenalty = 0.50f; // multiplier for str, dex, const
             }
             return hungerPenalty;
+        }
+
+        // Move(...)
+        // DESC:    Moves player 1 tile from current location.
+        // PARAMS:  None.
+        // RETURNS: None.
+        public void Move()
+        {
+            // get current keyboard state
+            game.currentKeyboardState = Keyboard.GetState();
+
+            // move player up
+            if (game.currentKeyboardState.IsKeyDown(Keys.Down) && 
+                game.previousKeyboardState.IsKeyUp(Keys.Down))
+            {
+                if (game.Level.IsWalkable(game.Player.X, game.Player.Y + 1))
+                {
+                    game.Player.Y += 1;
+                }
+            } // move player down
+            else if (game.currentKeyboardState.IsKeyDown(Keys.Up) &&
+                     game.previousKeyboardState.IsKeyUp(Keys.Up))
+            {
+                if (game.Level.IsWalkable(game.Player.X, game.Player.Y - 1))
+                {
+                    game.Player.Y -= 1;
+                }
+            } // move player left
+            else if (game.currentKeyboardState.IsKeyDown(Keys.Left) &&
+                     game.previousKeyboardState.IsKeyUp(Keys.Left))
+            {
+                if (game.Level.IsWalkable(game.Player.X - 1, game.Player.Y))
+                {
+                    game.Player.X -= 1;
+                }
+            } // move player right
+            else if (game.currentKeyboardState.IsKeyDown(Keys.Right) &&
+                     game.previousKeyboardState.IsKeyUp(Keys.Right))
+            {
+                if (game.Level.IsWalkable(game.Player.X + 1, game.Player.Y))
+                {
+                    game.Player.X += 1;
+                }
+            }
+
+            // save current state to previous and get ready for next move
+            game.previousKeyboardState = game.currentKeyboardState;
         }
     }
 }

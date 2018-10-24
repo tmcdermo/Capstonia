@@ -112,7 +112,7 @@ namespace Capstonia
                 Exit();
 
             // move player
-            Player.Move(this);
+            Player.Move();
 
             // update game state
             base.Update(gameTime);

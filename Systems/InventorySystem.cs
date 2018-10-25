@@ -118,7 +118,24 @@ namespace Capstonia.Systems
                     //if can't stack
                     else
                     {
-                        game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+                        if (currentItems == maxItems)
+                        {
+                            game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+                        }
+                        else
+                        {
+                            Inventory.Add(Tuple.Create(iType, 1));
+                            currentItems++;
+                            if (iType.Name == "Potion")
+                            {
+                                potStack.Enqueue(iType);
+                            }
+                            else if (iType.Name == "Food")
+                            {
+                                foodStack.Enqueue(iType);
+                            }
+                            break;
+                        }
 
                     }
                         

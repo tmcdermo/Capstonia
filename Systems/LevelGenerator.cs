@@ -9,6 +9,7 @@ using Rectangle = RogueSharp.Rectangle;
 using Point = RogueSharp.Point;
 using Capstonia;
 using Capstonia.Core;
+using Capstonia.Monsters;
 
 namespace Capstonia.Systems
 {
@@ -80,6 +81,9 @@ namespace Capstonia.Systems
             // place player start
             PlacePlayerInStartingRoom();
 
+            // place monster on level
+            PlaceMonsters();
+
             // place exit
             SelectExitRoom();
             PlaceExit();
@@ -88,7 +92,8 @@ namespace Capstonia.Systems
             FindExitPath();
             PlaceDoorsOnPath();
 
-            // randomly place doors - TODO?
+            // randomly place doors
+            PlaceRandomDoors();
             
             return level;
         }
@@ -158,14 +163,44 @@ namespace Capstonia.Systems
             // get random room as starting room
             startRoom = SelectRandomRoom();
 
-
             // give player position in center of room
             game.Player.X = startRoom.Center.X;
             game.Player.Y = startRoom.Center.Y;
 
             // add player to that room
             level.AddPlayer(game.Player);
-        
+        }
+
+        // PlaceMonsters()
+        // DESC:    Place monsters throught entire level
+        // PARAMS:  None
+        // RETURNS: None.
+        public void PlaceMonsters()
+        {
+            // startingRoomTemp = new Rectangle();
+            Point randomPoint;
+            // TODO - Add randomly
+            var numberOfMonsters = 10;
+            foreach (var room in level.Rooms)
+            {
+                for (int i = 0; i < numberOfMonsters; i++)
+                {
+                    randomPoint = GetRandomPointInRoom(room);
+
+                    //Ensures that the selected tile is walkable (i.e. not a wall or door)
+                    while (!level.IsWalkable(randomPoint.X, randomPoint.Y))
+                    {
+                        randomPoint = GetRandomPointInRoom(room);
+                    }
+                    var beholder = Beholder.Create(game, 1);
+                    beholder.X = randomPoint.X;
+                    beholder.Y = randomPoint.Y;
+
+                    beholder.Sprite = game.Content.Load<Texture2D>("beholder_deep_1");
+
+                    level.AddMonster(beholder);
+                }
+            }
         }
 
 
@@ -324,13 +359,63 @@ namespace Capstonia.Systems
             }
         }
 
-        // TODO - PlaceRandomDoors()
         // DESC:    Loops through all of the rooms and places doors on random walls.    
         // PARAMS:  None.
         // RETURNS: None. Modifies level to add doors.
         public void PlaceRandomDoors()
         {
+            int door;
 
+            // loop through all rooms in level
+            for(int x = 0; x < level.Rooms.Count - 1; x++)
+            {
+                // check each wall, ensure it is not an exterior level wall, and then 50% chance of placing a doorway
+                // since each possible doorway gets tested twice (once from each room), each check is 25%
+                if(level.Rooms[x].Top != 0)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of top wall in this room and center of bottom wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Center.X, level.Rooms[x].Top, true);
+                        level.SetIsWalkable(level.Rooms[x - 1].Center.X, level.Rooms[x - 1].Bottom, true);
+                    }
+                }
+
+                if (level.Rooms[x].Bottom != levelHeight - 1)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of bottom wall in this room and center of top wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Center.X, level.Rooms[x].Bottom, true);
+                        level.SetIsWalkable(level.Rooms[x + 1].Center.X, level.Rooms[x + 1].Top, true);
+                    }
+                }
+
+                if (level.Rooms[x].Left != 0)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of left wall in this room and center of right wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Left, level.Rooms[x].Center.Y, true);
+                        level.SetIsWalkable(level.Rooms[x - rows].Right, level.Rooms[x - rows].Center.Y, true);
+                    }
+                }
+
+                if (level.Rooms[x].Right != levelWidth - 1)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of right wall in this room and center of left wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Right, level.Rooms[x].Center.Y, true);
+                        level.SetIsWalkable(level.Rooms[x + rows].Left, level.Rooms[x + rows].Center.Y, true);
+                    }
+                }                
+
+            }
         }
 
     }

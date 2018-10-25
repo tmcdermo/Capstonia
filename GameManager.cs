@@ -23,6 +23,9 @@ namespace Capstonia
         public Texture2D floor;
         public Texture2D wall;
         public SpriteFont mainFont;
+		
+		// container to hold the monsters
+        public List<Monster> Monsters;
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -122,6 +125,7 @@ namespace Capstonia
         /// </summary>
         protected override void Initialize()
         {
+            Monsters = new List<Monster>();
             // get seed based on current time and set up RogueSharp Random instance
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
@@ -195,33 +199,26 @@ namespace Capstonia
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            // making the spriteBatch.begin(...) change below should fix the
+            // rendering issues where layers would randomly render out of order
+            // spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin();
 
             Inventory.Draw(spriteBatch);
             Messages.Draw(spriteBatch);
             Level.Draw(spriteBatch);
+			
+			// draw all of the monsters in the list
+            foreach (var monster in Monsters)
+            {
+                monster.Draw(spriteBatch);
+            }
+
             Player.Draw(spriteBatch);
 
-
-            //Inventory.Draw(spriteBatch, emptyTexture, inventoryScreen, mainFont);
-            
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-
-        private ICell GetRandomEmptyCell()
-        { 
-            while (true)
-            {
-                int x = Random.Next(7);
-                int y = Random.Next(7);
-                if (Level.IsWalkable(x, y))
-                {
-                    return Level.GetCell(x, y);
-                }
-            }
         }
 
 

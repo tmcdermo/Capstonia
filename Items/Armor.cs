@@ -21,7 +21,7 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = false;
             IsEquipped = false;
-            MaxStack = 0;
+            MaxStack = 1;
             CurrentStack = 0;
         }
 
@@ -52,11 +52,10 @@ namespace Capstonia.Items
         //Overrides parent class function
         public override bool UseItem()
         {
-            //If armor is equipped
+            //Add damage and defense values and dipslay on message log
             AddStat();
+            game.Messages.AddMessage("Equipped armor with +" + Damage + " damage and +" + Defense + " defense");
 
-            //If armor is removed
-            //RemoveStat();
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

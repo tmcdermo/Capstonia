@@ -18,6 +18,8 @@ namespace Capstonia.Items
             History = "Useless piece of metal";
             Interactive = true;
             Consumable = false;
+            MaxStack = 1;
+            CurrentStack = 0;
         }
 
         private int ValuePoints()
@@ -49,6 +51,7 @@ namespace Capstonia.Items
         {
             //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Found a ring worth " + Value + " value");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

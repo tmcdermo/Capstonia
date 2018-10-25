@@ -44,7 +44,7 @@ namespace Capstonia.Items
         public override void Broadcast()
         {
             string tmp = String.Format("You found a drumstick: boosts your hunger by {0}", Value);
-            game.Messages.AddMessage("tmp");
+            game.Messages.AddMessage(tmp);
         }
 
         // UseItem()
@@ -55,6 +55,7 @@ namespace Capstonia.Items
         {
             //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Ate some nutritous food and recovered " + Value + " health");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

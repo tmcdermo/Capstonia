@@ -83,6 +83,7 @@ namespace Capstonia.Items
         {
             //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Drank a potion and recovered " + Value + " health");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

@@ -18,7 +18,7 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = false;
             IsEquipped = false;
-            MaxStack = 0;
+            MaxStack = 1;
             CurrentStack = 0;
         }
 
@@ -46,9 +46,7 @@ namespace Capstonia.Items
         {
             //If weapon is equipped
             AddStat();
-
-            //If weapon is removed
-            //RemoveStat();
+            game.Messages.AddMessage("Equipped weapon with +" + Damage + " damage");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

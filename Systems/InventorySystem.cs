@@ -59,7 +59,7 @@ namespace Capstonia.Systems
 
         }
 
-
+        
         // AddItem()
         // DESC:    Adds item to the inventory.
         // PARAMS:  Item object.
@@ -69,32 +69,51 @@ namespace Capstonia.Systems
             //bool to help find item in list
             bool isFound = false;
 
-            //Inventory.Add(name);
-            //int i;
-
-
-            //Cycle through inventory and look for names that match the name parameter
             //Cycle through inventory and look for names that match the name parameter
             foreach (Item thing in Inventory)
             {
                 if (thing == name)     //Check if item is in inventory and increase quantity
                 {
                     isFound = true;
-                    //currentItems++;
-                    thing.CurrentStack++;
-                    //Inventory[i].CurrentStack++;
-                    //Inventory[i].AddStat();
+                    if(thing.CurrentStack != thing.MaxStack)    //add to current stack if there is still room
+                    {
+                        thing.CurrentStack++;
+                        Inventory[currentItems - 1].Broadcast();
+                    }
+                    else
+                    {
+                        //Add item if inventory does not contain the item and inventory is not at max capacity
+                        if (currentItems == maxItems)
+                        {
+                            game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+                        }
+                        else
+                        {
+                            Inventory.Add(name);
+                            currentItems++;
+                            Inventory[currentItems - 1].CurrentStack++;
+                            Inventory[currentItems - 1].Broadcast();
+                        }
+                    }
                     break;
                 }
             }
 
 
-            //Add item if inventory is empty
+            //Add item if inventory does not contain the item and inventory is not at max capacity
             if (isFound == false)
             {
-                Inventory.Add(name);
-                currentItems++;
-                Inventory[currentItems - 1].CurrentStack++;
+                if(currentItems == maxItems)
+                {
+                    game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+                }
+                else
+                {
+                    Inventory.Add(name);
+                    currentItems++;
+                    Inventory[currentItems - 1].CurrentStack++;
+                    Inventory[currentItems - 1].Broadcast();
+                }
             }
         }
 
@@ -108,15 +127,20 @@ namespace Capstonia.Systems
             int i;
 
             //Cycle through inventory and look for names that match the name parameter
-            for (i = 0; i < maxItems; i++)
+            //For loop rather than foreach so that we can use the RemoveAt() member function for the List
+            for (i = 0; i < currentItems; i++)
             {
-                if (name.Name == Inventory[i].Name)
+                //Check if the passed in item parameter matches some item in the inventory
+                if (name == Inventory[i])                   
                 {
+                    //Decrement currentStack for the item and remove its stats from the player
                     Inventory[i].CurrentStack--;
                     Inventory[i].RemoveStat();
+
+                    //Check to see if current stack is 0 after being decremented
                     if (Inventory[i].CurrentStack == 0)
                     {
-                        //Inventory[i].RemoveStat();
+                        //Remove item at that current inventory slot and -1 total items in inventory
                         Inventory.RemoveAt(i);
                         currentItems--;
                     }
@@ -156,7 +180,7 @@ namespace Capstonia.Systems
             if (0 < slot && slot < currentItems)
             {
                 int index = slot - 1;
-                Inventory[index].Broadcast();
+                //Inventory[index].Broadcast();
                 Inventory[index].UseItem();
                 RemoveItem(Inventory[index]);   
             }

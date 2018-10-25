@@ -85,20 +85,21 @@ namespace Capstonia
 
             //Testing manual inventory
             Armor leather = new Armor(this);
+            Armor leather2 = new Armor(this);
             Food drummy = new Food(this);
             Weapon thingy = new Weapon(this);
             Book read = new Book(this);
             Potion drink = new Potion(this);
             Inventory.AddItem(leather);
-            Inventory.AddItem(drummy);
-            Inventory.AddItem(drummy);
+            Inventory.AddItem(leather2);
             Inventory.AddItem(drink);
             Inventory.AddItem(drink);
-            Inventory.AddItem(drummy);
             Inventory.AddItem(thingy);
             Inventory.AddItem(read);
             Inventory.AddItem(drink);
             Inventory.AddItem(drink);
+            Inventory.AddItem(drummy);
+            Inventory.AddItem(drummy);
         }
 
         /// <summary>

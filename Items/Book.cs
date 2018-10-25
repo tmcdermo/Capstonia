@@ -33,7 +33,7 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = true;
             Genre = BookPick();
-            MaxStack = 0;
+            MaxStack = 1;
             CurrentStack = 0;
 
         }
@@ -92,6 +92,7 @@ namespace Capstonia.Items
         {
             //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Something something book side");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

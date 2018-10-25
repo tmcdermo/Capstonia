@@ -138,6 +138,7 @@
     <None Include="app.manifest" />
     <None Include="Content\MainFont.spritefont" />
     <None Include="packages.config" />
+    <None Include="Content\beholder_deep_1.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\dknight_1.png" />

@@ -68,7 +68,7 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.Messages.AddMessage("No self hurt here.");
+            //game.Messages.AddMessage("No self hurt here.");
         }
         public override void Broadcast()
         {
@@ -83,7 +83,7 @@ namespace Capstonia.Items
         {
             //If item is picked up
             AddStat();
-            game.Messages.AddMessage("Drank a potion and recovered " + Value + " health");
+            game.Messages.AddMessage("Feasted on the blood of your enemies and recovered " + Value + " health");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

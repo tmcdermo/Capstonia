@@ -76,7 +76,7 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.Messages.AddMessage("Cannot unread a book you nitwit.");
+            //game.Messages.AddMessage("Cannot unread a book you nitwit.");
         }
 
         public override void Broadcast()

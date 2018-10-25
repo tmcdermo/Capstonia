@@ -94,11 +94,12 @@ namespace Capstonia
             Inventory.AddItem(leather2);
             Inventory.AddItem(drink);
             Inventory.AddItem(drink);
+            Inventory.AddItem(drummy);
             Inventory.AddItem(thingy);
-            Inventory.AddItem(read);
             Inventory.AddItem(drink);
             Inventory.AddItem(drink);
             Inventory.AddItem(drummy);
+            Inventory.AddItem(read);
             Inventory.AddItem(drummy);
         }
 

@@ -38,7 +38,7 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.Messages.AddMessage("Food only works if it goes in 1 way and out another.");
+            //game.Messages.AddMessage("Food only works if it goes in 1 way and out another.");
         }
 
         public override void Broadcast()
@@ -53,9 +53,8 @@ namespace Capstonia.Items
         // RETURNS: Bool. True if item is used, False otherwise.
         public override bool UseItem()
         {
-            //If item is picked up
             AddStat();
-            game.Messages.AddMessage("Ate some nutritous food and recovered " + Value + " health");
+            game.Messages.AddMessage("Feasted on the flesh of your enemites and recovered " + Value + " health");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

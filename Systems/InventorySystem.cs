@@ -78,7 +78,7 @@ namespace Capstonia.Systems
                     if(thing.CurrentStack != thing.MaxStack)    //add to current stack if there is still room
                     {
                         thing.CurrentStack++;
-                        Inventory[currentItems - 1].Broadcast();
+                        thing.Broadcast();
                     }
                     else
                     {
@@ -91,8 +91,8 @@ namespace Capstonia.Systems
                         {
                             Inventory.Add(name);
                             currentItems++;
-                            Inventory[currentItems - 1].CurrentStack++;
-                            Inventory[currentItems - 1].Broadcast();
+                            thing.CurrentStack++;
+                            thing.Broadcast();
                         }
                     }
                     break;
@@ -111,8 +111,8 @@ namespace Capstonia.Systems
                 {
                     Inventory.Add(name);
                     currentItems++;
-                    Inventory[currentItems - 1].CurrentStack++;
-                    Inventory[currentItems - 1].Broadcast();
+                    name.CurrentStack++;
+                    name.Broadcast();
                 }
             }
         }
@@ -124,11 +124,11 @@ namespace Capstonia.Systems
         // RETURNS: None.
         public void RemoveItem(Item name)
         {
-            int i;
-
             //Cycle through inventory and look for names that match the name parameter
             //For loop rather than foreach so that we can use the RemoveAt() member function for the List
-            for (i = 0; i < currentItems; i++)
+            /*
+            int i;
+            for (i = 0; i < Inventory.Count; i++)
             {
                 //Check if the passed in item parameter matches some item in the inventory
                 if (name == Inventory[i])                   
@@ -147,27 +147,30 @@ namespace Capstonia.Systems
                     break;
                 }
             }
+            */
             
 
-            /*
+            
             //Go through all items and decrease counter then remove if 0
             foreach(Item thing in Inventory)
             {
+                //Check if the passed in item parameter matches some item in the inventory
                 if(thing == name)
                 {
+                    //Decrement currentStack for the item and remove its stats from the player
                     thing.CurrentStack--;
                     thing.RemoveStat();
 
-                    if (thing.CurrentStack == 0)
+                    //Check to see if current stack is 0 after being decremented
+                    if (thing.CurrentStack <= 0)
                     {
-                        //Inventory[i].RemoveStat();
-                        Inventory.RemoveAt(currentItems - 1);
+                        Inventory.Remove(thing);
                         currentItems--;
                     }
                     break;
                 }
             }
-            */
+            
         }
 
         // useItem()
@@ -177,7 +180,7 @@ namespace Capstonia.Systems
         public void UseItem(int slot)
         {
             //Ensure there is an item in that slot
-            if (0 < slot && slot < currentItems)
+            if (0 < slot && slot < currentItems + 1)
             {
                 int index = slot - 1;
                 //Inventory[index].Broadcast();

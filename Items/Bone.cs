@@ -33,7 +33,7 @@ namespace Capstonia.Items
         }
         public override void RemoveStat()
         {
-            game.Messages.AddMessage("Losing is never fun, so not allowed.");
+            //game.Messages.AddMessage("Losing is never fun, so not allowed.");
         }
 
         public override void Broadcast()

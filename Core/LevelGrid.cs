@@ -8,7 +8,6 @@ using Rectangle = RogueSharp.Rectangle;
 using Point = RogueSharp.Point;
 using Capstonia;
 using Capstonia.Systems;
-using Capstonia.Monsters;
 
 namespace Capstonia.Core
 {
@@ -52,25 +51,14 @@ namespace Capstonia.Core
                     }
                     else
                     {
-                        bool monsterPresent = false;
-                        var localMonster = new Monster(game);
-                        foreach (var monster in game.Monsters)
-                        {
-                            if (monster.X == x && monster.Y == y) 
-                            {
-                                localMonster = monster;
-                                monsterPresent = true;
-                                break;
-                            }
-                        }
-                        if (!monsterPresent)
-                        {
-                            spriteBatch.Draw(game.wall, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
-                        }
+                        spriteBatch.Draw(game.wall, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                     }
                 }
             }
+
             //Exit.Draw(this);
+
+            
         }
 
         // OldDraw()
@@ -109,26 +97,13 @@ namespace Capstonia.Core
 
         }
 
-        // AddMonster()
-        // DESC:    Add Monster to game.
-        // PARAMS:  None.
-        // RETURNS: None.
-        public void AddMonster(Monster monster)
-        {
-
-            // make sure to flag monster location as not walkable
-            SetIsWalkable(monster.X, monster.Y, false);
-            // add monster to monster container
-            game.Monsters.Add(monster);
-        }
-
-    // SetActorPosition(...)
-    // DESC:    Place actor on level.     
-    // PARAMS:  An Actor instance and the x, y coordinates for where the
-    //          Actor should be placed on the level.
-    // RETURNS: Returns a Boolean.  True = succesful placement; 
-    //          False = failure to place on level.
-    public bool SetActorPosition(Actor actor, int x, int y)
+        // SetActorPosition(...)
+        // DESC:    Place actor on level.     
+        // PARAMS:  An Actor instance and the x, y coordinates for where the
+        //          Actor should be placed on the level.
+        // RETURNS: Returns a Boolean.  True = succesful placement; 
+        //          False = failure to place on level.
+        public bool SetActorPosition(Actor actor, int x, int y)
         {
             // Only place Actor if Cell is walkable
             if (GetCell(x, y).IsWalkable)

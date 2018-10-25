@@ -88,7 +88,8 @@ namespace Capstonia.Systems
             FindExitPath();
             PlaceDoorsOnPath();
 
-            // randomly place doors - TODO?
+            // randomly place doors
+            PlaceRandomDoors();
             
             return level;
         }
@@ -324,13 +325,63 @@ namespace Capstonia.Systems
             }
         }
 
-        // TODO - PlaceRandomDoors()
         // DESC:    Loops through all of the rooms and places doors on random walls.    
         // PARAMS:  None.
         // RETURNS: None. Modifies level to add doors.
         public void PlaceRandomDoors()
         {
+            int door;
 
+            // loop through all rooms in level
+            for(int x = 0; x < level.Rooms.Count - 1; x++)
+            {
+                // check each wall, ensure it is not an exterior level wall, and then 50% chance of placing a doorway
+                // since each possible doorway gets tested twice (once from each room), each check is 25%
+                if(level.Rooms[x].Top != 0)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of top wall in this room and center of bottom wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Center.X, level.Rooms[x].Top, true);
+                        level.SetIsWalkable(level.Rooms[x - 1].Center.X, level.Rooms[x - 1].Bottom, true);
+                    }
+                }
+
+                if (level.Rooms[x].Bottom != levelHeight - 1)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of bottom wall in this room and center of top wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Center.X, level.Rooms[x].Bottom, true);
+                        level.SetIsWalkable(level.Rooms[x + 1].Center.X, level.Rooms[x + 1].Top, true);
+                    }
+                }
+
+                if (level.Rooms[x].Left != 0)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of left wall in this room and center of right wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Left, level.Rooms[x].Center.Y, true);
+                        level.SetIsWalkable(level.Rooms[x - rows].Right, level.Rooms[x - rows].Center.Y, true);
+                    }
+                }
+
+                if (level.Rooms[x].Right != levelWidth - 1)
+                {
+                    door = GameManager.Random.Next(0, 3);
+                    if (door == 3)
+                    {
+                        // open center of right wall in this room and center of left wall in next room
+                        level.SetIsWalkable(level.Rooms[x].Right, level.Rooms[x].Center.Y, true);
+                        level.SetIsWalkable(level.Rooms[x + rows].Left, level.Rooms[x + rows].Center.Y, true);
+                    }
+                }                
+
+            }
         }
 
     }

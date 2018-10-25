@@ -143,20 +143,6 @@ namespace Capstonia
         }
 
 
-        private ICell GetRandomEmptyCell()
-        { 
-            while (true)
-            {
-                int x = Random.Next(7);
-                int y = Random.Next(7);
-                if (Level.IsWalkable(x, y))
-                {
-                    return Level.GetCell(x, y);
-                }
-            }
-        }
-
-
         // GenerateLevel()
         // DESC:    Generates the entire level grid in which individual rooms will be placed.     
         // PARAMS:  None.

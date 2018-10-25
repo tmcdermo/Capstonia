@@ -52,7 +52,8 @@ namespace Capstonia.Core
             {
                 if(game.IsInRoomWithPlayer(X, Y))
                 {
-                    spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    // should not need to render floor here
+                    //spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Sprite, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
                 }
             }

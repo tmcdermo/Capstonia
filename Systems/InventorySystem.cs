@@ -78,7 +78,6 @@ namespace Capstonia.Systems
                     if(thing.CurrentStack != thing.MaxStack)    //add to current stack if there is still room
                     {
                         thing.CurrentStack++;
-                        thing.Broadcast();
                     }
                     else
                     {
@@ -92,7 +91,6 @@ namespace Capstonia.Systems
                             Inventory.Add(name);
                             currentItems++;
                             thing.CurrentStack++;
-                            thing.Broadcast();
                         }
                     }
                     break;
@@ -112,7 +110,6 @@ namespace Capstonia.Systems
                     Inventory.Add(name);
                     currentItems++;
                     name.CurrentStack++;
-                    name.Broadcast();
                 }
             }
         }

@@ -7,11 +7,10 @@ namespace Capstonia.Items
 {
     public class Weapon : Item
     {
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
         public Weapon(GameManager game) : base(game)
         {
             Name = "Weapon";
-            Damage = Die.Next(5, 15);
+            Damage = Capstonia.GameManager.Random.Next(5, 15);
             Defense = 0;
             Value = 0;
             History = "Close your eyes and swing it around.";

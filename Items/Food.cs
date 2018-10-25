@@ -7,7 +7,6 @@ namespace Capstonia.Items
 {
     public class Food: Item
     {
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
 
         public Food(GameManager game): base(game)
         {
@@ -24,7 +23,7 @@ namespace Capstonia.Items
         
         private int ValuePoints()
         {
-            return Die.Next(10, 25); //Hunger replenish value//
+            return Capstonia.GameManager.Random.Next(10, 25); //Hunger replenish value//
         }
 
         public override void AddStat()

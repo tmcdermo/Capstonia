@@ -16,7 +16,6 @@ namespace Capstonia.Items
 
         private Pots brew;
         public Pots Brew { get { return brew; } set { brew = value; } }
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
 
         public Potion(GameManager game): base(game)
         {
@@ -34,7 +33,7 @@ namespace Capstonia.Items
         private Pots PotionType()
         {
             Array store = Enum.GetValues(typeof(Pots));
-            int x = Die.Next(0, store.Length - 1);
+            int x = Capstonia.GameManager.Random.Next(0, store.Length - 1);
             return (Pots)store.GetValue(x);
         }
         private int HealValue()

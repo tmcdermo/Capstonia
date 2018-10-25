@@ -7,7 +7,6 @@ namespace Capstonia.Items
 {
     public class Gem : Item
     {
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
 
         public Gem(GameManager game) : base(game)
         {
@@ -24,7 +23,7 @@ namespace Capstonia.Items
 
         private int ValuePoints()
         {
-            return Die.Next(1, 25); // returns a value for skull object between 1 and 50 inclusive
+            return Capstonia.GameManager.Random.Next(1, 25); // returns a value for skull object between 1 and 50 inclusive
         }
 
         public override void AddStat()

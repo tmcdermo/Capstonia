@@ -10,12 +10,12 @@ namespace Capstonia.Items
     /// </summary>
     public class Armor: Item
     {
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
+        
         public Armor(GameManager game): base(game)
         {
             Name = "Armor";
-            Damage = Die.Next(0,2);
-            Defense = Die.Next(1,5);
+            Damage = Capstonia.GameManager.Random.Next(2);
+            Defense = Capstonia.GameManager.Random.Next(1,5);
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
             Interactive = true;

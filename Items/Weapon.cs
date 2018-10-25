@@ -18,7 +18,6 @@ namespace Capstonia.Items
             Consumable = false;
             IsEquipped = false;
             MaxStack = 1;
-            CurrentStack = 0;
         }
 
         public override void AddStat()

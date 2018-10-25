@@ -31,8 +31,7 @@ namespace Capstonia.Core
         public bool IsEquipped { get { return isEquipped; } set { isEquipped = value; } }
         private int maxStack;
         public int MaxStack { get { return maxStack; } set { maxStack = value; } }
-        private int currentStack;
-        public int CurrentStack { get { return currentStack; } set { currentStack = value; } }
+
 
         //IDrawable
         public int X { get; set; }

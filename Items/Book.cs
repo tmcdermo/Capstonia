@@ -34,7 +34,6 @@ namespace Capstonia.Items
             Consumable = true;
             Genre = BookPick();
             MaxStack = 1;
-            CurrentStack = 0;
 
         }
 

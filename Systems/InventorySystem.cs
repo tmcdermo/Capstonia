@@ -9,16 +9,35 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Capstonia.Systems
 {
+    //TupleList
+    // Required to make our lives easier found this tutorial
+    //https://whatheco.de/2011/11/03/list-of-tuples/
+    // So we can create a 2D like structure for our inventory where we can keep track of how many items we have in each slot
+
+    public class TupleList<T1,T2>: List<Tuple<T1, T2>>
+    {
+        public void Add(T1 item1, T2 item2)
+        {
+            Add(new Tuple<T1, T2>(item1, item2));
+        }
+    }
+
+
+
     // InventorySystem class
     // DESC:  Contains attributes and methods for the Inventory
 
     public class InventorySystem
     {
         private GameManager game;
-        public readonly List<Item> Inventory;   //public because player needs to manipulate inventory
+       // public readonly List<Item> Inventory;   //public because player needs to manipulate inventory
         private readonly int maxItems = 9;
         private int currentItems = 0;
 
+        //https://stackoverflow.com/questions/8002455/how-to-easily-initialize-a-list-of-tuples //
+        public readonly TupleList<Item, int> Inventory;
+        public readonly Queue<Item> potStack  = new Queue<Item>();
+        public readonly Queue<Item> foodStack = new Queue<Item>();
         //coordinates for each slot on the inventory outline
         private Vector2[] coords =
         {
@@ -55,7 +74,7 @@ namespace Capstonia.Systems
         public InventorySystem(GameManager game)
         {
             this.game = game;
-            Inventory = new List<Item>();
+            Inventory = new TupleList<Item, int>();
 
         }
 
@@ -64,36 +83,46 @@ namespace Capstonia.Systems
         // DESC:    Adds item to the inventory.
         // PARAMS:  Item object.
         // RETURNS: None.
-        public void AddItem(Item name)
+        public void AddItem(Item iType)
         {
             //bool to help find item in list
-            bool isFound = false;
 
             //Cycle through inventory and look for names that match the name parameter
-            foreach (Item thing in Inventory)
+            
+            bool isFound = false;
+            for (int x = 0; x < Inventory.Count(); x++)
             {
-                if (thing == name)     //Check if item is in inventory and increase quantity
+                Item tmp;
+                int count;
+                
+                if(Inventory[x].Item1.Name == iType.Name)
                 {
                     isFound = true;
-                    if(thing.CurrentStack != thing.MaxStack)    //add to current stack if there is still room
+                    //if item exists check to see if we can still stack
+                    if (Inventory[x].Item2 != iType.MaxStack)
                     {
-                        thing.CurrentStack++;
+                        count = Inventory[x].Item2;
+                        tmp = Inventory[x].Item1;
+                        count++;
+                        Inventory[x] = Tuple.Create(tmp, count); // update  tuple value
+                        //store the item to our array if its a potion//
+                        if (tmp.Name == "Potion")
+                        {
+                            potStack.Enqueue(iType);
+                        }
+                        else if (tmp.Name == "Food")
+                        {
+                            foodStack.Enqueue(iType);
+                        }
                     }
+                    //if can't stack
                     else
                     {
-                        //Add item if inventory does not contain the item and inventory is not at max capacity
-                        if (currentItems == maxItems)
-                        {
-                            game.Messages.AddMessage("Inventory full! Cannot carry any more items");
-                        }
-                        else
-                        {
-                            Inventory.Add(name);
-                            currentItems++;
-                            thing.CurrentStack++;
-                        }
+                        game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+
                     }
-                    break;
+                        
+                    
                 }
             }
 
@@ -107,9 +136,16 @@ namespace Capstonia.Systems
                 }
                 else
                 {
-                    Inventory.Add(name);
+                    Inventory.Add(Tuple.Create(iType, 1));
                     currentItems++;
-                    name.CurrentStack++;
+                    if(iType.Name == "Potion")
+                    {
+                        potStack.Enqueue(iType);
+                    }
+                    else if(iType.Name == "Food")
+                    {
+                        foodStack.Enqueue(iType);
+                    }
                 }
             }
         }
@@ -119,55 +155,32 @@ namespace Capstonia.Systems
         // DESC:    Removes item to the inventory.
         // PARAMS:  Item object.
         // RETURNS: None.
-        public void RemoveItem(Item name)
+        public void RemoveItem(Item iType)
         {
             //Cycle through inventory and look for names that match the name parameter
             //For loop rather than foreach so that we can use the RemoveAt() member function for the List
-            /*
-            int i;
-            for (i = 0; i < Inventory.Count; i++)
-            {
-                //Check if the passed in item parameter matches some item in the inventory
-                if (name == Inventory[i])                   
-                {
-                    //Decrement currentStack for the item and remove its stats from the player
-                    Inventory[i].CurrentStack--;
-                    Inventory[i].RemoveStat();
 
-                    //Check to see if current stack is 0 after being decremented
-                    if (Inventory[i].CurrentStack == 0)
-                    {
-                        //Remove item at that current inventory slot and -1 total items in inventory
-                        Inventory.RemoveAt(i);
-                        currentItems--;
-                    }
-                    break;
-                }
-            }
-            */
-            
 
-            
             //Go through all items and decrease counter then remove if 0
-            foreach(Item thing in Inventory)
+            for(int x = 0; x < Inventory.Count(); x++)
             {
-                //Check if the passed in item parameter matches some item in the inventory
-                if(thing == name)
+                int tmpCount = Inventory[x].Item2;
+                if(Inventory[x].Item1.Name == iType.Name)
                 {
-                    //Decrement currentStack for the item and remove its stats from the player
-                    thing.CurrentStack--;
-                    thing.RemoveStat();
-
-                    //Check to see if current stack is 0 after being decremented
-                    if (thing.CurrentStack <= 0)
+                    tmpCount--;
+                    if (tmpCount <= 0)
                     {
-                        Inventory.Remove(thing);
+                        Inventory.RemoveAt(x);
                         currentItems--;
+                        break;
                     }
-                    break;
+                    Item tmp = Inventory[x].Item1;
+                    Inventory[x] = Tuple.Create(tmp, tmpCount);
                 }
+
             }
-            
+
+
         }
 
         // useItem()
@@ -181,11 +194,44 @@ namespace Capstonia.Systems
             {
                 int index = slot - 1;
                 //Inventory[index].Broadcast();
-                Inventory[index].UseItem();
-                RemoveItem(Inventory[index]);   
+                if (Inventory[index].Item1.Name == "Potion")
+                {
+                    usePotion(index);
+                    RemoveItem(Inventory[index].Item1);
+                }
+                else if(Inventory[index].Item1.Name == "Food")
+                {
+                    useFood(index);
+                    RemoveItem(Inventory[index].Item1);
+                }
+                else
+                {
+                    Inventory[index].Item1.UseItem();
+                    RemoveItem(Inventory[index].Item1);
+                }
             }
             //TODO - Else print out message saying nothing in that slot
         }
+
+        // usePotion()
+        // DESC:    uses Potion and access the potStack Queue accordingly
+        // PARAMS:  index #.
+        // RETURNS: None.
+        private void usePotion(int index)
+        {
+            Item uses = potStack.Dequeue();
+            uses.UseItem();
+        }
+        // useFood()
+        // DESC:    uses food and access the foodStack Queue accordingly
+        // PARAMS:  index #.
+        // RETURNS: None.
+        private void useFood(int index)
+        {
+            Item uses = foodStack.Dequeue();
+            uses.UseItem();
+        }
+
 
         // Draw()
         // DESC:    Draws the contents of the inventory to the screen
@@ -198,33 +244,33 @@ namespace Capstonia.Systems
             spriteBatch.Draw(game.Outline, new Vector2(672, 1), Color.White);
             spriteBatch.DrawString(game.mainFont, "INVENTORY", new Vector2(795, 15), Color.White);
             int index = 0; // used for accessing coordinates
-            foreach (Item things in Inventory)
+            foreach (Tuple<Item,int> things in Inventory)
             {
-                switch (things.Name)
+                switch (things.Item1.Name)
                 {
                     case "Armor":
                         spriteBatch.Draw(game.armor, coords[index], Color.White);
-                        spriteBatch.DrawString(game.mainFont, "x" + things.CurrentStack, quantityCoords[index], Color.White);
+                        spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;
                     case "Food":
                         spriteBatch.Draw(game.food, coords[index], Color.White);
-                        spriteBatch.DrawString(game.mainFont, "x" + things.CurrentStack, quantityCoords[index], Color.White);
+                        spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;
                     case "Weapon":
                         spriteBatch.Draw(game.weapon, coords[index], Color.White);
-                        spriteBatch.DrawString(game.mainFont, "x" + things.CurrentStack, quantityCoords[index], Color.White);
+                        spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;
                     case "Book":
                         spriteBatch.Draw(game.book, coords[index], Color.White);
-                        spriteBatch.DrawString(game.mainFont, "x" + things.CurrentStack, quantityCoords[index], Color.White);
+                        spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;
                     case "Potion":
                         spriteBatch.Draw(game.potion, coords[index], Color.White);
-                        spriteBatch.DrawString(game.mainFont, "x" + things.CurrentStack, quantityCoords[index], Color.White);
+                        spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;
 

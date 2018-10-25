@@ -18,7 +18,6 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = false;
             MaxStack = 1;
-            CurrentStack = 0;
         }
 
         private int ValuePoints()

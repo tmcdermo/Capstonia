@@ -9,6 +9,7 @@ using Rectangle = RogueSharp.Rectangle;
 using Point = RogueSharp.Point;
 using Capstonia;
 using Capstonia.Core;
+using Capstonia.Monsters;
 
 namespace Capstonia.Systems
 {
@@ -79,6 +80,9 @@ namespace Capstonia.Systems
 
             // place player start
             PlacePlayerInStartingRoom();
+
+            // place monster on level
+            PlaceMonsters();
 
             // place exit
             SelectExitRoom();
@@ -158,14 +162,44 @@ namespace Capstonia.Systems
             // get random room as starting room
             startRoom = SelectRandomRoom();
 
-
             // give player position in center of room
             game.Player.X = startRoom.Center.X;
             game.Player.Y = startRoom.Center.Y;
 
             // add player to that room
             level.AddPlayer(game.Player);
-        
+        }
+
+        // PlaceMonsters()
+        // DESC:    Place monsters throught entire level
+        // PARAMS:  None
+        // RETURNS: None.
+        public void PlaceMonsters()
+        {
+            // startingRoomTemp = new Rectangle();
+            Point randomPoint;
+            // TODO - Add randomly
+            var numberOfMonsters = 10;
+            foreach (var room in level.Rooms)
+            {
+                for (int i = 0; i < numberOfMonsters; i++)
+                {
+                    randomPoint = GetRandomPointInRoom(room);
+
+                    //Ensures that the selected tile is walkable (i.e. not a wall or door)
+                    while (!level.IsWalkable(randomPoint.X, randomPoint.Y))
+                    {
+                        randomPoint = GetRandomPointInRoom(room);
+                    }
+                    var beholder = Beholder.Create(game, 1);
+                    beholder.X = randomPoint.X;
+                    beholder.Y = randomPoint.Y;
+
+                    beholder.Sprite = game.Content.Load<Texture2D>("beholder_deep_1");
+
+                    level.AddMonster(beholder);
+                }
+            }
         }
 
 

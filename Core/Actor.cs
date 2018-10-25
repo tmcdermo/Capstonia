@@ -40,22 +40,22 @@ namespace Capstonia.Core
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Rectangle currRoom = game.Level.GetPlayerRoom();
+            float multiplier = game.scale * game.tileSize;
+            var drawPosition = new Vector2((X - currRoom.Left) * multiplier, (Y - currRoom.Top) * multiplier);
+
             if (game.Player == this)
             {
-                Rectangle currRoom = game.Level.GetPlayerRoom();
-                float multiplier = game.scale * game.tileSize;
-
-                var drawPosition = new Vector2((X - currRoom.Left) * multiplier, (Y - currRoom.Top) * multiplier);
-
                 spriteBatch.Draw(Sprite, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
             }
             else
             {
-                // Actor is not player, only draw if in same room as player
-                //if (game.IsInRoomWithPlayer(X, Y))
-                //{
-                //    game.SetLevelCell(X, Y, ObjectType.Monster, level.GetCell(X, Y).IsExplored);
-                //}                
+                if(game.IsInRoomWithPlayer(X, Y))
+                {
+                    // should not need to render floor here
+                    //spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(Sprite, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                }
             }
         }
 

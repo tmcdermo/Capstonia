@@ -21,9 +21,6 @@ namespace Capstonia
         public Texture2D floor;
         public Texture2D wall;
         public SpriteFont mainFont;
-		
-		// container to hold the monsters
-        public List<Monster> Monsters;
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -72,7 +69,6 @@ namespace Capstonia
         /// </summary>
         protected override void Initialize()
         {
-            Monsters = new List<Monster>();
             // get seed based on current time and set up RogueSharp Random instance
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
@@ -138,14 +134,8 @@ namespace Capstonia
             Messages.Draw(spriteBatch);            
             
             Level.Draw(spriteBatch);
-			
-			// draw all of the monsters in the list
-            foreach (var monster in Monsters)
-            {
-                monster.Draw(spriteBatch);
-            }
-
             Player.Draw(spriteBatch);
+            
 
             spriteBatch.End();
 

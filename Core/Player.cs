@@ -115,11 +115,51 @@ namespace Capstonia.Core
                     game.Level.SetActorPosition(this, X + 1, Y);
                 }
             }
-            //testing numpad1
-            else if(game.currentKeyboardState.IsKeyDown(Keys.NumPad1)&&
-                    game.previousKeyboardState.IsKeyUp(Keys.NumPad1))
+            //testing numbers
+            else if(game.currentKeyboardState.IsKeyDown(Keys.D1)&&
+                    game.previousKeyboardState.IsKeyUp(Keys.D1))
             {
                 game.Inventory.UseItem(1);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D2) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D2))
+            {
+                game.Inventory.UseItem(2);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D3) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D3))
+            {
+                game.Inventory.UseItem(3);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D4) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D4))
+            {
+                game.Inventory.UseItem(4);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D5) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D5))
+            {
+                game.Inventory.UseItem(5);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D6) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D6))
+            {
+                game.Inventory.UseItem(6);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D7) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D7))
+            {
+                game.Inventory.UseItem(7);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D8) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D8))
+            {
+                game.Inventory.UseItem(8);
+            }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D9) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.D9))
+            {
+                game.Inventory.UseItem(9);
             }
 
             // save current state to previous and get ready for next move

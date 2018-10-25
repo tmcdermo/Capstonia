@@ -91,8 +91,13 @@ namespace Capstonia
             Potion drink = new Potion(this);
             Inventory.AddItem(leather);
             Inventory.AddItem(drummy);
+            Inventory.AddItem(drummy);
+            Inventory.AddItem(drink);
+            Inventory.AddItem(drink);
+            Inventory.AddItem(drummy);
             Inventory.AddItem(thingy);
             Inventory.AddItem(read);
+            Inventory.AddItem(drink);
             Inventory.AddItem(drink);
         }
 

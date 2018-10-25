@@ -29,6 +29,10 @@ namespace Capstonia.Core
         public bool Consumable { get { return consumable; } set { consumable = value; } }
         private bool isEquipped;
         public bool IsEquipped { get { return isEquipped; } set { isEquipped = value; } }
+        private int maxStack;
+        public int MaxStack { get { return maxStack; } set { maxStack = value; } }
+        private int currentStack;
+        public int CurrentStack { get { return currentStack; } set { currentStack = value; } }
 
         //IDrawable
         public int X { get; set; }
@@ -67,7 +71,7 @@ namespace Capstonia.Core
         }
 
         //Virtual function that is overridden by child classes
-        protected virtual bool UseItem()
+        public virtual bool UseItem()
         {
             return false;
         }

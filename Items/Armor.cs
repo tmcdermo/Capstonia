@@ -21,6 +21,8 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = false;
             IsEquipped = false;
+            MaxStack = 0;
+            CurrentStack = 0;
         }
 
         /// <summary>
@@ -48,13 +50,13 @@ namespace Capstonia.Items
         }
 
         //Overrides parent class function
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If armor is equipped
             AddStat();
 
             //If armor is removed
-            RemoveStat();
+            //RemoveStat();
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

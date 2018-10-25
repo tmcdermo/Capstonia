@@ -18,6 +18,8 @@ namespace Capstonia.Items
             History = "Spooky Scary Sekelton Carcass";
             Interactive = true;
             Consumable = false;
+            MaxStack = 0;
+            CurrentStack = 0;
         }
 
         private int ValuePoints()
@@ -45,7 +47,7 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If item is picked up
             AddStat();

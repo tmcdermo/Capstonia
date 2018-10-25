@@ -18,6 +18,8 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = false;
             IsEquipped = false;
+            MaxStack = 0;
+            CurrentStack = 0;
         }
 
         public override void AddStat()
@@ -40,13 +42,13 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If weapon is equipped
             AddStat();
 
             //If weapon is removed
-            RemoveStat();
+            //RemoveStat();
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

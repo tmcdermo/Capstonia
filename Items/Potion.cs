@@ -28,6 +28,8 @@ namespace Capstonia.Items
             History = "Never too early for a drink.";
             Interactive = true;
             Consumable = true;
+            MaxStack = 5;
+            CurrentStack = 0;
         }
         private Pots PotionType()
         {
@@ -77,7 +79,7 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If item is picked up
             AddStat();

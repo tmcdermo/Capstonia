@@ -33,6 +33,8 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = true;
             Genre = BookPick();
+            MaxStack = 0;
+            CurrentStack = 0;
 
         }
 
@@ -80,6 +82,19 @@ namespace Capstonia.Items
         public override void Broadcast()
         {
             game.Messages.AddMessage("Look Book!");
+        }
+
+        // UseItem()
+        // DESC:    Overrides parent class function and uses the item
+        // PARAMS:  None.
+        // RETURNS: Bool. True if item is used, False otherwise.
+        public override bool UseItem()
+        {
+            //If item is picked up
+            AddStat();
+
+            //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
+            return false;
         }
     }
 }

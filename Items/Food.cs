@@ -7,7 +7,6 @@ namespace Capstonia.Items
 {
     public class Food: Item
     {
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
 
         public Food(GameManager game): base(game)
         {
@@ -18,11 +17,12 @@ namespace Capstonia.Items
             History = "ChittyChittyBangBang";
             Interactive = true;
             Consumable = true;
+            MaxStack = 5;
         }
         
         private int ValuePoints()
         {
-            return Die.Next(10, 25); //Hunger replenish value//
+            return Capstonia.GameManager.Random.Next(10, 25); //Hunger replenish value//
         }
 
         public override void AddStat()
@@ -36,23 +36,23 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.Messages.AddMessage("Food only works if it goes in 1 way and out another.");
+            //game.Messages.AddMessage("Food only works if it goes in 1 way and out another.");
         }
 
         public override void Broadcast()
         {
             string tmp = String.Format("You found a drumstick: boosts your hunger by {0}", Value);
-            game.Messages.AddMessage("tmp");
+            game.Messages.AddMessage(tmp);
         }
 
         // UseItem()
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
-            //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Feasted on the flesh of your enemites and recovered " + Value + " health");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

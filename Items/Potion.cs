@@ -16,7 +16,6 @@ namespace Capstonia.Items
 
         private Pots brew;
         public Pots Brew { get { return brew; } set { brew = value; } }
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
 
         public Potion(GameManager game): base(game)
         {
@@ -28,11 +27,12 @@ namespace Capstonia.Items
             History = "Never too early for a drink.";
             Interactive = true;
             Consumable = true;
+            MaxStack = 5;
         }
         private Pots PotionType()
         {
             Array store = Enum.GetValues(typeof(Pots));
-            int x = Die.Next(0, store.Length - 1);
+            int x = Capstonia.GameManager.Random.Next(0, store.Length - 1);
             return (Pots)store.GetValue(x);
         }
         private int HealValue()
@@ -66,7 +66,7 @@ namespace Capstonia.Items
 
         public override void RemoveStat()
         {
-            game.Messages.AddMessage("No self hurt here.");
+            //game.Messages.AddMessage("No self hurt here.");
         }
         public override void Broadcast()
         {
@@ -77,10 +77,11 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Feasted on the blood of your enemies and recovered " + Value + " health");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

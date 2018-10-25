@@ -7,17 +7,17 @@ namespace Capstonia.Items
 {
     public class Weapon : Item
     {
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
         public Weapon(GameManager game) : base(game)
         {
             Name = "Weapon";
-            Damage = Die.Next(5, 15);
+            Damage = Capstonia.GameManager.Random.Next(5, 15);
             Defense = 0;
             Value = 0;
             History = "Close your eyes and swing it around.";
             Interactive = true;
             Consumable = false;
             IsEquipped = false;
+            MaxStack = 1;
         }
 
         public override void AddStat()
@@ -40,13 +40,11 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If weapon is equipped
             AddStat();
-
-            //If weapon is removed
-            RemoveStat();
+            game.Messages.AddMessage("Equipped weapon with +" + Damage + " damage");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

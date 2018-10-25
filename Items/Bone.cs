@@ -18,6 +18,7 @@ namespace Capstonia.Items
             History = "Spooky Scary Sekelton Carcass";
             Interactive = true;
             Consumable = false;
+            MaxStack = 1;
         }
 
         private int ValuePoints()
@@ -31,7 +32,7 @@ namespace Capstonia.Items
         }
         public override void RemoveStat()
         {
-            game.Messages.AddMessage("Losing is never fun, so not allowed.");
+            //game.Messages.AddMessage("Losing is never fun, so not allowed.");
         }
 
         public override void Broadcast()
@@ -45,10 +46,11 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Picked up " + Value + " worth of bones");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

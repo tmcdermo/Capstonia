@@ -10,7 +10,7 @@
         bool Interactive { get; set; } // usable or not
         bool Consumable { get; set; } // i.e. potions/food
         bool IsEquipped { get; set; } // Sets whether or not armor or weapon is equipped
-
+        int MaxStack { get; set;  }  //max amount that can be stacked
         bool Use();
     }
 }

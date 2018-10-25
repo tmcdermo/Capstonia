@@ -10,17 +10,18 @@ namespace Capstonia.Items
     /// </summary>
     public class Armor: Item
     {
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
+        
         public Armor(GameManager game): base(game)
         {
             Name = "Armor";
-            Damage = Die.Next(0,2);
-            Defense = Die.Next(1,5);
+            Damage = Capstonia.GameManager.Random.Next(2);
+            Defense = Capstonia.GameManager.Random.Next(1,5);
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
             Interactive = true;
             Consumable = false;
             IsEquipped = false;
+            MaxStack = 1;
         }
 
         /// <summary>
@@ -48,13 +49,12 @@ namespace Capstonia.Items
         }
 
         //Overrides parent class function
-        protected override bool UseItem()
+        public override bool UseItem()
         {
-            //If armor is equipped
+            //Add damage and defense values and dipslay on message log
             AddStat();
+            game.Messages.AddMessage("Equipped armor with +" + Damage + " damage and +" + Defense + " defense");
 
-            //If armor is removed
-            RemoveStat();
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

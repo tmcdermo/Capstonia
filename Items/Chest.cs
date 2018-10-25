@@ -18,6 +18,7 @@ namespace Capstonia.Items
             History = "PennyPincher";
             Interactive = true;
             Consumable = false;
+            MaxStack = 1;
         }
 
         private int ValuePoints()
@@ -45,10 +46,11 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        protected override bool UseItem()
+        public override bool UseItem()
         {
             //If item is picked up
             AddStat();
+            game.Messages.AddMessage("Found a chest with " + Value + " value");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

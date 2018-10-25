@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using Capstonia.Systems;
 using Capstonia.Core;
+using Capstonia.Items;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Capstonia
 {
@@ -41,6 +43,19 @@ namespace Capstonia
         public int mapLevel = 1;
         public readonly int tileSize = 48;
         public float scale = 1.0f;
+        
+        //Inventory Testing//
+        public InventorySystem Inventory;
+        public Rectangle inventoryScreen;
+        public Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
+        public Texture2D armor;
+        public Texture2D food;
+        public Texture2D weapon;
+        public Texture2D potion;
+        public Texture2D book;
+        public Texture2D gem;
+        public Texture2D Outline;
+        ///////////////////////
 
         private bool renderRequired = true;
        
@@ -62,6 +77,44 @@ namespace Capstonia
 
             // Player provided commands
             CommandSystem = new CommandSystem(this);
+
+            //Create Inventory for player
+            Inventory = new InventorySystem(this);
+            inventoryScreen = new Rectangle(200, 100, 1200, 0);   //Height, Width, X, Y
+
+        }
+
+        private void testInventSystem()
+        {
+            //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
+            //inventoryScreen = new Texture2D(graphics.GraphicsDevice, 200, 100);
+            //inventoryScreen.SetData(new[] { Color.White });
+
+            //Testing manual inventory
+            Armor leather = new Armor(this);
+            Armor leather2 = new Armor(this);
+            Food drummy = new Food(this);
+            Food drummy2 = new Food(this);
+            Food drummy3 = new Food(this);
+            Weapon thingy = new Weapon(this);
+            Weapon thingy2 = new Weapon(this);
+            Book read = new Book(this);
+            Potion drink = new Potion(this);
+            Potion drink2 = new Potion(this);
+            Potion drink3 = new Potion(this);
+            Potion drink4 = new Potion(this);
+            Inventory.AddItem(leather);
+            Inventory.AddItem(leather2);
+            Inventory.AddItem(drink);
+            Inventory.AddItem(drink2);
+            Inventory.AddItem(drummy);
+            Inventory.AddItem(thingy);
+            Inventory.AddItem(drink3);
+            Inventory.AddItem(drink4);
+            Inventory.AddItem(drummy2);
+            Inventory.AddItem(read);
+            Inventory.AddItem(drummy3);
+            Inventory.AddItem(thingy2);
         }
 
         /// <summary>
@@ -76,8 +129,10 @@ namespace Capstonia
             // get seed based on current time and set up RogueSharp Random instance
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
-
+            //https://stackoverflow.com/questions/22535699/mouse-cursor-is-not-showing-in-windows-store-game-developing-using-monogame
+            this.IsMouseVisible = true;
             GenerateLevel();
+            testInventSystem();
 
             base.Initialize();
         }
@@ -94,7 +149,19 @@ namespace Capstonia
             floor = Content.Load<Texture2D>("floor_extra_12");
             wall = Content.Load<Texture2D>("wall_stone_11");
 
-            mainFont = Content.Load<SpriteFont>("MainFont");           
+            mainFont = Content.Load<SpriteFont>("MainFont");
+
+            //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
+            emptyTexture = new Texture2D(GraphicsDevice, 1, 1);
+            emptyTexture.SetData(new[] { Color.White });
+
+            armor = Content.Load<Texture2D>("armor");
+            food = Content.Load<Texture2D>("drumstick");
+            weapon = Content.Load<Texture2D>("weapon");
+            potion = Content.Load<Texture2D>("potion") ;
+            book = Content.Load<Texture2D>("book"); ;
+            Outline = Content.Load<Texture2D>("inventory_gui");
+
         }
 
         /// <summary>
@@ -137,8 +204,8 @@ namespace Capstonia
             // spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Begin();
 
-            Messages.Draw(spriteBatch);            
-            
+            Inventory.Draw(spriteBatch);
+            Messages.Draw(spriteBatch);
             Level.Draw(spriteBatch);
 			
 			// draw all of the monsters in the list

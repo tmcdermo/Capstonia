@@ -132,11 +132,9 @@ namespace Capstonia
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // making the spriteBatch.begin(...) change below should fix the
-            // rendering issues where layers would randomly render out of order
-            // spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
+            
             Messages.Draw(spriteBatch);            
             
             Level.Draw(spriteBatch);

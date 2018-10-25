@@ -53,14 +53,19 @@ namespace Capstonia.Core
                     else
                     {
                         bool monsterPresent = false;
-                        var localMonster = new Monster(game);
+                        // loop through all monsters
                         foreach (var monster in game.Monsters)
                         {
-                            if (monster.X == x && monster.Y == y) 
+                            // check if monsters are in room with player
+                            if (game.IsInRoomWithPlayer(monster.X, monster.Y))
                             {
-                                localMonster = monster;
-                                monsterPresent = true;
-                                break;
+                                // if monster is on the tile, render floor instead of wall
+                                if (monster.X == x && monster.Y == y)
+                                {
+                                    spriteBatch.Draw(game.floor, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
+                                    monsterPresent = true;
+                                    break;
+                                }
                             }
                         }
                         if (!monsterPresent)

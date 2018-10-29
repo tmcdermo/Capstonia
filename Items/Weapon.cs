@@ -18,6 +18,7 @@ namespace Capstonia.Items
             Consumable = false;
             IsEquipped = false;
             MaxStack = 1;
+            Sprite = game.weapon;
         }
 
         public override void AddStat()

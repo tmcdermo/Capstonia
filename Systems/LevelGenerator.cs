@@ -10,6 +10,9 @@ using Point = RogueSharp.Point;
 using Capstonia;
 using Capstonia.Core;
 using Capstonia.Monsters;
+using Capstonia.Items;
+using System;
+using System.Diagnostics;
 
 namespace Capstonia.Systems
 {
@@ -81,8 +84,11 @@ namespace Capstonia.Systems
             // place player start
             PlacePlayerInStartingRoom();
 
-            // place monster on level
+            // place monsters on level
             PlaceMonsters();
+
+            // place items on level
+            PlaceItems();
 
             // place exit
             SelectExitRoom();
@@ -153,12 +159,12 @@ namespace Capstonia.Systems
         {
             // if this is the first Level, Player is not yet instantiated
             // so here we check to see if it exists, if not, we create the object
-            if(game.Player == null)
-            {
-                Player player = new Player(game);
-                player.Sprite = game.Content.Load<Texture2D>("dknight_1");
-                game.Player = player;
-            }
+            //if(game.Player == null)
+            //{
+            //    Player player = new Player(game);
+            //    player.Sprite = game.Content.Load<Texture2D>("dknight_1");
+            //    game.Player = player;
+            //}
 
             // get random room as starting room
             startRoom = SelectRandomRoom();
@@ -172,17 +178,17 @@ namespace Capstonia.Systems
         }
 
         // PlaceMonsters()
-        // DESC:    Place monsters throught entire level
+        // DESC:    Place monsters throughout entire level
         // PARAMS:  None
         // RETURNS: None.
         public void PlaceMonsters()
         {
             // startingRoomTemp = new Rectangle();
             Point randomPoint;
-            // TODO - Add randomly
-            var numberOfMonsters = 10;
+        
             foreach (var room in level.Rooms)
             {
+                var numberOfMonsters = GameManager.Random.Next(0,3);
                 for (int i = 0; i < numberOfMonsters; i++)
                 {
                     randomPoint = GetRandomPointInRoom(room);
@@ -192,17 +198,57 @@ namespace Capstonia.Systems
                     {
                         randomPoint = GetRandomPointInRoom(room);
                     }
-                    var beholder = Beholder.Create(game, 1);
-                    beholder.X = randomPoint.X;
-                    beholder.Y = randomPoint.Y;
+                   
+                    MonsterType monsterIndex;
+                    Monster monster;
+                    do {
+                        monsterIndex = (MonsterType)GameManager.Random.Next(0, Enum.GetNames(typeof(MonsterType)).Length - 1);
+                        monster = GetMonster(monsterIndex);
+                    } while (monster.MinLevel > game.mapLevel || monster.MaxLevel < game.mapLevel);
 
-                    beholder.Sprite = game.Content.Load<Texture2D>("beholder_deep_1");
+                    monster.X = randomPoint.X;
+                    monster.Y = randomPoint.Y;
 
-                    level.AddMonster(beholder);
+                    level.AddMonster(monster);
                 }
             }
         }
 
+        // PlaceItems()
+        // DESC:    Place items throughout entire level
+        // PARAMS:  None
+        // RETURNS: None.
+        public void PlaceItems()
+        {            
+            Point randomPoint;
+           
+            var numberOfItems = GameManager.Random.Next(0,2);
+            foreach (var room in level.Rooms)
+            {
+                for (int i = 0; i < numberOfItems; i++)
+                {
+                    randomPoint = GetRandomPointInRoom(room);
+
+                    //Ensures that the selected tile is walkable (i.e. not a wall or door)
+                    while (!level.IsWalkable(randomPoint.X, randomPoint.Y))
+                    {
+                        randomPoint = GetRandomPointInRoom(room);
+                    }
+
+                    // choose random item to spawn
+                    ItemType itemIndex;
+                    Item item;
+
+                    itemIndex = (ItemType)GameManager.Random.Next(0, Enum.GetNames(typeof(ItemType)).Length - 1);
+                    item = GetItem(itemIndex);
+                    
+                    item.X = randomPoint.X;
+                    item.Y = randomPoint.Y;
+
+                    level.AddItem(item);
+                }
+            }
+        }
 
         // SelectExitRoom()
         // DESC:    Selects a random room that is not the starting room as the exit room.
@@ -416,6 +462,50 @@ namespace Capstonia.Systems
                 }                
 
             }
+        }
+
+        Monster GetMonster(MonsterType monsterType)
+        {
+            switch (monsterType)
+            {
+                case MonsterType.Beholder:
+                    return new Beholder(game);
+
+            }
+
+            // should never hit this
+            return null;
+        }
+
+        Item GetItem(ItemType itemType)
+        {
+            switch (itemType)
+            {
+                case ItemType.Armor:
+                    return new Armor(game);
+                //case ItemType.Bone:
+                //    return new Bone(game);
+                case ItemType.Book:
+                    return new Book(game);
+                //case ItemType.Chest:
+                //    return new Chest(game);
+                case ItemType.Food:
+                    return new Food(game);
+                //case ItemType.Gem:
+                //    return new Gem(game);
+                case ItemType.Potion:
+                    return new Potion(game);
+                //case ItemType.Ring:
+                //    return new Ring(game);
+                //case ItemType.Skull:
+                //    return new Skull(game);
+                case ItemType.Weapon:
+                    return new Weapon(game);
+
+            }
+
+            // should never hit this
+            return null;
         }
 
     }

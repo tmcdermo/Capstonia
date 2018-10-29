@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Capstonia.Systems;
 using Capstonia.Core;
 using Capstonia.Items;
+using Capstonia.Monsters;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Capstonia
@@ -17,24 +18,6 @@ namespace Capstonia
     /// </summary>
     public class GameManager : Game
     {
-        // MonoGame Specific Declarations
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        public Texture2D floor;
-        public Texture2D wall;
-        public SpriteFont mainFont;
-		
-		// container to hold the monsters
-        public List<Monster> Monsters;
-
-        // RogueSharp Specific Declarations
-        public static IRandom Random { get; private set; }
-        public Player Player { get; set; }
-        public LevelGrid Level { get; private set; }
-        public MessageLog Messages { get; set; }
-        public CommandSystem CommandSystem;
-
-
         // Game Variable Declarations
         public readonly int levelWidth = 70;
         public readonly int levelHeight = 70;
@@ -43,21 +26,43 @@ namespace Capstonia
         public int mapLevel = 1;
         public readonly int tileSize = 48;
         public float scale = 1.0f;
-        
-        //Inventory Testing//
-        public InventorySystem Inventory;
-        public Rectangle inventoryScreen;
-        public Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
+
+        // RogueSharp Specific Declarations
+        public static IRandom Random { get; private set; }
+        public Player Player { get; set; }
+        public LevelGrid Level { get; private set; }
+        public MessageLog Messages { get; set; }
+        public CommandSystem CommandSystem;
+
+        // MonoGame Specific Declarations
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+        public Texture2D floor;
+        public Texture2D wall;
+        public Texture2D exit;
+        public SpriteFont mainFont;
+
+        // Items
         public Texture2D armor;
         public Texture2D food;
         public Texture2D weapon;
         public Texture2D potion;
         public Texture2D book;
         public Texture2D gem;
-        public Texture2D Outline;
-        ///////////////////////
 
-        private bool renderRequired = true;
+        // Monsters
+        public Texture2D beholder;
+
+
+        // containers
+        public List<Monster> Monsters;
+        public List<Item> Items;
+        
+        //Inventory //
+        public InventorySystem Inventory;
+        public Rectangle inventoryScreen;
+        public Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
+        public Texture2D Outline;
        
 
         // track keyboard state (i.e. capture key presses)
@@ -71,6 +76,8 @@ namespace Capstonia
             graphics.PreferredBackBufferWidth = 1000;
             graphics.PreferredBackBufferHeight = 830;
             Content.RootDirectory = "Content";
+
+            Player = new Player(this);
 
             //link the messageLog and game instance
             Messages = new MessageLog(this);
@@ -125,14 +132,16 @@ namespace Capstonia
         /// </summary>
         protected override void Initialize()
         {
+            // initialize lists
             Monsters = new List<Monster>();
+            Items = new List<Item>();
+
             // get seed based on current time and set up RogueSharp Random instance
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
+
             //https://stackoverflow.com/questions/22535699/mouse-cursor-is-not-showing-in-windows-store-game-developing-using-monogame
             this.IsMouseVisible = true;
-            GenerateLevel();
-            testInventSystem();
 
             base.Initialize();
         }
@@ -146,21 +155,34 @@ namespace Capstonia
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // load level textures
             floor = Content.Load<Texture2D>("floor_extra_12");
             wall = Content.Load<Texture2D>("wall_stone_11");
+            exit = Content.Load<Texture2D>("floor_set_grey_8");
+            
+            // load item textures
+            armor = Content.Load<Texture2D>("armor");
+            food = Content.Load<Texture2D>("drumstick");
+            weapon = Content.Load<Texture2D>("weapon");
+            potion = Content.Load<Texture2D>("potion");
+            book = Content.Load<Texture2D>("book");
 
+            // load gui textures
+            Outline = Content.Load<Texture2D>("inventory_gui");
+
+            // load actor textures
+            Player.Sprite = Content.Load<Texture2D>("dknight_1");
+            beholder = Content.Load<Texture2D>("beholder_deep_1");
+
+            // load fonts
             mainFont = Content.Load<SpriteFont>("MainFont");
 
             //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
             emptyTexture = new Texture2D(GraphicsDevice, 1, 1);
             emptyTexture.SetData(new[] { Color.White });
 
-            armor = Content.Load<Texture2D>("armor");
-            food = Content.Load<Texture2D>("drumstick");
-            weapon = Content.Load<Texture2D>("weapon");
-            potion = Content.Load<Texture2D>("potion") ;
-            book = Content.Load<Texture2D>("book"); ;
-            Outline = Content.Load<Texture2D>("inventory_gui");
+            GenerateLevel();
+            testInventSystem();
 
         }
 
@@ -207,11 +229,17 @@ namespace Capstonia
             Inventory.Draw(spriteBatch);
             Messages.Draw(spriteBatch);
             Level.Draw(spriteBatch);
-			
-			// draw all of the monsters in the list
+
+            // draw all of the monsters in the list
             foreach (var monster in Monsters)
             {
                 monster.Draw(spriteBatch);
+            }
+
+            // draw all of the items in the list
+            foreach(var item in Items)
+            {
+                item.Draw(spriteBatch);
             }
 
             Player.Draw(spriteBatch);

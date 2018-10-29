@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Capstonia.Interfaces;
 using RogueSharp;
+using IDrawable = Capstonia.Interfaces.IDrawable;
+using Rectangle = RogueSharp.Rectangle;
 
 namespace Capstonia.Core
 {
-    public class Item : IItem,IDrawable
+    public class Item : IItem, IDrawable
     {
         //IItems Interface
         /// <summary>
@@ -40,6 +44,8 @@ namespace Capstonia.Core
 
         protected GameManager game;
 
+        public Texture2D Sprite { get; set; }
+
         public  Item(GameManager instance)
         {
             game = instance;
@@ -53,13 +59,16 @@ namespace Capstonia.Core
         public virtual void AddStat() { }
         public virtual void RemoveStat() { }
         public virtual void Broadcast() { }
-        public void Draw(IMap Level)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            //Implement this flow later
             //Only draw if item is in same room as player
             if (game.IsInRoomWithPlayer(X, Y))
             {
-                game.SetLevelCell(X, Y, ObjectType.Item, Level.GetCell(X, Y).IsExplored);
+                Rectangle currRoom = game.Level.GetPlayerRoom();
+                float multiplier = game.scale * game.tileSize;
+                var drawPosition = new Vector2((X - currRoom.Left) * multiplier, (Y - currRoom.Top) * multiplier);
+
+                spriteBatch.Draw(Sprite, drawPosition, null, Color.White, 0f, Vector2.Zero, game.scale, SpriteEffects.None, 0f);
             }
         }
 

@@ -34,6 +34,7 @@ namespace Capstonia.Items
             Consumable = true;
             Genre = BookPick();
             MaxStack = 1;
+            Sprite = game.book;
 
         }
 

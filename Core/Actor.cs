@@ -29,6 +29,7 @@ namespace Capstonia.Core
         // IDrawable
         public int X { get; set; }
         public int Y { get; set; }
+
         public Texture2D Sprite { get; set; }
 
         protected GameManager game;

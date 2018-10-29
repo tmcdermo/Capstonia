@@ -75,7 +75,8 @@ namespace Capstonia.Core
                     }
                 }
             }
-            //Exit.Draw(this);
+
+            LevelExit.Draw(spriteBatch);
         }
 
         // OldDraw()
@@ -116,24 +117,33 @@ namespace Capstonia.Core
 
         // AddMonster()
         // DESC:    Add Monster to game.
-        // PARAMS:  None.
+        // PARAMS:  Monster to add
         // RETURNS: None.
         public void AddMonster(Monster monster)
         {
-
             // make sure to flag monster location as not walkable
             SetIsWalkable(monster.X, monster.Y, false);
             // add monster to monster container
             game.Monsters.Add(monster);
         }
 
-    // SetActorPosition(...)
-    // DESC:    Place actor on level.     
-    // PARAMS:  An Actor instance and the x, y coordinates for where the
-    //          Actor should be placed on the level.
-    // RETURNS: Returns a Boolean.  True = succesful placement; 
-    //          False = failure to place on level.
-    public bool SetActorPosition(Actor actor, int x, int y)
+        // AddItem()
+        // DESC:    Add Item to game.
+        // PARAMS:  Item to add
+        // RETURNS: None.
+        public void AddItem(Item item)
+        {
+            // add item to item container
+            game.Items.Add(item);
+        }
+
+        // SetActorPosition(...)
+        // DESC:    Place actor on level.     
+        // PARAMS:  An Actor instance and the x, y coordinates for where the
+        //          Actor should be placed on the level.
+        // RETURNS: Returns a Boolean.  True = succesful placement; 
+        //          False = failure to place on level.
+        public bool SetActorPosition(Actor actor, int x, int y)
         {
             // Only place Actor if Cell is walkable
             if (GetCell(x, y).IsWalkable)

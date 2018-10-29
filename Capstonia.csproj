@@ -49,6 +49,8 @@
     <Compile Include="Core\Exit.cs" />
     <Compile Include="Core\Item.cs" />
     <Compile Include="Core\LevelGrid.cs" />
+    <Compile Include="Core\MonsterType.cs" />
+    <Compile Include="Core\ItemType.cs" />
     <Compile Include="Core\ObjectType.cs" />
     <Compile Include="Core\Player.cs" />
     <Compile Include="GameManager.cs" />
@@ -150,9 +152,7 @@
     <Content Include="Content\floor_set_grey_8.png" />
     <Content Include="Content\wall_stone_11.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Monsters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

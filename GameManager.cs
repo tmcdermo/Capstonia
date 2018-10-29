@@ -209,6 +209,12 @@ namespace Capstonia
             // move player
             Player.Move();
 
+            //move Monsters
+            foreach( Monster enemy in Monsters)
+            {
+                enemy.Move();
+            }
+
             // update game state
             base.Update(gameTime);
         }

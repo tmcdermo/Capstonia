@@ -3,6 +3,17 @@ using Capstonia.Monsters;
 
 namespace Capstonia.Core
 {
+    enum MonsterDirection
+    {
+        North,
+        NorthEast,
+        East,
+        SouthEast,
+        South,
+        SouthWest,
+        West,
+        NorthWest
+    }
     public class Monster : Actor
     {
         public int MinLevel { get; set; }
@@ -21,5 +32,22 @@ namespace Capstonia.Core
             MinLevel = 1;
             MaxLevel = 3;
         }
+
+        //Draw
+        public virtual void Move() { }
+        protected virtual void randomizedMovement() { }
+        protected virtual void targetBased() { }
+        protected virtual bool CanAttack() { return false; }
+        protected virtual void moveCases(int switchCase) { }
+        protected virtual void MoveNorth() { }
+        protected virtual void MoveNorthEast() { }
+        protected virtual void MoveEast() { }
+        protected virtual void MoveSouthEast() { }
+        protected virtual void MoveSouth() { }
+        protected virtual void MoveSouthWest() { }
+        protected virtual void MoveWest() { }
+        protected virtual void MoveNorthWest() { }
+
+
     }
 }

@@ -8,6 +8,8 @@ namespace Capstonia.Monsters
 {
     public class Beholder : Monster
     {
+        int oldPlayerX;
+        int oldPlayerY;
         // constructor
         public Beholder(GameManager game) : base(game)
         {
@@ -28,6 +30,8 @@ namespace Capstonia.Monsters
             MinLevel = 1;
             MaxLevel = 3;
             Sprite = game.beholder;
+            oldPlayerX = game.Player.X;
+            oldPlayerY = game.Player.Y;
             
         }
 
@@ -42,16 +46,22 @@ namespace Capstonia.Monsters
             //Randomized - when not in same room
 
             //Target Based - In room + Aggro'd
+            if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY)
+            {
+                if (game.IsInRoomWithPlayer(this.X, this.Y))
+                {
+                    targetBased();
+                }
+                else
+                {
+                    // not in same room
+                    randomizedMovement();
+                }
+                oldPlayerX = game.Player.X;
+                oldPlayerY = game.Player.Y;
 
-            if (game.IsInRoomWithPlayer(this.X, this.Y))
-            {
-                targetBased();
             }
-            else
-            {
-                // not in same room
-                randomizedMovement();
-            }
+
         }
 
         protected override void randomizedMovement()
@@ -103,6 +113,10 @@ namespace Capstonia.Monsters
                 }
             } while (!game.Level.IsWalkable(newX,newY)); // This is assuming that door// hall tiles are set appropriately
                                                          // Under "PlaceMonster in LevelGen" comment ensures that isWalkAble == not door or wall
+            game.Level.SetIsWalkable(this.X, this.Y, true);
+            this.X = newX;
+            this.Y = newY;
+            game.Level.SetIsWalkable(this.X, this.Y, false);
         }
         protected override void targetBased()
         {
@@ -113,6 +127,7 @@ namespace Capstonia.Monsters
             Rectangle monsterRadius = new Rectangle(this.X - 4, this.Y - 4, 8, 8);
             //same room with player && with-in radius
 
+            game.Messages.AddMessage(String.Format("Before X : {0} Y: {1}", this.X, this.Y));
             bool aggro = monsterRadius.Contains(playerPosX, playerPosY);
             if (!aggro)
             {
@@ -136,48 +151,88 @@ namespace Capstonia.Monsters
                     //Check L / R of player vs monster position
                     if ( linearX || linearY)
                     {
-                        
+
                         if (linearX)
                         {
-                            if (isRight)
-                                MoveEast();
+                            if (isTop)
+                            {
+                                fixPos(this.X, this.Y, true);
+                                MoveNorth();
+                                fixPos(this.X, this.Y, false);
+                            }
                             else
-                                MoveWest();
+                            {
+                                fixPos(this.X, this.Y, true);
+                                MoveSouth();
+                                fixPos(this.X, this.Y, false);
+
+                            }
                         }
                         else
                         {
-                            if (isTop)
-                                MoveNorth();
+                            if (isRight)
+                            {
+                                fixPos(this.X, this.Y, true);
+                                MoveEast();
+                                fixPos(this.X, this.Y, false);
+
+                            }
                             else
-                                MoveSouth();
+                            {
+                                fixPos(this.X, this.Y, true);
+                                MoveWest();
+                                fixPos(this.X, this.Y, false);
+                            }
                         }
                     }
                     else
                     {
-                        if ( isTop && isRight)
+                        if (isTop && isRight)
                         {
-                            movement = Capstonia.GameManager.Random.Next(0, 2);
+                            fixPos(this.X, this.Y, true);
+                            do
+                            {
+                                movement = Capstonia.GameManager.Random.Next(0, 2);
+                                moveCases(movement);
+                            } while (!game.Level.IsWalkable(this.X, this.Y));
+                            fixPos(this.X, this.Y, false);
                         }
-                        else if( isTop && !isRight)
+                        else if (isTop && !isRight)
                         {
-                            movement = Capstonia.GameManager.Random.Next(2, 4);
+                            fixPos(this.X, this.Y, true);
+                            do
+                            {
+                                movement = Capstonia.GameManager.Random.Next(6, 8);
+                                if (movement == 8)
+                                {
+                                    movement = 0;
+                                }
+                                moveCases(movement);
+                            } while (!game.Level.IsWalkable(this.X, this.Y));
+                            fixPos(this.X, this.Y, false);
                         }
-                        else  if(!isTop && isRight)
+                        else if (!isTop && isRight)
                         {
-                            movement = Capstonia.GameManager.Random.Next(4, 6);
+                            fixPos(this.X, this.Y, true);
+                            do
+                            {
+                                movement = Capstonia.GameManager.Random.Next(2, 4);
+                                moveCases(movement);
+                            } while (!game.Level.IsWalkable(this.X, this.Y));
+                            fixPos(this.X, this.Y, false);
                         }
-                        else if(!isTop && !isRight)
+                        else if (!isTop && !isRight)
                         {
-                            
-                            movement = Capstonia.GameManager.Random.Next(6, 8);
-                            if (movement == 8)
-                                movement = 0;
-                            
-                        }
 
-                        moveCases(movement);
+                            fixPos(this.X, this.Y, true);
+                            do
+                            {
+                                movement = Capstonia.GameManager.Random.Next(4, 6);
+                                moveCases(movement);
+                            } while (!game.Level.IsWalkable(this.X, this.Y));
+                            fixPos(this.X, this.Y, false);
 
-
+                        }
                     }
                 }
                 // Player above or below 
@@ -186,7 +241,9 @@ namespace Capstonia.Monsters
                 // CHECK being == if trying to move into cell with player
                 // do no movement update but attack instead
             }
+            game.Messages.AddMessage(String.Format("After X : {0} Y: {1}", this.X, this.Y));
         }
+
         
         private bool linearXCheck()
         {
@@ -220,36 +277,36 @@ namespace Capstonia.Monsters
 
         protected override void moveCases(int switchCase)
         {
-            switch (switchCase)
-            {
-                case -1:
-                    game.Messages.AddMessage("Shouldn't be seeing this in moveCases");
-                    break;
-                case (int) MonsterDirection.North:
-                    MoveNorth();
-                    break;
-                case (int)MonsterDirection.NorthEast:
-                    MoveNorthEast();
-                    break;
-                case (int)MonsterDirection.East:
-                    MoveEast();
-                    break;
-                case (int)MonsterDirection.SouthEast:
-                    MoveSouthEast();
-                    break;
-                case (int)MonsterDirection.South:
-                    MoveSouth();
-                    break;
-                case (int)MonsterDirection.SouthWest:
-                    MoveSouthWest();
-                    break;
-                case (int)MonsterDirection.West:
-                    MoveWest();
-                    break;
-                case (int)MonsterDirection.NorthWest:
-                    MoveNorthWest();
-                    break;
-            }
+                switch (switchCase)
+                {
+                    case -1:
+                        game.Messages.AddMessage("Shouldn't be seeing this in moveCases");
+                        break;
+                    case (int)MonsterDirection.North:
+                        MoveNorth();
+                        break;
+                    case (int)MonsterDirection.NorthEast:
+                        MoveNorthEast();
+                        break;
+                    case (int)MonsterDirection.East:
+                        MoveEast();
+                        break;
+                    case (int)MonsterDirection.SouthEast:
+                        MoveSouthEast();
+                        break;
+                    case (int)MonsterDirection.South:
+                        MoveSouth();
+                        break;
+                    case (int)MonsterDirection.SouthWest:
+                        MoveSouthWest();
+                        break;
+                    case (int)MonsterDirection.West:
+                        MoveWest();
+                        break;
+                    case (int)MonsterDirection.NorthWest:
+                        MoveNorthWest();
+                        break;
+                }
         }
         protected override void MoveNorth()
         {
@@ -286,6 +343,11 @@ namespace Capstonia.Monsters
         {
             this.Y -= 1;
             this.X -= 1;
+        }
+
+        private void fixPos(int x, int y,bool status)
+        {
+            game.Level.SetIsWalkable(x , y, status);
         }
 
 

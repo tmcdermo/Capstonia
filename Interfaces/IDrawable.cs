@@ -1,4 +1,6 @@
 ﻿using RogueSharp;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Capstonia.Interfaces
 {
@@ -8,6 +10,6 @@ namespace Capstonia.Interfaces
         int Y { get; set; }
         float Scale { get; set; }
 
-        void Draw(IMap level);
+        void Draw(SpriteBatch spriteBatch);
     }
 }

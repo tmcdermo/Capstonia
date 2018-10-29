@@ -18,6 +18,7 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = false;
             MaxStack = 1;
+            //Sprite = game.ring;
         }
 
         private int ValuePoints()

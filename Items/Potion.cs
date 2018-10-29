@@ -28,6 +28,7 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = true;
             MaxStack = 5;
+            Sprite = game.potion;
         }
         private Pots PotionType()
         {

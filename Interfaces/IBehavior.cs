@@ -5,7 +5,6 @@ namespace Capstonia.Interfaces
     public interface IBehavior
     {
         void Move();
-        void randomizedMovement();
         void targetBased();
         bool CanAttack();
         void moveCases(int switchCase);

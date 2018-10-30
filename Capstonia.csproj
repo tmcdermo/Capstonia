@@ -49,6 +49,7 @@
     <Compile Include="Core\Exit.cs" />
     <Compile Include="Core\Item.cs" />
     <Compile Include="Core\LevelGrid.cs" />
+    <Compile Include="Core\MonsterCommands.cs" />
     <Compile Include="Core\MonsterType.cs" />
     <Compile Include="Core\ItemType.cs" />
     <Compile Include="Core\ObjectType.cs" />

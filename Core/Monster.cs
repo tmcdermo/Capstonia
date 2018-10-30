@@ -35,7 +35,7 @@ namespace Capstonia.Core
         // DESC: Checks for "IsInRoomWithPlayer" and either moves randomly or target movement towards player
         // PARAMS:None
         // RETURNS: None
-        void Move()
+        public void Move()
         {
             //Target Based - In room
             if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY)
@@ -53,7 +53,7 @@ namespace Capstonia.Core
         }
 
 
-        void targetBased()
+        public void targetBased()
         {
             int playerPosX = game.Player.X;
             int playerPosY = game.Player.Y;
@@ -117,6 +117,7 @@ namespace Capstonia.Core
                     if (isTop && isRight)
                     {
                         fixPos(this.X, this.Y, true);
+
                         do
                         {
                             movement = Capstonia.GameManager.Random.Next(0, 2);
@@ -171,23 +172,23 @@ namespace Capstonia.Core
         }
 
         
-        bool linearXCheck()
+        public bool linearXCheck()
         {
             return (this.X == game.Player.X);
         }
-        bool linearYCheck()
+        public bool linearYCheck()
         {
             return (this.Y == game.Player.Y);
         }
-        bool topCheck()
+        public bool topCheck()
         {
             return (this.Y > game.Player.Y);
         }
-        bool rightCheck()
+        public bool rightCheck()
         {
             return (this.X < game.Player.X);
         }
-        bool CanAttack()
+        public bool CanAttack()
         {
             int playerPosX = game.Player.X;
             int playerPosY = game.Player.Y;
@@ -201,7 +202,7 @@ namespace Capstonia.Core
             return false;
         }
 
-        void moveCases(int switchCase)
+        public void moveCases(int switchCase)
         {
                 switch (switchCase)
                 {
@@ -234,44 +235,44 @@ namespace Capstonia.Core
                         break;
                 }
         }
-        void MoveNorth()
+        public void MoveNorth()
         {
             this.Y -= 1;
         }
-        void MoveNorthEast()
+        public void MoveNorthEast()
         {
             this.Y -= 1;
             this.X += 1;
         }
-        void MoveEast()
+        public void MoveEast()
         {
             this.X += 1;
         }
-        void MoveSouthEast()
+        public void MoveSouthEast()
         {
             this.Y += 1;
             this.X += 1;
         }
-        void MoveSouth()
+        public void MoveSouth()
         {
             this.Y += 1;
         }
-        void MoveSouthWest()
+        public void MoveSouthWest()
         {
             this.Y += 1;
             this.X -= 1;
         }
-        void MoveWest()
+        public void MoveWest()
         {
             this.X -= 1;
         }
-        void MoveNorthWest()
+        public void MoveNorthWest()
         {
             this.Y -= 1;
             this.X -= 1;
         }
 
-        void fixPos(int x, int y,bool status)
+        public void fixPos(int x, int y,bool status)
         {
             game.Level.SetIsWalkable(x , y, status);
         }

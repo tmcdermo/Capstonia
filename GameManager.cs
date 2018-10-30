@@ -33,6 +33,7 @@ namespace Capstonia
         public LevelGrid Level { get; private set; }
         public MessageLog Messages { get; set; }
         public CommandSystem CommandSystem;
+        public PathFinder GlobalPositionSystem;
 
         // MonoGame Specific Declarations
         GraphicsDeviceManager graphics;
@@ -52,7 +53,7 @@ namespace Capstonia
 
         // Monsters
         public Texture2D beholder;
-
+        
 
         // containers
         public List<Monster> Monsters;

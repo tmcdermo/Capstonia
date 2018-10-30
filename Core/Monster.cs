@@ -3,6 +3,8 @@ using Capstonia.Interfaces;
 using Capstonia.Monsters;
 using System;
 using Rectangle = RogueSharp.Rectangle;
+using Path = RogueSharp.Path;
+using ICell = RogueSharp.ICell;
 
 namespace Capstonia.Core
 {
@@ -12,6 +14,7 @@ namespace Capstonia.Core
         //Used for preventing too many updates per second
         int oldPlayerX;
         int oldPlayerY;
+        Path instructions;
 
         public int MinLevel { get; set; }
         public int MaxLevel { get; set; }
@@ -28,6 +31,8 @@ namespace Capstonia.Core
             Strength = 10;  // every point above 10 gives a dmg bonus
             MinLevel = 1;
             MaxLevel = 3;
+            oldPlayerX = game.Player.X;
+            oldPlayerY = game.Player.Y;
         }
 
         //Draw
@@ -42,7 +47,8 @@ namespace Capstonia.Core
             {
                 if (game.IsInRoomWithPlayer(this.X, this.Y))
                 {
-                    targetBased();
+                    //targetBased();
+                    testPF();
                 }
 
                 oldPlayerX = game.Player.X;
@@ -52,6 +58,43 @@ namespace Capstonia.Core
 
         }
 
+        public void testPF()
+        {
+
+            ICell MonsterCell = game.Level.GetCell(X,Y); // current cell
+            ICell PlayerCell = game.Level.GetCell(game.Player.X, game.Player.Y); // target cell
+            fixPos(X, Y, true);
+            fixPos(PlayerCell.X, PlayerCell.Y, true);
+            RogueSharp.PathFinder diffPath = new RogueSharp.PathFinder(game.Level, 1.41);
+            fixPos(X, Y, false);
+            fixPos(PlayerCell.X, PlayerCell.Y, false);
+            instructions = diffPath.ShortestPath(MonsterCell, PlayerCell);
+            if (instructions != null)
+            {
+                
+                fixPos(this.X, this.Y, true);
+                TakeStep(instructions);
+                fixPos(this.X, this.Y, false);
+            }
+        }
+
+        public void TakeStep(Path nextStep)
+        {
+            ICell nextSpot = nextStep.TryStepForward();
+            if (nextStep.Length > 2) //Path list has 2 items left in it when the only items are Monster Location and Player location ( i.e. next to each other)
+            {
+                if (game.Level.IsWalkable(nextSpot.X, nextSpot.Y))
+                {
+                    this.X = nextSpot.X;
+                    this.Y = nextSpot.Y;
+                }
+            }
+            else
+            {
+                game.Messages.AddMessage("stabby stabby");
+                //TO-DO :: add attack function here.
+            }
+        }
 
         public void targetBased()
         {

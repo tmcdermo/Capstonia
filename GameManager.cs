@@ -27,6 +27,11 @@ namespace Capstonia
         public readonly int tileSize = 48;
         public float scale = 1.0f;
 
+        // Game Actor Constants
+        public readonly int BaseStrength = 10;
+        public readonly int BaseDexterity = 10;
+        public readonly int BaseConstitution = 10;
+
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
         public Player Player { get; set; }
@@ -260,7 +265,7 @@ namespace Capstonia
             Level = levelGenerator.CreateLevel();
         }
 
-        //SetLevelCell()
+        // SetLevelCell()
         // DESC:    Takes data from object and passed data to UserInterface for level update
         // PARAMS:  x(int), y(int), type(ObjectType), isExplored(bool)
         // RETURNS: None.
@@ -269,6 +274,10 @@ namespace Capstonia
             //masterConsole.UpdateLevelCell(x, y, type, isExplored);
         }
 
+        // IsInRoomWithPlayer()
+        // DESC:    Determines if coordinates are in the same room as the player
+        // PARAMS:  x(int), y(int)
+        // RETURNS: Boolean (true if in same room, false otherwise)
         public bool IsInRoomWithPlayer(int x, int y)
         {
             // get room player is in
@@ -291,6 +300,38 @@ namespace Capstonia
 
             // player should always be located in the list of Rooms so we should never reach this point
             return false;
+        }
+
+        // HandleDeath()
+        // DESC:    Handle monster death
+        // PARAMS:  Monster
+        // RETURNS: None
+        public void HandleMonsterDeath(Monster monster)
+        {
+            int addGlory = Random.Next(monster.MinGlory, monster.MaxGlory);
+            Player.Glory += addGlory;
+
+            Messages.AddMessage("You have slaughtered the " + monster.Name + "!!!");            
+            Messages.AddMessage("You have earned " + addGlory + " Glory worth of gold and bones!!!");
+            
+            Level.SetIsWalkable(monster.X, monster.Y, true);
+            Monsters.Remove(monster);            
+        }
+
+        // HandlePlayerDeath()
+        // DESC:    Handle player death
+        // PARAMS:  None
+        // RETURNS: None
+        public void HandlePlayerDeath()
+        {
+            Messages.AddMessage("You have DIED!  Game Over!");
+            Messages.AddMessage("Press <ESC> to Exit Game.");
+
+            while (true)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Exit();
+            };
         }
     }
 }

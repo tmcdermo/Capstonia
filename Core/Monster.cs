@@ -1,4 +1,5 @@
 ﻿using Capstonia.Controller;
+using Capstonia.Interfaces;
 using Capstonia.Monsters;
 using System;
 using Rectangle = RogueSharp.Rectangle;
@@ -6,7 +7,7 @@ using Rectangle = RogueSharp.Rectangle;
 namespace Capstonia.Core
 {
 
-    public class Monster : Actor
+    public class Monster : Actor, IBehavior
     {
         //Used for preventing too many updates per second
         int oldPlayerX;
@@ -34,7 +35,7 @@ namespace Capstonia.Core
         // DESC: Checks for "IsInRoomWithPlayer" and either moves randomly or target movement towards player
         // PARAMS:None
         // RETURNS: None
-        public void Move()
+        void Move()
         {
             //Target Based - In room
             if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY)
@@ -52,7 +53,7 @@ namespace Capstonia.Core
         }
 
 
-        protected void targetBased()
+        void targetBased()
         {
             int playerPosX = game.Player.X;
             int playerPosY = game.Player.Y;
@@ -170,23 +171,23 @@ namespace Capstonia.Core
         }
 
         
-        private bool linearXCheck()
+        bool linearXCheck()
         {
             return (this.X == game.Player.X);
         }
-        private bool linearYCheck()
+        bool linearYCheck()
         {
             return (this.Y == game.Player.Y);
         }
-        private bool topCheck()
+        bool topCheck()
         {
             return (this.Y > game.Player.Y);
         }
-        private bool rightCheck()
+        bool rightCheck()
         {
             return (this.X < game.Player.X);
         }
-        protected bool CanAttack()
+        bool CanAttack()
         {
             int playerPosX = game.Player.X;
             int playerPosY = game.Player.Y;
@@ -200,7 +201,7 @@ namespace Capstonia.Core
             return false;
         }
 
-        protected void moveCases(int switchCase)
+        void moveCases(int switchCase)
         {
                 switch (switchCase)
                 {
@@ -233,44 +234,44 @@ namespace Capstonia.Core
                         break;
                 }
         }
-        protected void MoveNorth()
+        void MoveNorth()
         {
             this.Y -= 1;
         }
-        protected void MoveNorthEast()
+        void MoveNorthEast()
         {
             this.Y -= 1;
             this.X += 1;
         }
-        protected void MoveEast()
+        void MoveEast()
         {
             this.X += 1;
         }
-        protected void MoveSouthEast()
+        void MoveSouthEast()
         {
             this.Y += 1;
             this.X += 1;
         }
-        protected void MoveSouth()
+        void MoveSouth()
         {
             this.Y += 1;
         }
-        protected void MoveSouthWest()
+        void MoveSouthWest()
         {
             this.Y += 1;
             this.X -= 1;
         }
-        protected void MoveWest()
+        void MoveWest()
         {
             this.X -= 1;
         }
-        protected void MoveNorthWest()
+        void MoveNorthWest()
         {
             this.Y -= 1;
             this.X -= 1;
         }
 
-        private void fixPos(int x, int y,bool status)
+        void fixPos(int x, int y,bool status)
         {
             game.Level.SetIsWalkable(x , y, status);
         }

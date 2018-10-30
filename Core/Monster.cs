@@ -55,9 +55,13 @@ namespace Capstonia.Core
                 oldPlayerY = game.Player.Y;
 
             }
+            
 
         }
-
+        //Rename Function
+        // PathFinder 
+        // Unlock walkability of monster and player cell so we can find a path, and then relock (true/false)
+        // Graph shortest path and pass it into Take Step Function to facilitate movement
         public void testPF()
         {
 
@@ -78,12 +82,13 @@ namespace Capstonia.Core
             }
         }
 
+        // Take A step per turn
         public void TakeStep(Path nextStep)
         {
             ICell nextSpot = nextStep.TryStepForward();
             if (nextStep.Length > 2) //Path list has 2 items left in it when the only items are Monster Location and Player location ( i.e. next to each other)
             {
-                if (game.Level.IsWalkable(nextSpot.X, nextSpot.Y))
+                if (game.Level.IsWalkable(nextSpot.X, nextSpot.Y)) // prevents walking onto players or walls might not be needed (?)
                 {
                     this.X = nextSpot.X;
                     this.Y = nextSpot.Y;
@@ -96,6 +101,8 @@ namespace Capstonia.Core
             }
         }
 
+
+        // OLD CODE LEFT HERE TO SHOW WORK IN VIDEO///
         public void targetBased()
         {
             int playerPosX = game.Player.X;

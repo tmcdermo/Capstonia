@@ -252,5 +252,20 @@ namespace Capstonia.Core
 
             return null;
         }
+
+        // IsPlayer()
+        // DESC:    Checks if Player is standing in location             
+        // PARAMS:  x(int), y(int)
+        // RETURNS: Bool(true if player is there, false if not)
+        public bool IsPlayer(int x, int y)
+        {
+            if (game.Player.X == x && game.Player.Y == y)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

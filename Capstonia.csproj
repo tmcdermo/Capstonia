@@ -53,6 +53,7 @@
     <Compile Include="Core\ItemType.cs" />
     <Compile Include="Core\ObjectType.cs" />
     <Compile Include="Core\Player.cs" />
+    <Compile Include="Core\Score.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Interfaces\IActor.cs" />
     <Compile Include="Interfaces\IBehavior.cs" />
@@ -144,6 +145,7 @@
     <None Include="Content\beholder_deep_1.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\chest_gold_open.png" />
     <Content Include="Content\dknight_1.png" />
     <Content Include="Content\door_stone_11.png" />
     <Content Include="Content\door_stone_3.png" />

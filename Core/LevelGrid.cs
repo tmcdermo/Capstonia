@@ -235,5 +235,37 @@ namespace Capstonia.Core
         //    // player should always be located in the list of Rooms so we should never reach this point
         //    return false;
         //}
+
+        // IsMonster()
+        // DESC:    Checks if Monster is standing in location             
+        // PARAMS:  x(int), y(int)
+        // RETURNS: Monster if there, null if not
+        public Monster IsMonster(int x, int y)
+        {
+            foreach(Monster monster in game.Monsters)
+            {
+                if(monster.X == x && monster.Y == y)
+                {
+                    return monster;
+                }
+            }
+
+            return null;
+        }
+
+        // IsPlayer()
+        // DESC:    Checks if Player is standing in location             
+        // PARAMS:  x(int), y(int)
+        // RETURNS: Bool(true if player is there, false if not)
+        public bool IsPlayer(int x, int y)
+        {
+            if (game.Player.X == x && game.Player.Y == y)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

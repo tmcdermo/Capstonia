@@ -20,8 +20,24 @@ namespace Capstonia.Core
         public int MaxHealth { get { return maxhealth; } set { maxhealth = value; } }
         private int maxhunger;
         public int MaxHunger { get { return maxhunger; } set { maxhunger = value; } }
-        // constructor
-        public Player(GameManager game) : base(game)
+        public int Glory { get; set; }
+
+        public int getHitBonus()
+        {
+            return Dexterity - game.BaseDexterity;
+        }
+        public int getDodgeBonus()
+        {
+            return Dexterity - game.BaseDexterity;
+        }
+
+        public int getDamageBonus()
+        {
+            return Strength - game.BaseStrength;
+        }
+
+            // constructor
+            public Player(GameManager game) : base(game)
         {
             ArmorType = "Leather Jerkin";
             ArmorValue = 0; // used in dmg calc during battle
@@ -37,6 +53,7 @@ namespace Capstonia.Core
             Strength = 10;  // every point above 10 gives a dmg bonus
             WeaponType = "Club";
             WeaponValue = 2;  // used in dmg calc during battle
+            Glory = 0;
         }
 
         // CalculateHungerPenalty
@@ -75,6 +92,8 @@ namespace Capstonia.Core
         // RETURNS: None.
         public void Move()
         {
+            Monster monster = null;
+
             // get current keyboard state
             game.currentKeyboardState = Keyboard.GetState();
 
@@ -87,6 +106,14 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X, Y + 1);
                 }
+                else
+                {
+                    monster = game.Level.IsMonster(game.Player.X, game.Player.Y + 1);
+                    if(monster != null)
+                    {
+                        Attack(monster);
+                    }
+                }
             } // move player down
             else if (game.currentKeyboardState.IsKeyDown(Keys.Up) &&
                      game.previousKeyboardState.IsKeyUp(Keys.Up))
@@ -95,6 +122,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y -= 1;
                     game.Level.SetActorPosition(this, X, Y - 1);
+                }
+                else
+                {
+                    monster = game.Level.IsMonster(game.Player.X, game.Player.Y - 1);
+                    if (monster != null)
+                    {
+                        Attack(monster);
+                    }
                 }
             } // move player left
             else if (game.currentKeyboardState.IsKeyDown(Keys.Left) &&
@@ -105,6 +140,14 @@ namespace Capstonia.Core
                     //game.Player.X -= 1;
                     game.Level.SetActorPosition(this, X - 1, Y);
                 }
+                else
+                {
+                    monster = game.Level.IsMonster(game.Player.X - 1, game.Player.Y);
+                    if (monster != null)
+                    {
+                        Attack(monster);
+                    }
+                }
             } // move player right
             else if (game.currentKeyboardState.IsKeyDown(Keys.Right) &&
                      game.previousKeyboardState.IsKeyUp(Keys.Right))
@@ -113,6 +156,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.X += 1;
                     game.Level.SetActorPosition(this, X + 1, Y);
+                }
+                else
+                {
+                    monster = game.Level.IsMonster(game.Player.X + 1, game.Player.Y);
+                    if (monster != null)
+                    {
+                        Attack(monster);
+                    }
                 }
             }
             //testing numbers
@@ -166,5 +217,48 @@ namespace Capstonia.Core
             game.previousKeyboardState = game.currentKeyboardState;
 
         }
+
+        public void Attack(Monster monster)
+        {
+            game.Messages.AddMessage("You attack the " + monster.Name + "!!!");
+
+            // calculate rolls for battle
+            int hitRoll = GameManager.Random.Next(1, 20);
+            int defenseRoll =  GameManager.Random.Next(1, 20);
+
+            // calculate attack & defense rolls
+            int hitValue = hitRoll + getHitBonus();
+            int defenseValue = defenseRoll + monster.getDodgeBonus();
+
+            // Player wins tie
+            if (hitValue < defenseValue)
+            {
+                game.Messages.AddMessage(monster.Name + " dodges hit!");
+                return;
+            }
+
+            // calculate base Player dmg
+            int dmgRoll =  GameManager.Random.Next(MinDamage, MaxDamage);
+            int dmgValue = dmgRoll + getDamageBonus();
+
+            // calculate total dmg
+            int totalDmg = dmgValue - defenseValue;
+
+            if (totalDmg <= 0)
+            {
+                game.Messages.AddMessage(monster.Name + " blocks attack!");
+                return;
+            }
+
+            // inflict dmg on Capstonian
+            game.Messages.AddMessage("Player inflicts " + totalDmg + " dmg on " + monster.Name);
+            monster.Health -= totalDmg;
+
+            if (monster.Health <= 0)
+            {
+                game.HandleMonsterDeath(monster);
+            }
+        }
+
     }
 }

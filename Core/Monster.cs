@@ -115,10 +115,10 @@ namespace Capstonia.Core
                 oldPlayerY = game.Player.Y;
 
             }
-            
+
 
         }
-           
+
         //findPath()
         // DESC: Unlock walkability of monster and player cell so we can find a path, and then relock (true/false)
         // Graph shortest path and pass it into Take Step Function to facilitate movement
@@ -127,7 +127,7 @@ namespace Capstonia.Core
         public void FindPath()
         {
 
-            ICell MonsterCell = game.Level.GetCell(X,Y); // current cell
+            ICell MonsterCell = game.Level.GetCell(X, Y); // current cell
             ICell PlayerCell = game.Level.GetCell(game.Player.X, game.Player.Y); // target cell
             FixPos(X, Y, true);     //Set isWalkable of old position to true
             FixPos(PlayerCell.X, PlayerCell.Y, true);
@@ -424,4 +424,5 @@ namespace Capstonia.Core
             game.Level.SetIsWalkable(x , y, status);
         }
         */
+    }
 }

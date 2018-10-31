@@ -7,41 +7,48 @@ namespace Capstonia.Core
 {
     public class Player : Actor
     {
-        // TODO - create armor class?
-        private string armorType; // e.g., leather, chainmail, plate
-        public string ArmorType { get; set; }
-        private int armorValue; // e.g., leather, chainmail, plate
-        public int ArmorValue { get; set; }
+        public string ArmorType { get; set; } // e.g., leather, chainmail, plate
+        public int ArmorValue { get; set; } // e.g., leather, chainmail, plate
         public int Experience { get; set; } // track progress until next level
-        private int hunger; // 0 = full, 100 = starving
-        public int Hunger { get; set; }
-        // TODO - create weapon class?
-        private string weaponType; // e.g., leather, chainmail, plate
-        public string WeaponType { get; set; }
-        private int weaponValue; // e.g., leather, chainmail, plate
-        public int WeaponValue { get; set; }
-        private int maxhealth; // cap to heal to until increased etc.
-        public int MaxHealth { get; set; }
-        private int maxhunger;
-        public int MaxHunger { get; set; }
-        public int Glory { get; set; }
+        public int Hunger { get; set; } // 0 = full, 100 = starving
+        public string WeaponType { get; set; } // e.g., leather, chainmail, plate
+        public int WeaponValue { get; set; } // e.g., leather, chainmail, plate
+        public int MaxHealth { get; set; } // cap to heal to until increased etc.
+        public int MaxHunger { get; set; } // max hunger = player is full
+        public int Glory { get; set; } // increased after collecting treasure and killing monsters
 
-        public int getHitBonus()
-        {
-            return Dexterity - game.BaseDexterity;
-        }
-        public int getDodgeBonus()
+        // GetHitBonus()
+        // DESC:    Calculate and return hit bonus for combat.
+        // PARAMS:  None.
+        // RETURNS: Return hit bonus.
+        public int GetHitBonus()
         {
             return Dexterity - game.BaseDexterity;
         }
 
-        public int getDamageBonus()
+        // GetDodgeBonus()
+        // DESC:    Calculate and return dodge bonus for combat.
+        // PARAMS:  None.
+        // RETURNS: Return dodge bonus.
+        public int GetDodgeBonus()
+        {
+            return Dexterity - game.BaseDexterity;
+        }
+
+        // GetDamageBonus()
+        // DESC:    Calculate and return damange bonus for combat.
+        // PARAMS:  None.
+        // RETURNS: Return damage bonus.
+        public int GetDamageBonus()
         {
             return Strength - game.BaseStrength;
         }
 
-            // constructor
-            public Player(GameManager game) : base(game)
+        // Player
+        // DESC:    Constructor that inherits from the base class, game.
+        // PARAMS:  A GameManager instance.
+        // RETURNS: Instantiate instance of class.
+        public Player(GameManager game) : base(game)
         {
             ArmorType = "Leather Jerkin";
             ArmorValue = 0; // used in dmg calc during battle
@@ -62,17 +69,16 @@ namespace Capstonia.Core
             Glory = 0;
         }
 
-        // CalculateHungerPenalty
-        //
-        // DESC: Inintially the player is full when the game starts, so their
-        // hunger value is at 0.  With each move, the player's hunger value is
-        // increased by 1.  To lower their hunger, the player should try to
-        // acquire food from the gameboard.  If a player's hunger increases to
-        // 50 and above (max = 100), their strength, dexterity, and constitution
-        // will be impacted during combat (see below).  This will continue until
-        // their hunger value drops back below 50.
-        //
-        // PARAMS: N/A
+        // CalculateHungerPenalty()
+        // DESC:    Inintially the player is full when the game starts, so their
+        //          hunger value is at 0.  With each move, the player's hunger value is
+        //          increased by 1.  To lower their hunger, the player should try to
+        //          acquire food from the gameboard.  If a player's hunger increases to
+        //          50 and above (max = 100), their strength, dexterity, and constitution
+        //          will be impacted during combat (see below).  This will continue until
+        //          their hunger value drops back below 50.
+        // PARAMS:  None.
+        // RETURN:  Hunger penalty value as a float.
         public float CalculateHungerPenalty()
         {
             float hungerPenalty = 1.0f;
@@ -104,7 +110,7 @@ namespace Capstonia.Core
             game.currentKeyboardState = Keyboard.GetState();
 
             // move player up
-            if (game.currentKeyboardState.IsKeyDown(Keys.Down) && 
+            if (game.currentKeyboardState.IsKeyDown(Keys.Down) &&
                 game.previousKeyboardState.IsKeyUp(Keys.Down))
             {
                 if (game.Level.IsWalkable(game.Player.X, game.Player.Y + 1))
@@ -115,7 +121,7 @@ namespace Capstonia.Core
                 else
                 {
                     monster = game.Level.IsMonster(game.Player.X, game.Player.Y + 1);
-                    if(monster != null)
+                    if (monster != null)
                     {
                         Attack(monster);
                     }
@@ -142,7 +148,7 @@ namespace Capstonia.Core
                      game.previousKeyboardState.IsKeyUp(Keys.Left))
             {
                 if (game.Level.IsWalkable(game.Player.X - 1, game.Player.Y))
-                {                 
+                {
                     //game.Player.X -= 1;
                     game.Level.SetActorPosition(this, X - 1, Y);
                 }
@@ -173,7 +179,7 @@ namespace Capstonia.Core
                 }
             }
             //testing numbers
-            else if(game.currentKeyboardState.IsKeyDown(Keys.D1)&&
+            else if (game.currentKeyboardState.IsKeyDown(Keys.D1) &&
                     game.previousKeyboardState.IsKeyUp(Keys.D1))
             {
                 game.Inventory.UseItem(1);
@@ -224,16 +230,20 @@ namespace Capstonia.Core
 
         }
 
+        // Attack(...)
+        // DESC:    Play out monster attack sequence.
+        // PARAMS:  Monster instance.
+        // RETURNS: None.
         public void Attack(Monster monster)
         {
             game.Messages.AddMessage("You attack the " + monster.Name + "!!!");
 
             // calculate rolls for battle
             int hitRoll = GameManager.Random.Next(1, 20);
-            int defenseRoll =  GameManager.Random.Next(1, 20);
+            int defenseRoll = GameManager.Random.Next(1, 20);
 
             // calculate attack & defense rolls
-            int hitValue = hitRoll + getHitBonus();
+            int hitValue = hitRoll + GetHitBonus();
             int defenseValue = defenseRoll + monster.getDodgeBonus();
 
             // Player wins tie
@@ -244,8 +254,8 @@ namespace Capstonia.Core
             }
 
             // calculate base Player dmg
-            int dmgRoll =  GameManager.Random.Next(MinDamage, MaxDamage);
-            int dmgValue = dmgRoll + getDamageBonus();
+            int dmgRoll = GameManager.Random.Next(MinDamage, MaxDamage);
+            int dmgValue = dmgRoll + GetDamageBonus();
 
             // calculate total dmg
             int totalDmg = dmgValue - defenseValue;
@@ -266,7 +276,10 @@ namespace Capstonia.Core
             }
         }
 
-
+        // DrawStats(...)
+        // DESC:    Draw Player stats to screen.
+        // PARAMS:  SpriteBatch instance.
+        // RETURNS: None.
         public void DrawStats(SpriteBatch spriteBatch)
         {
 

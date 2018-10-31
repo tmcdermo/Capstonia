@@ -1,6 +1,6 @@
 ﻿namespace Capstonia.Interfaces
 {
-    interface IItem
+    public interface IItem
     {
         string Name { get; set; }
         int Damage { get; set; }

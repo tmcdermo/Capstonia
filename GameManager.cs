@@ -39,6 +39,7 @@ namespace Capstonia
         public MessageLog Messages { get; set; }
         public Score ScoreDisplay { get; set; }
         public CommandSystem CommandSystem;
+        public PathFinder GlobalPositionSystem;
 
         // MonoGame Specific Declarations
         GraphicsDeviceManager graphics;
@@ -59,7 +60,7 @@ namespace Capstonia
 
         // Monsters
         public Texture2D beholder;
-
+        
 
         // containers
         public List<Monster> Monsters;
@@ -218,6 +219,12 @@ namespace Capstonia
 
             // move player
             Player.Move();
+
+            //move Monsters
+            foreach( Monster enemy in Monsters)
+            {
+                enemy.Move();
+            }
 
             // update game state
             base.Update(gameTime);

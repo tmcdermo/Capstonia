@@ -338,5 +338,41 @@ namespace Capstonia.Core
             spriteBatch.DrawString(game.mainFont, "Constitution", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, Constitution.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
         }
+
+        // DrawEquipment(...)
+        // DESC:    Draw Player equipment to screen.
+        // PARAMS:  SpriteBatch instance.
+        // RETURNS: None.
+        public void DrawEquipment(SpriteBatch spriteBatch)
+        {
+            const int iconVertOffset = 50; // center icon vertically in grid cell
+            const int iconHorizOffset = 60; // center icon horizontally in grid cell
+            const int textVertOffset = 18; // offset for text
+            const int textHorizOffset = 240; // offset for text
+            const int gridVertOffset = 502; // offset for grid
+            const int gridHorizOffset = 672; // offset for grid
+            int fudgeFactorIcon; // pixel offset value to center icons
+            int fudgeFactorScore = 18; // pixel offset to center text
+            int iteration = 2; // iterate for each block
+
+            // draw stats outline
+            spriteBatch.Draw(game.PlayerEquipmentOutline, new Vector2(gridHorizOffset, gridVertOffset), Color.White);
+
+            // draw title
+            int horiztOffsetForTitle = 760;
+            spriteBatch.DrawString(game.mainFont, "PLAYER EQUIPMENT", new Vector2(horiztOffsetForTitle, gridVertOffset + fudgeFactorScore), Color.White);
+
+            // draw armor
+            spriteBatch.Draw(game.armor, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, ArmorType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, "+" + ArmorValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
+
+            // draw weapon
+            fudgeFactorIcon = 3;
+            spriteBatch.Draw(game.weapon, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
+            spriteBatch.DrawString(game.mainFont, WeaponType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, "+" + WeaponValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            ++iteration; // offset for next block
+        }
     }
 }

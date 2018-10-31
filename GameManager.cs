@@ -79,8 +79,9 @@ namespace Capstonia
         public Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
         public Texture2D Outline;
         
-        // Player Stats
+        // Player Stats and Equipment
         public Texture2D PlayerStatsOutline;
+        public Texture2D PlayerEquipmentOutline;
 
         // track keyboard state (i.e. capture key presses)
         public KeyboardState currentKeyboardState;
@@ -198,6 +199,7 @@ namespace Capstonia
             // load gui textures
             Outline = Content.Load<Texture2D>("inventory_gui");
             PlayerStatsOutline = Content.Load<Texture2D>("player_stats_gui");
+            PlayerEquipmentOutline = Content.Load<Texture2D>("player_equipment_gui");
 
             // load actor textures
             Player.Sprite = Content.Load<Texture2D>("dknight_1");
@@ -283,6 +285,9 @@ namespace Capstonia
 
             // draw stats grid for player
             Player.DrawStats(spriteBatch);
+
+            // draw equipment grid for player
+            Player.DrawEquipment(spriteBatch);
 
             spriteBatch.End();
 

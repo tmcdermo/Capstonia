@@ -1,10 +1,15 @@
 ﻿using Capstonia.Core;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System;
+using Rectangle = RogueSharp.Rectangle;
 
 namespace Capstonia.Monsters
 {
     public class Beholder : Monster
     {
+        int oldPlayerX;
+        int oldPlayerY;
         // constructor
         public Beholder(GameManager game) : base(game)
         {
@@ -27,6 +32,9 @@ namespace Capstonia.Monsters
             MinGlory = 1;
             MaxGlory = 3;
             Sprite = game.beholder;
+            oldPlayerX = game.Player.X;
+            oldPlayerY = game.Player.Y;
+            
         }
     }
 }

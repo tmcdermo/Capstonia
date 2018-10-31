@@ -5,7 +5,7 @@ using Capstonia.Interfaces;
 
 namespace Capstonia.Behaviors
 {
-    public class Standard : IBehavior
+    public class Standard
     {
 
 

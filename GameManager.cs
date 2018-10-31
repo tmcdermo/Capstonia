@@ -37,7 +37,9 @@ namespace Capstonia
         public Player Player { get; set; }
         public LevelGrid Level { get; private set; }
         public MessageLog Messages { get; set; }
+        public Score ScoreDisplay { get; set; }
         public CommandSystem CommandSystem;
+        public PathFinder GlobalPositionSystem;
 
         // MonoGame Specific Declarations
         GraphicsDeviceManager graphics;
@@ -54,6 +56,7 @@ namespace Capstonia
         public Texture2D potion;
         public Texture2D book;
         public Texture2D gem;
+        public Texture2D chest;
 
         // Items - Player Stats
         public Texture2D constitution;
@@ -95,6 +98,8 @@ namespace Capstonia
 
             //link the messageLog and game instance
             Messages = new MessageLog(this);
+
+            ScoreDisplay = new Score(this);
 
             // Player provided commands
             CommandSystem = new CommandSystem(this);
@@ -180,6 +185,7 @@ namespace Capstonia
             weapon = Content.Load<Texture2D>("weapon");
             potion = Content.Load<Texture2D>("potion");
             book = Content.Load<Texture2D>("book");
+            chest = Content.Load<Texture2D>("chest_gold_open");
 
             // load item textures - player stats
             constitution = Content.Load<Texture2D>("constitution");
@@ -232,6 +238,12 @@ namespace Capstonia
             // move player
             Player.Move();
 
+            //move Monsters
+            foreach( Monster enemy in Monsters)
+            {
+                enemy.Move();
+            }
+
             // update game state
             base.Update(gameTime);
         }
@@ -251,6 +263,7 @@ namespace Capstonia
 
             Inventory.Draw(spriteBatch);
             Messages.Draw(spriteBatch);
+            ScoreDisplay.Draw(spriteBatch);
             Level.Draw(spriteBatch);
 
             // draw all of the monsters in the list

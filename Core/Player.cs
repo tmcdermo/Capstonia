@@ -221,6 +221,7 @@ namespace Capstonia.Core
 
             // save current state to previous and get ready for next move
             game.previousKeyboardState = game.currentKeyboardState;
+
         }
 
         public void Attack(Monster monster)

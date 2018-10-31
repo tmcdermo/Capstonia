@@ -158,7 +158,20 @@ namespace Capstonia.Core
                 // Flag Actor's current location as not walkable
                 SetIsWalkable(actor.X, actor.Y, false);
 
-                game.Messages.AddMessage(game.Player.X + ", " + game.Player.Y);
+                if(actor is Player)
+                {
+                    foreach(Item item in game.Items)
+                    {
+                        if(item.X == actor.X && item.Y == actor.Y)
+                        {
+                            game.Inventory.AddItem(item);
+                            game.Items.Remove(item);
+                            break;
+                        }
+                    }
+                }
+
+                //game.Messages.AddMessage(game.Player.X + ", " + game.Player.Y);
 
                 // Update FOV if Player was just repositioned
                 //if (actor is Player)

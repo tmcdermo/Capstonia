@@ -63,7 +63,7 @@ namespace Capstonia.Core
 
             // calculate attack & defense rolls
             int hitValue = hitRoll + getHitBonus();
-            int defenseValue = defenseRoll + game.Player.getDodgeBonus();
+            int defenseValue = defenseRoll + game.Player.GetDodgeBonus();
 
             // Player wins tie
             if (hitValue < defenseValue)

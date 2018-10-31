@@ -36,21 +36,23 @@ namespace Capstonia.Core
         }
 
         //Draw
-       // MOVE()
+
+        // MOVE()
         // DESC: Checks for "IsInRoomWithPlayer" and either moves randomly or target movement towards player
         // PARAMS:None
         // RETURNS: None
         public void Move()
         {
-            //Target Based - In room
+            //Only call once player has moved - this retains turn based movement
             if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY)
             {
+                //Check if monster is in room with player and attack if it is
                 if (game.IsInRoomWithPlayer(this.X, this.Y))
                 {
-                    //targetBased();
-                    testPF();
+                    FindPath();
                 }
 
+                //Update player coordinates for following call to monster move
                 oldPlayerX = game.Player.X;
                 oldPlayerY = game.Player.Y;
 
@@ -58,31 +60,37 @@ namespace Capstonia.Core
             
 
         }
-        //Rename Function
-        // PathFinder 
-        // Unlock walkability of monster and player cell so we can find a path, and then relock (true/false)
+           
+        //findPath()
+        // DESC: Unlock walkability of monster and player cell so we can find a path, and then relock (true/false)
         // Graph shortest path and pass it into Take Step Function to facilitate movement
-        public void testPF()
+        // PARAMS: None
+        // RETURNS: None
+        public void FindPath()
         {
 
             ICell MonsterCell = game.Level.GetCell(X,Y); // current cell
             ICell PlayerCell = game.Level.GetCell(game.Player.X, game.Player.Y); // target cell
-            fixPos(X, Y, true);
-            fixPos(PlayerCell.X, PlayerCell.Y, true);
+            FixPos(X, Y, true);     //Set isWalkable of old position to true
+            FixPos(PlayerCell.X, PlayerCell.Y, true);
             RogueSharp.PathFinder diffPath = new RogueSharp.PathFinder(game.Level, 1.41);
-            fixPos(X, Y, false);
-            fixPos(PlayerCell.X, PlayerCell.Y, false);
+            FixPos(X, Y, false);    //Set isWalkable of new position to false
+            FixPos(PlayerCell.X, PlayerCell.Y, false);
+
+            //Get shortest path between monster and player and take a step while setting isWalkable
             instructions = diffPath.ShortestPath(MonsterCell, PlayerCell);
             if (instructions != null)
             {
-                
-                fixPos(this.X, this.Y, true);
+                FixPos(this.X, this.Y, true);
                 TakeStep(instructions);
-                fixPos(this.X, this.Y, false);
+                FixPos(this.X, this.Y, false);
             }
         }
 
-        // Take A step per turn
+        //TakeStep()
+        // DESC: Take one step in the shortest path towards player
+        // PARAMS: Path containing the next step to take
+        // RETURNS: None
         public void TakeStep(Path nextStep)
         {
             ICell nextSpot = nextStep.TryStepForward();
@@ -97,12 +105,43 @@ namespace Capstonia.Core
             else
             {
                 game.Messages.AddMessage("stabby stabby");
-                //TO-DO :: add attack function here.
+
+                //Added call to Attack - error is because it hasn not been merged with master yet - should resolve
+                Attack();
             }
+        }
+
+        //CanAttack()
+        // DESC: Checks if player is within 1 square of monster thus making it attackable
+        // PARAMS: None
+        // RETURNS: bool - whether or not player can be attacked
+        public bool CanAttack()
+        {
+            int playerPosX = game.Player.X;
+            int playerPosY = game.Player.Y;
+
+            //setting up radius of 1 unit around monster
+            Rectangle attackRadius = new Rectangle(this.X - 1, this.Y - 1, 2, 2);
+
+            // should be attack-able if player is within attack radius
+            if (attackRadius.Contains(playerPosX, playerPosY))
+                return true;
+
+            return false;
+        }
+
+        //fixPos()
+        // DESC: Sets the tile at (x,y) to be either walkable or not walkable
+        // PARAMS: x (int), y (int), status (bool)
+        // RETURNS: None
+        public void FixPos(int x, int y, bool status)
+        {
+            game.Level.SetIsWalkable(x, y, status);
         }
 
 
         // OLD CODE LEFT HERE TO SHOW WORK IN VIDEO///
+        /*
         public void targetBased()
         {
             int playerPosX = game.Player.X;
@@ -326,6 +365,7 @@ namespace Capstonia.Core
         {
             game.Level.SetIsWalkable(x , y, status);
         }
+        */
 
     }
 }

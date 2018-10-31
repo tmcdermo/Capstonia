@@ -5,17 +5,10 @@ namespace Capstonia.Interfaces
     public interface IBehavior
     {
         void Move();
-        void targetBased();
+        void FindPath();
+        void TakeStep(RogueSharp.Path nextStep);
         bool CanAttack();
-        void moveCases(int switchCase);
-        void MoveNorth();
-        void MoveNorthEast();
-        void MoveEast();
-        void MoveSouthEast();
-        void MoveSouth();
-        void MoveSouthWest();
-         void MoveWest();
-         void MoveNorthWest();
+        void FixPos(int x, int y, bool status);
     }
 }
 

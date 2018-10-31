@@ -14,6 +14,7 @@ namespace Capstonia.Core
         public int Constitution { get ; set; } // every point above 10 gives a health bonus
         public int Dexterity { get; set; } // every point above 10 gives a dodge bonus
         public int Health { get; set; } // health total for Capstonian; if the values reaches 0, the Capstonain is killed
+        public int Level { get; set; } // actor level, which wil impact other stats
         public int MaxDamage { get; set; } // max dmg Capstonian can cause
         public int MinDamage { get; set; } // min dmg Capstonain can cause
         public string Name { get; set; } // name of actor

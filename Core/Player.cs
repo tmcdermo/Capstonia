@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace Capstonia.Core
 {
@@ -6,20 +9,21 @@ namespace Capstonia.Core
     {
         // TODO - create armor class?
         private string armorType; // e.g., leather, chainmail, plate
-        public string ArmorType { get { return armorType; } set { armorType = value; } }
+        public string ArmorType { get; set; }
         private int armorValue; // e.g., leather, chainmail, plate
-        public int ArmorValue { get { return armorValue; } set { armorValue = value; } }
+        public int ArmorValue { get; set; }
+        public int Experience { get; set; } // track progress until next level
         private int hunger; // 0 = full, 100 = starving
-        public int Hunger { get { return hunger; } set { hunger = value; } }
+        public int Hunger { get; set; }
         // TODO - create weapon class?
         private string weaponType; // e.g., leather, chainmail, plate
-        public string WeaponType { get { return weaponType; } set { weaponType = value; } }
+        public string WeaponType { get; set; }
         private int weaponValue; // e.g., leather, chainmail, plate
-        public int WeaponValue { get { return weaponValue; } set { weaponValue = value; } }
+        public int WeaponValue { get; set; }
         private int maxhealth; // cap to heal to until increased etc.
-        public int MaxHealth { get { return maxhealth; } set { maxhealth = value; } }
+        public int MaxHealth { get; set; }
         private int maxhunger;
-        public int MaxHunger { get { return maxhunger; } set { maxhunger = value; } }
+        public int MaxHunger { get; set; }
         public int Glory { get; set; }
 
         public int getHitBonus()
@@ -45,7 +49,9 @@ namespace Capstonia.Core
             Dexterity = 10; // every point above 10 gives a dodge bonus
             Health = 50; // Health total for Player.  If the values reaches 0, the player is killed
             MaxHealth = 50; // can grow with constitution
+            Health = 100; // initial health value (out of 100)
             Hunger = 100; // 0 = full, 100 = starving
+            Level = 0; // 0 = min, 100 = max
             MaxHunger = 100; // cap to not over-feed
             MaxDamage = 5; // max dmg Player can cause
             MinDamage = 1; // min dmg Player can cause
@@ -259,5 +265,64 @@ namespace Capstonia.Core
             }
         }
 
+
+        public void DrawStats(SpriteBatch spriteBatch)
+        {
+
+            const int iconVertOffset = 50; // center icon vertically in grid cell
+            const int iconHorizOffset = 60; // center icon horizontally in grid cell
+            const int textVertOffset = 18; // offset for text
+            const int textHorizOffset = 240; // offset for text
+            const int gridVertOffset = 201; // offset for grid
+            const int gridHorizOffset = 672; // offset for grid
+            int fudgeFactorIcon; // pixel offset value to center icons
+            int fudgeFactorScore = 18; // pixel offset to center text
+            int iteration = 2; // iterate for each block
+
+            // draw stats outline
+            spriteBatch.Draw(game.PlayerStatsOutline, new Vector2(gridHorizOffset, gridVertOffset), Color.White);
+
+            // draw title
+            int horiztOffsetForTitle = 780;
+            spriteBatch.DrawString(game.mainFont, "PLAYER STATS", new Vector2(horiztOffsetForTitle, gridVertOffset + fudgeFactorScore), Color.White);
+
+            // draw health
+            spriteBatch.Draw(game.health, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, "Health", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Health.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
+
+            // draw level
+            spriteBatch.Draw(game.level, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, "Level", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Level.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            ++iteration; // offset for next block
+
+            // experience level
+            fudgeFactorIcon = 1;
+            spriteBatch.Draw(game.experience, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
+            spriteBatch.DrawString(game.mainFont, "Experience", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Experience.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            ++iteration; // offset for next block
+
+            // strength level
+            fudgeFactorIcon = 3;
+            spriteBatch.Draw(game.strength, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
+            spriteBatch.DrawString(game.mainFont, "Strength", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Strength.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            ++iteration; // offset for next block
+
+            // dexterity level
+            fudgeFactorIcon = 2;
+            spriteBatch.Draw(game.dexterity, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset - fudgeFactorIcon), Color.White);
+            spriteBatch.DrawString(game.mainFont, "Dexterity", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Dexterity.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            ++iteration; // offset for next block
+
+            // constitution level
+            fudgeFactorIcon = 2;
+            spriteBatch.Draw(game.constitution, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset - fudgeFactorIcon), Color.White);
+            spriteBatch.DrawString(game.mainFont, "Constitution", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Constitution.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+        }
     }
 }

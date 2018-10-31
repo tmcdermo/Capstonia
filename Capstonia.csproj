@@ -142,6 +142,13 @@
     <None Include="Content\MainFont.spritefont" />
     <None Include="packages.config" />
     <None Include="Content\beholder_deep_1.png" />
+    <None Include="Content\strength.png" />
+    <None Include="Content\player_stats_gui.png" />
+    <None Include="Content\health.png" />
+    <None Include="Content\level.png" />
+    <None Include="Content\experience.png" />
+    <None Include="Content\dexterity.png" />
+    <None Include="Content\constitution.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\dknight_1.png" />

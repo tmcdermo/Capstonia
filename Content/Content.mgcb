@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:armor.png
 
+#begin beholder_deep_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:beholder_deep_1.png
+
 #begin book.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -37,7 +49,7 @@
 /processorParam:TextureFormat=Color
 /build:book.png
 
-#begin beholder_deep_1.png
+#begin constitution.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,7 +59,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:beholder_deep_1.png
+/build:constitution.png
+
+#begin dexterity.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:dexterity.png
 
 #begin dknight_1.png
 /importer:TextureImporter
@@ -109,6 +133,18 @@
 /processorParam:TextureFormat=Color
 /build:drumstick.png
 
+#begin experience.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:experience.png
+
 #begin floor_extra_12.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -145,6 +181,18 @@
 /processorParam:TextureFormat=Color
 /build:gem.png
 
+#begin health.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:health.png
+
 #begin inventory_gui.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -157,12 +205,36 @@
 /processorParam:TextureFormat=Color
 /build:inventory_gui.png
 
+#begin level.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:level.png
+
 #begin MainFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:MainFont.spritefont
+
+#begin player_stats_gui.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:player_stats_gui.png
 
 #begin potion.png
 /importer:TextureImporter
@@ -175,6 +247,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:potion.png
+
+#begin strength.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:strength.png
 
 #begin wall_stone_11.png
 /importer:TextureImporter

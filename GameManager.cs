@@ -49,7 +49,7 @@ namespace Capstonia
         public Texture2D exit;
         public SpriteFont mainFont;
 
-        // Items
+        // Items - Gameboard
         public Texture2D armor;
         public Texture2D food;
         public Texture2D weapon;
@@ -58,20 +58,29 @@ namespace Capstonia
         public Texture2D gem;
         public Texture2D chest;
 
+        // Items - Player Stats
+        public Texture2D constitution;
+        public Texture2D dexterity;
+        public Texture2D experience;
+        public Texture2D health;
+        public Texture2D level;
+        public Texture2D strength;
+
         // Monsters
         public Texture2D beholder;
-        
 
         // containers
         public List<Monster> Monsters;
         public List<Item> Items;
         
-        //Inventory //
+        //Inventory
         public InventorySystem Inventory;
         public Rectangle inventoryScreen;
         public Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
         public Texture2D Outline;
-       
+        
+        // Player Stats
+        public Texture2D PlayerStatsOutline;
 
         // track keyboard state (i.e. capture key presses)
         public KeyboardState currentKeyboardState;
@@ -170,7 +179,7 @@ namespace Capstonia
             wall = Content.Load<Texture2D>("wall_stone_11");
             exit = Content.Load<Texture2D>("floor_set_grey_8");
             
-            // load item textures
+            // load item textures - gameboard
             armor = Content.Load<Texture2D>("armor");
             food = Content.Load<Texture2D>("drumstick");
             weapon = Content.Load<Texture2D>("weapon");
@@ -178,8 +187,17 @@ namespace Capstonia
             book = Content.Load<Texture2D>("book");
             chest = Content.Load<Texture2D>("chest_gold_open");
 
+            // load item textures - player stats
+            constitution = Content.Load<Texture2D>("constitution");
+            dexterity = Content.Load<Texture2D>("dexterity");
+            experience = Content.Load<Texture2D>("experience");
+            health = Content.Load<Texture2D>("health");
+            level = Content.Load<Texture2D>("level");
+            strength = Content.Load<Texture2D>("strength");
+
             // load gui textures
             Outline = Content.Load<Texture2D>("inventory_gui");
+            PlayerStatsOutline = Content.Load<Texture2D>("player_stats_gui");
 
             // load actor textures
             Player.Sprite = Content.Load<Texture2D>("dknight_1");
@@ -260,7 +278,11 @@ namespace Capstonia
                 item.Draw(spriteBatch);
             }
 
+            // draw player sprite
             Player.Draw(spriteBatch);
+
+            // draw stats grid for player
+            Player.DrawStats(spriteBatch);
 
             spriteBatch.End();
 

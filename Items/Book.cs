@@ -26,7 +26,7 @@ namespace Capstonia.Items
         public Book(GameManager game): base(game)
         {
             Name = "Book";
-            Damage = 0;
+            Strength = 0;
             Defense = 0;
             Value = 10;
             History = "Read something for once.";

@@ -83,12 +83,17 @@ namespace Capstonia.Systems
         // DESC:    Adds item to the inventory.
         // PARAMS:  Item object.
         // RETURNS: None.
-        public void AddItem(Item iType)
+        public bool AddItem(Item iType)
         {
-            //bool to help find item in list
+            //bool to keep traack of if item was successfully added to inventory or not
+            bool itemAdded = false;
+
+
+            //bool to know if we wrote error message already
+            bool errMessage = false;
 
             //Cycle through inventory and look for names that match the name parameter
-            
+            //bool to help find item in list
             bool isFound = false;
             for (int x = 0; x < Inventory.Count(); x++)
             {
@@ -105,7 +110,7 @@ namespace Capstonia.Systems
                         tmp = Inventory[x].Item1;
                         count++;
                         Inventory[x] = Tuple.Create(tmp, count); // update  tuple value
-                        //store the item to our array if its a potion//
+                        //store the item to our array if its a potion or food
                         if (tmp.Name == "Potion")
                         {
                             potStack.Enqueue(iType);
@@ -114,13 +119,25 @@ namespace Capstonia.Systems
                         {
                             foodStack.Enqueue(iType);
                         }
+
+                        //Add message for successfully adding item to inventory
+                        game.Messages.AddMessage("You picked up " + iType.Name);
+
+                        itemAdded = true;
                     }
                     //if can't stack
                     else
                     {
                         if (currentItems == maxItems)
                         {
-                            game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+                            //Only print message once
+                            if(!errMessage)
+                            {
+                                game.Messages.AddMessage("Inventory slot full! Cannot carry any more " + iType.Name  + " to that slot");
+
+                            }
+                            
+                            errMessage = true;
                         }
                         else
                         {
@@ -134,12 +151,15 @@ namespace Capstonia.Systems
                             {
                                 foodStack.Enqueue(iType);
                             }
+
+                            //Add message for successfully adding item to inventory
+                            game.Messages.AddMessage("You picked up " + iType.Name);
+
+                            itemAdded = true;
                             break;
                         }
 
                     }
-                        
-                    
                 }
             }
 
@@ -149,7 +169,13 @@ namespace Capstonia.Systems
             {
                 if(currentItems == maxItems)
                 {
-                    game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+                    //Only print message once
+                    if (!errMessage)
+                    {
+                        game.Messages.AddMessage("Inventory full! Cannot carry any more items");
+                    }
+
+                    errMessage = true;
                 }
                 else
                 {
@@ -163,8 +189,15 @@ namespace Capstonia.Systems
                     {
                         foodStack.Enqueue(iType);
                     }
+
+                    //Add message for successfully adding item to inventory
+                    game.Messages.AddMessage("You picked up " + iType.Name);
+
+                    itemAdded = true;
                 }
             }
+
+            return itemAdded;
         }
 
         //TODO - Final Item in inventory not being removed
@@ -247,6 +280,24 @@ namespace Capstonia.Systems
         {
             Item uses = foodStack.Dequeue();
             uses.UseItem();
+        }
+
+        // GetCurrentItems()
+        // DESC:    Returns value of items currently in the inventory
+        // PARAMS:  None.
+        // RETURNS: None.
+        public int GetCurrentItems()
+        {
+            return currentItems;
+        }
+
+        // GetMaxItems()
+        // DESC:    Returns value of max items the inventory can hold
+        // PARAMS:  None.
+        // RETURNS: None.
+        public int GetMaxItems()
+        {
+            return maxItems;
         }
 
 

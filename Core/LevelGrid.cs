@@ -158,14 +158,21 @@ namespace Capstonia.Core
                 // Flag Actor's current location as not walkable
                 SetIsWalkable(actor.X, actor.Y, false);
 
+                //Check if player is standing on an item and add it to inventory if not full
                 if(actor is Player)
                 {
                     foreach(Item item in game.Items)
                     {
+                        //Actor is standing on item
                         if(item.X == actor.X && item.Y == actor.Y)
                         {
-                            game.Inventory.AddItem(item);
-                            game.Items.Remove(item);
+                            //Attempt to add item
+                            if(game.Inventory.AddItem(item))
+                            {
+                                //Remove item from game screen if added to inventory
+                                game.Items.Remove(item);
+                            }
+
                             break;
                         }
                     }

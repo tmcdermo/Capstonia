@@ -3,7 +3,7 @@
     public interface IItem
     {
         string Name { get; set; }
-        int Damage { get; set; }
+        int Strength { get; set; }
         int Defense { get; set; }
         int Value { get; set; } //  score contribution 
         string History { get; set; } // descriptor we want to print out possibly

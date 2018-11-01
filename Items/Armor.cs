@@ -5,8 +5,7 @@ using Capstonia.Core;
 namespace Capstonia.Items
 {
     /// <summary>
-    /// Armor should provide an increase in Players Defense and possibly increase
-    /// Min / Max Damage as well.
+    /// Armor should provide an increase in Players Defense
     /// </summary>
     public class Armor: Item
     {
@@ -14,7 +13,7 @@ namespace Capstonia.Items
         public Armor(GameManager game): base(game)
         {
             Name = "Armor";
-            Damage = Capstonia.GameManager.Random.Next(2);
+            Strength = 0;
             Defense = Capstonia.GameManager.Random.Next(1,5);
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
@@ -31,8 +30,6 @@ namespace Capstonia.Items
         public override void AddStat()
         {
             game.Player.ArmorValue += Defense;
-            game.Player.MinDamage += Damage;
-            game.Player.MaxDamage += Damage;
         }
         /// <summary>
         /// Similar to AddState on UnEquip we remove previous stats
@@ -40,8 +37,6 @@ namespace Capstonia.Items
         public override void RemoveStat()
         {
             game.Player.ArmorValue -= Defense;
-            game.Player.MinDamage -= Damage;
-            game.Player.MaxDamage -= Damage;
         }
 
         public override void Broadcast()
@@ -54,7 +49,7 @@ namespace Capstonia.Items
         {
             //Add damage and defense values and dipslay on message log
             AddStat();
-            game.Messages.AddMessage("Equipped armor with +" + Damage + " damage and +" + Defense + " defense");
+            game.Messages.AddMessage("Equipped armor with +" + Defense + " defense");
 
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE

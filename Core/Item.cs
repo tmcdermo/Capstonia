@@ -19,8 +19,8 @@ namespace Capstonia.Core
         /// </summary>
         private string name;
         public string Name { get { return name; } set { name = value; } }
-        private int damage;
-        public int Damage { get { return damage; } set { damage = value; } }
+        private int strength;
+        public int Strength { get { return strength; } set { strength = value; } }
         private int defense;
         public int Defense { get { return defense; } set { defense = value; } }
         private int _value; // had to _value cause value is keyword

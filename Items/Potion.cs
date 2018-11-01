@@ -58,26 +58,11 @@ namespace Capstonia.Items
 
         public override void AddStat()
         {
-            //Check if payer is at max health
-            if(game.Player.CurrHealth == game.Player.MaxHealth)
-            {
-                //Return potion to inventory if player is at max health
-                game.Messages.AddMessage("You are already at full health!");
-                Item newPotion = new Potion(game);
-                game.Inventory.AddItem(newPotion);
-            }
-            else
-            {
-                //If not at max health, add value of potion to health
-                game.Player.CurrHealth += Value;
-                game.Messages.AddMessage("Feasted on the blood of your enemies and recovered " + Value + " health");
-
-                //Set health to max health if new value is higher than max
-                if (game.Player.CurrHealth > game.Player.MaxHealth)
-                {
-                    game.Player.CurrHealth = game.Player.MaxHealth; // if we heal more than cap, set to cap
-                }
-            }
+            //Add potion usage//
+            game.Player.CurrHealth += Value;
+            if (game.Player.CurrHealth > game.Player.MaxHealth)
+                game.Player.CurrHealth = game.Player.MaxHealth; // can't heal over max health so set to max
+            game.Messages.AddMessage(String.Format("Feasted on the blood of your enemies and recovered {0} health", Value));
         }
 
         public override void RemoveStat()

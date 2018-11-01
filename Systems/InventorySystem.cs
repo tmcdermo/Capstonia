@@ -205,13 +205,24 @@ namespace Capstonia.Systems
         // DESC:    Removes item to the inventory.
         // PARAMS:  Item object.
         // RETURNS: None.
-        public void RemoveItem(Item iType)
+        public void RemoveItem(int slot) //(Item iType)
         {
+            int tempCount = Inventory[slot].Item2;
+            tempCount--;
+            if(tempCount <= 0)
+            {
+                Inventory.RemoveAt(slot);
+                currentItems--;
+                return;
+            }
+            Item tmp = Inventory[slot].Item1;
+            Inventory[slot] = Tuple.Create(tmp, tempCount);
+
             //Cycle through inventory and look for names that match the name parameter
             //For loop rather than foreach so that we can use the RemoveAt() member function for the List
 
 
-            //Go through all items and decrease counter then remove if 0
+            /*/Go through all items and decrease counter then remove if 0
             for(int x = 0; x < Inventory.Count(); x++)
             {
                 int tmpCount = Inventory[x].Item2;
@@ -228,7 +239,7 @@ namespace Capstonia.Systems
                     Inventory[x] = Tuple.Create(tmp, tmpCount);
                 }
 
-            }
+            }*/
 
 
         }
@@ -239,6 +250,7 @@ namespace Capstonia.Systems
         // RETURNS: None.
         public void UseItem(int slot)
         {
+            bool status = false;
             //Ensure there is an item in that slot
             if (0 < slot && slot < currentItems + 1)
             {
@@ -246,18 +258,24 @@ namespace Capstonia.Systems
                 //Inventory[index].Broadcast();
                 if (Inventory[index].Item1.Name == "Potion")
                 {
-                    usePotion(index);
-                    RemoveItem(Inventory[index].Item1);
+                    status = usePotion(index);
+                    if(status)
+                    {
+                        RemoveItem(index);//Inventory[index].Item1);
+                    }
                 }
                 else if(Inventory[index].Item1.Name == "Food")
                 {
                     useFood(index);
-                    RemoveItem(Inventory[index].Item1);
+                    if (status)
+                    {
+                        RemoveItem(index);//Inventory[index].Item1);
+                    }
                 }
                 else
                 {
                     Inventory[index].Item1.UseItem();
-                    RemoveItem(Inventory[index].Item1);
+                    RemoveItem(index);//Inventory[index].Item1);
                 }
             }
             //TODO - Else print out message saying nothing in that slot
@@ -267,19 +285,30 @@ namespace Capstonia.Systems
         // DESC:    uses Potion and access the potStack Queue accordingly
         // PARAMS:  index #.
         // RETURNS: None.
-        private void usePotion(int index)
+        private bool usePotion(int index)
         {
-            Item uses = potStack.Dequeue();
-            uses.UseItem();
+            if (game.Player.CurrHealth < game.Player.MaxHealth)
+            {
+                Item uses = potStack.Dequeue();
+                uses.UseItem();
+                return true;
+            }
+            return false;
         }
         // useFood()
         // DESC:    uses food and access the foodStack Queue accordingly
         // PARAMS:  index #.
         // RETURNS: None.
-        private void useFood(int index)
+        private bool useFood(int index)
         {
-            Item uses = foodStack.Dequeue();
-            uses.UseItem();
+
+            if (game.Player.Hunger < game.Player.MaxHunger)
+            {
+                Item uses = foodStack.Dequeue();
+                uses.UseItem();
+                return true;
+            }
+            return false;
         }
 
         // GetCurrentItems()

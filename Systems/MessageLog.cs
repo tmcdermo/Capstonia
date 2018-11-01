@@ -16,7 +16,7 @@ namespace Capstonia.Systems
     /// </summary>
     public class MessageLog
     {
-        private static int numberMessages = 7;     //change as needed for # of text lines to see
+        private static int numberMessages = 9;     //change as needed for # of text lines to see
         private readonly Queue<string> messageList;
         private GameManager gameObj;
 

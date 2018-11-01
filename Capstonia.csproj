@@ -44,6 +44,11 @@
   <ItemGroup>
     <Compile Include="Behaviors\Standard.cs" />
     <Compile Include="Core\Actor.cs" />
+    <Compile Include="Items\ArmorTier\BloodChest.cs" />
+    <Compile Include="Items\ArmorTier\DiamondChest.cs" />
+    <Compile Include="Items\ArmorTier\EmeraldChest.cs" />
+    <Compile Include="Items\ArmorTier\GoldChest.cs" />
+    <Compile Include="Items\ArmorTier\LeatherChest.cs" />
     <Compile Include="Core\Directions.cs" />
     <Compile Include="Core\Monster.cs" />
     <Compile Include="Core\Exit.cs" />
@@ -61,6 +66,7 @@
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Items\Armor.cs" />
+    <Compile Include="Items\ArmorTier\SteelChest.cs" />
     <Compile Include="Items\Bone.cs" />
     <Compile Include="Items\Book.cs" />
     <Compile Include="Items\Chest.cs" />

@@ -51,6 +51,12 @@ namespace Capstonia
 
         // Items - Gameboard
         public Texture2D armor;
+        public Texture2D armor_leather_chest;
+        public Texture2D armor_steel_chest;
+        public Texture2D armor_gold_chest;
+        public Texture2D armor_emerald_chest;
+        public Texture2D armor_diamond_chest;
+        public Texture2D armor_blood_chest;
         public Texture2D food;
         public Texture2D weapon;
         public Texture2D potion;
@@ -153,9 +159,15 @@ namespace Capstonia
             floor = Content.Load<Texture2D>("floor_extra_12");
             wall = Content.Load<Texture2D>("wall_stone_11");
             exit = Content.Load<Texture2D>("floor_set_grey_8");
-            
+
             // load item textures - gameboard
             armor = Content.Load<Texture2D>("armor");
+            armor_leather_chest = Content.Load<Texture2D>("armor_leather_chest");
+            armor_steel_chest = Content.Load<Texture2D>("armor_steel_chest");
+            armor_gold_chest = Content.Load<Texture2D>("armor_gold_chest");
+            armor_emerald_chest = Content.Load<Texture2D>("armor_emerald_chest");
+            armor_diamond_chest = Content.Load<Texture2D>("armor_diamond_chest");
+            armor_blood_chest = Content.Load<Texture2D>("armor_blood_chest");
             food = Content.Load<Texture2D>("drumstick");
             weapon = Content.Load<Texture2D>("weapon");
             potion = Content.Load<Texture2D>("potion");

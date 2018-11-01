@@ -13,6 +13,23 @@ namespace Capstonia.Core
         Potion,
         //Ring,
         //Skull,
-        Weapon
+        Weapon,
+        LeatherChest,
+        SteelChest,
+        GoldChest,
+        EmeraldChest,
+        DiamondChest,
+        BloodChest
+    }
+
+    public enum ArmorTier
+    {
+        Leather,
+        Steel,
+        Gold,
+        Emerald,
+        Diamond,
+        Blood
+
     }
 }

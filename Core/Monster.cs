@@ -212,9 +212,12 @@ namespace Capstonia.Core
                 if (game.IsInRoomWithPlayer(enemy.X, enemy.Y)  && iteration <= maxNumberOfMonsters)
                 {
                     // draw 2nd monster if there is one
-                    spriteBatch.Draw(game.Monsters[iteration].Sprite, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset), Color.White);
-                    spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].Name, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-                    spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].CurrHealth.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+                    //spriteBatch.Draw(game.Monsters[iteration].Sprite, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset), Color.White);
+                    //spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].Name, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+                    //spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].CurrHealth.ToString() + "/" + game.Monsters[iteration].MaxHealth.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+                    spriteBatch.Draw(enemy.Sprite, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset), Color.White);
+                    spriteBatch.DrawString(game.mainFont, enemy.Name, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+                    spriteBatch.DrawString(game.mainFont, enemy.CurrHealth.ToString() + "/" + enemy.MaxHealth.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
                     ++iteration;
                 }
             }

@@ -214,7 +214,7 @@ namespace Capstonia.Core
                     // draw 2nd monster if there is one
                     spriteBatch.Draw(game.Monsters[iteration].Sprite, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset), Color.White);
                     spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].Name, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-                    spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].Health.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+                    spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].CurrHealth.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
                     ++iteration;
                 }
             }

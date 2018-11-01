@@ -11,7 +11,7 @@ namespace Capstonia.Items
         public Gem(GameManager game) : base(game)
         {
             Name = "Score";
-            Damage = 0;
+            Strength = 0;
             Defense = 0;
             Value = ValuePoints();
             History = "Be they worth something?";

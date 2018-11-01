@@ -222,9 +222,11 @@ namespace Capstonia.Systems
         {            
             Point randomPoint;
            
-            var numberOfItems = GameManager.Random.Next(0,2);
+            //var numberOfItems = GameManager.Random.Next(0,2);
             foreach (var room in level.Rooms)
             {
+                //Add random number of items between 0-2 into each room
+                var numberOfItems = GameManager.Random.Next(0,2);
                 for (int i = 0; i < numberOfItems; i++)
                 {
                     randomPoint = GetRandomPointInRoom(room);

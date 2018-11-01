@@ -40,7 +40,8 @@ namespace Capstonia.Core
         {
             Constitution = 10; // every point above 10 gives a health bonus
             Dexterity = 10; // every point above 10 gives a dodge bonus
-            Health = 50; // health total for Capstonian; if the values reaches 0, the Capstonain is killed
+            MaxHealth = 50; // max health total for Capstonian; if the values reaches 0, the Capstonain is killed
+            CurrHealth = 50; // current health for Capstonian; if the values reaches 0, the Capstonain is killed
             MaxDamage = 3; // max dmg Capstonian can cause
             MinDamage = 1; // min dmg Capstonain can cause
             Name = "Minstrel"; // name of Capstonian
@@ -87,9 +88,9 @@ namespace Capstonia.Core
 
             // inflict dmg on Capstonian
             game.Messages.AddMessage(Name + " inflicts " + totalDmg + " dmg on you!! ");
-            game.Player.Health -= totalDmg;
+            game.Player.CurrHealth -= totalDmg;
 
-            if (game.Player.Health <= 0)
+            if (game.Player.CurrHealth <= 0)
             {
                 game.HandlePlayerDeath();
             }
@@ -104,10 +105,14 @@ namespace Capstonia.Core
             //Only call once player has moved - this retains turn based movement
             if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY)
             {
-                //Check if monster is in room with player and attack if it is
+                //Check if monster is in room with player and attack if it is, otherwise refill HP
                 if (game.IsInRoomWithPlayer(this.X, this.Y))
                 {
                     FindPath();
+                }
+                else
+                {
+                    this.CurrHealth = this.MaxHealth;
                 }
 
                 //Update player coordinates for following call to monster move
@@ -162,31 +167,11 @@ namespace Capstonia.Core
             }
             else
             {
-                game.Messages.AddMessage("stabby stabby");
-
                 //Added call to Attack - error is because it hasn not been merged with master yet - should resolve
                 Attack();
             }
         }
 
-        //CanAttack()
-        // DESC: Checks if player is within 1 square of monster thus making it attackable
-        // PARAMS: None
-        // RETURNS: bool - whether or not player can be attacked
-        public bool CanAttack()
-        {
-            int playerPosX = game.Player.X;
-            int playerPosY = game.Player.Y;
-
-            //setting up radius of 1 unit around monster
-            Rectangle attackRadius = new Rectangle(this.X - 1, this.Y - 1, 2, 2);
-
-            // should be attack-able if player is within attack radius
-            if (attackRadius.Contains(playerPosX, playerPosY))
-                return true;
-
-            return false;
-        }
 
         //fixPos()
         // DESC: Sets the tile at (x,y) to be either walkable or not walkable

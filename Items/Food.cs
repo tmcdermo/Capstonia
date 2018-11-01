@@ -11,7 +11,7 @@ namespace Capstonia.Items
         public Food(GameManager game): base(game)
         {
             Name = "Food";
-            Damage = 0;
+            Strength = 0;
             Defense = 0;
             Value = ValuePoints();
             History = "ChittyChittyBangBang";
@@ -53,7 +53,7 @@ namespace Capstonia.Items
         public override bool UseItem()
         {
             AddStat();
-            game.Messages.AddMessage("Feasted on the flesh of your enemites and recovered " + Value + " health");
+            game.Messages.AddMessage("Feasted on the flesh of your enemites and recovered " + Value + " hunger");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

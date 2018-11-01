@@ -7,7 +7,6 @@ namespace Capstonia.Interfaces
         void Move();
         void FindPath();
         void TakeStep(RogueSharp.Path nextStep);
-        bool CanAttack();
         void FixPos(int x, int y, bool status);
     }
 }

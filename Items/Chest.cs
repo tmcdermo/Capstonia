@@ -12,7 +12,7 @@ namespace Capstonia.Items
         public Chest(GameManager game) : base(game)
         {
             Name = "Chest";
-            Damage = 0;
+            Strength = 0;
             Defense = 0;
             Value = ValuePoints();
             History = "PennyPincher";

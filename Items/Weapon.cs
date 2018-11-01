@@ -10,7 +10,7 @@ namespace Capstonia.Items
         public Weapon(GameManager game) : base(game)
         {
             Name = "Weapon";
-            Damage = Capstonia.GameManager.Random.Next(5, 15);
+            Strength = Capstonia.GameManager.Random.Next(5, 15);
             Defense = 0;
             Value = 0;
             History = "Close your eyes and swing it around.";
@@ -23,14 +23,12 @@ namespace Capstonia.Items
 
         public override void AddStat()
         {
-            game.Player.MinDamage += Damage;
-            game.Player.MaxDamage += Damage;
+            game.Player.Strength += this.Strength;
         }
 
         public override void RemoveStat()
         {
-            game.Player.MinDamage -= Damage;
-            game.Player.MaxDamage -= Damage;
+            game.Player.Strength -= this.Strength;
         }
         public override void Broadcast()
         {
@@ -45,7 +43,7 @@ namespace Capstonia.Items
         {
             //If weapon is equipped
             AddStat();
-            game.Messages.AddMessage("Equipped weapon with +" + Damage + " damage");
+            game.Messages.AddMessage("Equipped weapon with +" + Strength + " strength");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

@@ -11,7 +11,7 @@ namespace Capstonia.Items
         public Ring(GameManager game) : base(game)
         {
             Name = "Ring";
-            Damage = 0;
+            Strength = 0;
             Defense = 0;
             Value = ValuePoints();
             History = "Useless piece of metal";

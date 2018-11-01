@@ -21,7 +21,7 @@ namespace Capstonia.Items
         {
             Name = "Potion";
             Brew = PotionType();
-            Damage = 0;
+            Strength = 0;
             Defense = 0;
             Value = HealValue();
             History = "Never too early for a drink.";
@@ -58,10 +58,25 @@ namespace Capstonia.Items
 
         public override void AddStat()
         {
-            game.Player.Health += Value;
-            if(game.Player.Health > game.Player.MaxHealth)
+            //Check if payer is at max health
+            if(game.Player.CurrHealth == game.Player.MaxHealth)
             {
-                game.Player.Health = game.Player.MaxHealth; // if we heal more than cap, set to cap
+                //Return potion to inventory if player is at max health
+                game.Messages.AddMessage("You are already at full health!");
+                Item newPotion = new Potion(game);
+                game.Inventory.AddItem(newPotion);
+            }
+            else
+            {
+                //If not at max health, add value of potion to health
+                game.Player.CurrHealth += Value;
+                game.Messages.AddMessage("Feasted on the blood of your enemies and recovered " + Value + " health");
+
+                //Set health to max health if new value is higher than max
+                if (game.Player.CurrHealth > game.Player.MaxHealth)
+                {
+                    game.Player.CurrHealth = game.Player.MaxHealth; // if we heal more than cap, set to cap
+                }
             }
         }
 
@@ -82,7 +97,7 @@ namespace Capstonia.Items
         {
             //If item is picked up
             AddStat();
-            game.Messages.AddMessage("Feasted on the blood of your enemies and recovered " + Value + " health");
+            
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

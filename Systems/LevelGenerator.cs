@@ -11,6 +11,7 @@ using Capstonia;
 using Capstonia.Core;
 using Capstonia.Monsters;
 using Capstonia.Items;
+using Capstonia.Items.ArmorTier;
 using System;
 using System.Diagnostics;
 
@@ -485,6 +486,18 @@ namespace Capstonia.Systems
             {
                 case ItemType.Armor:
                     return new Armor(game);
+                case ItemType.LeatherChest:
+                    return new LeatherChest(game);
+                case ItemType.SteelChest:
+                    return new SteelChest(game);
+                case ItemType.GoldChest:
+                    return new GoldChest(game);
+                case ItemType.EmeraldChest:
+                    return new EmeraldChest(game);
+                case ItemType.DiamondChest:
+                    return new DiamondChest(game);
+                case ItemType.BloodChest:
+                    return new BloodChest(game);
                 //case ItemType.Bone:
                 //    return new Bone(game);
                 case ItemType.Book:

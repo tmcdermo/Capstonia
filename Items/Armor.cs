@@ -4,24 +4,26 @@ using Capstonia.Core;
 
 namespace Capstonia.Items
 {
+  
     /// <summary>
     /// Armor should provide an increase in Players Defense
     /// </summary>
     public class Armor: Item
     {
-        
+        private string armorType;
+        public string ArmorType { get { return armorType; } set { armorType = value; } }
+        private int armorMultiplier;
+        public int ArmorMultiplier { get { return armorMultiplier; } set { armorMultiplier = value; } }
         public Armor(GameManager game): base(game)
         {
             Name = "Armor";
             Strength = 0;
-            Defense = Capstonia.GameManager.Random.Next(1,5);
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
             Interactive = true;
             Consumable = false;
             IsEquipped = false;
             MaxStack = 1;
-            Sprite = game.armor;
         }
 
         /// <summary>
@@ -30,6 +32,7 @@ namespace Capstonia.Items
         public override void AddStat()
         {
             game.Player.ArmorValue += Defense;
+            game.Player.ArmorType = ArmorType;
         }
         /// <summary>
         /// Similar to AddState on UnEquip we remove previous stats
@@ -55,5 +58,7 @@ namespace Capstonia.Items
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;
         }
+
+
     }
 }

@@ -350,7 +350,7 @@ namespace Capstonia.Systems
                 switch (things.Item1.Name)
                 {
                     case "Armor":
-                        spriteBatch.Draw(game.armor, coords[index], Color.White);
+                        spriteBatch.Draw(things.Item1.Sprite, coords[index], Color.White);
                         spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;

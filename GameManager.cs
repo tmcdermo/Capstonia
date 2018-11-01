@@ -118,39 +118,6 @@ namespace Capstonia
 
         }
 
-        private void testInventSystem()
-        {
-            //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
-            //inventoryScreen = new Texture2D(graphics.GraphicsDevice, 200, 100);
-            //inventoryScreen.SetData(new[] { Color.White });
-
-            //Testing manual inventory
-            Armor leather = new Armor(this);
-            Armor leather2 = new Armor(this);
-            Food drummy = new Food(this);
-            Food drummy2 = new Food(this);
-            Food drummy3 = new Food(this);
-            Weapon thingy = new Weapon(this);
-            Weapon thingy2 = new Weapon(this);
-            Book read = new Book(this);
-            Potion drink = new Potion(this);
-            Potion drink2 = new Potion(this);
-            Potion drink3 = new Potion(this);
-            Potion drink4 = new Potion(this);
-            Inventory.AddItem(leather);
-            Inventory.AddItem(leather2);
-            Inventory.AddItem(drink);
-            Inventory.AddItem(drink2);
-            Inventory.AddItem(drummy);
-            Inventory.AddItem(thingy);
-            Inventory.AddItem(drink3);
-            Inventory.AddItem(drink4);
-            Inventory.AddItem(drummy2);
-            Inventory.AddItem(read);
-            Inventory.AddItem(drummy3);
-            Inventory.AddItem(thingy2);
-        }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -221,7 +188,6 @@ namespace Capstonia
             emptyTexture.SetData(new[] { Color.White });
 
             GenerateLevel();
-            testInventSystem();
 
         }
 

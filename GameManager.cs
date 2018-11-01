@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using Capstonia.Systems;
 using Capstonia.Core;
 using Capstonia.Items;
-using Capstonia.Monsters;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Capstonia
@@ -35,6 +34,7 @@ namespace Capstonia
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
         public Player Player { get; set; }
+        public Monster Monster { get; set; }
         public LevelGrid Level { get; private set; }
         public MessageLog Messages { get; set; }
         public Score ScoreDisplay { get; set; }
@@ -83,6 +83,9 @@ namespace Capstonia
         public Texture2D PlayerStatsOutline;
         public Texture2D PlayerEquipmentOutline;
 
+        // Monster Stats
+        public Texture2D MonsterStatsOutline;
+
         // track keyboard state (i.e. capture key presses)
         public KeyboardState currentKeyboardState;
         public KeyboardState previousKeyboardState;
@@ -92,10 +95,14 @@ namespace Capstonia
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1000;
-            graphics.PreferredBackBufferHeight = 830;
+            graphics.PreferredBackBufferHeight = 858;
             Content.RootDirectory = "Content";
 
+            // add player instance
             Player = new Player(this);
+
+            // add monster instance
+            Monster = new Monster(this);
 
             //link the messageLog and game instance
             Messages = new MessageLog(this);
@@ -200,6 +207,7 @@ namespace Capstonia
             Outline = Content.Load<Texture2D>("inventory_gui");
             PlayerStatsOutline = Content.Load<Texture2D>("player_stats_gui");
             PlayerEquipmentOutline = Content.Load<Texture2D>("player_equipment_gui");
+            MonsterStatsOutline = Content.Load<Texture2D>("monster_stats_gui");
 
             // load actor textures
             Player.Sprite = Content.Load<Texture2D>("dknight_1");
@@ -285,6 +293,9 @@ namespace Capstonia
 
             // draw stats grid for player
             Player.DrawStats(spriteBatch);
+
+            // draw stats grid for monsters
+            Monster.DrawStats(spriteBatch);
 
             // draw equipment grid for player
             Player.DrawEquipment(spriteBatch);

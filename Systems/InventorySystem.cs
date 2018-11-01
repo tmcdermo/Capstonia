@@ -259,10 +259,12 @@ namespace Capstonia.Systems
                 if (Inventory[index].Item1.Name == "Potion")
                 {
                     status = usePotion(index);
-                    if(status)
+                    if (status)
                     {
                         RemoveItem(index);//Inventory[index].Item1);
                     }
+                    else
+                        game.Messages.AddMessage("Cannot use while full health.");
                 }
                 else if(Inventory[index].Item1.Name == "Food")
                 {
@@ -271,6 +273,8 @@ namespace Capstonia.Systems
                     {
                         RemoveItem(index);//Inventory[index].Item1);
                     }
+                    else
+                        game.Messages.AddMessage("Cannot use while full.");
                 }
                 else
                 {

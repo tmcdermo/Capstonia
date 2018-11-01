@@ -18,7 +18,7 @@ namespace Capstonia.Monsters
             // every point above 10 gives a dodge bonus
             Dexterity = 10;
             // health total for Capstonian; if the values reaches 0, the Capstonain is killed
-            Health = 10;
+            Health = 3;
             // max dmg Capstonian can cause
             MaxDamage = 3;
             // min dmg Capstonain can cause

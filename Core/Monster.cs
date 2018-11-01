@@ -1,10 +1,10 @@
-﻿using Capstonia.Controller;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Capstonia.Interfaces;
-using Capstonia.Monsters;
-using System;
 using Rectangle = RogueSharp.Rectangle;
 using Path = RogueSharp.Path;
 using ICell = RogueSharp.ICell;
+
 
 namespace Capstonia.Core
 {
@@ -195,6 +195,44 @@ namespace Capstonia.Core
         public void FixPos(int x, int y, bool status)
         {
             game.Level.SetIsWalkable(x, y, status);
+        }
+
+        // DrawStats(...)
+        // DESC:    Draw Player equipment to screen.
+        // PARAMS:  SpriteBatch instance.
+        // RETURNS: None.
+        public void DrawStats(SpriteBatch spriteBatch)
+        {
+            const int iconVertOffset = 52; // center icon vertically in grid cell
+            const int iconHorizOffset = 60; // center icon horizontally in grid cell
+            const int textVertOffset = 13; // offset for text
+            const int textHorizOffset = 240; // offset for text
+            const int gridVertOffset = 502 + 153; // offset for grid
+            const int gridHorizOffset = 672; // offset for grid
+            int fudgeFactorScore = 18; // pixel offset to center text
+
+            // draw stats outline
+            spriteBatch.Draw(game.MonsterStatsOutline, new Vector2(gridHorizOffset, gridVertOffset), Color.White);
+
+            // draw title
+            int horiztOffsetForTitle = 760;
+            int fudgeFactorTitle = 5;
+            spriteBatch.DrawString(game.mainFont, "MONSTER STATS", new Vector2(horiztOffsetForTitle + fudgeFactorTitle, gridVertOffset + fudgeFactorScore), Color.White);
+
+            int iteration = 1; // used to offset
+            const int maxNumberOfMonsters = 3; // max number of monsters that can be displayed in the grid
+            foreach (Monster enemy in game.Monsters)
+            {
+                // the monster stats grid is currently fixed size and we are only allowing 3 to be displayed
+                if (game.IsInRoomWithPlayer(enemy.X, enemy.Y)  && iteration <= maxNumberOfMonsters)
+                {
+                    // draw 2nd monster if there is one
+                    spriteBatch.Draw(game.Monsters[iteration].Sprite, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset), Color.White);
+                    spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].Name, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+                    spriteBatch.DrawString(game.mainFont, game.Monsters[iteration].Health.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+                    ++iteration;
+                }
+            }
         }
 
 

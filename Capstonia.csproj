@@ -152,6 +152,7 @@
     <None Include="Content\dexterity.png" />
     <None Include="Content\constitution.png" />
     <None Include="Content\player_equipment_gui.png" />
+    <None Include="Content\monster_stats_gui.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\chest_gold_open.png" />

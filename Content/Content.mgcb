@@ -236,6 +236,18 @@
 /processorParam:TextureFormat=Compressed
 /build:MainFont.spritefont
 
+#begin monster_stats_gui.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:monster_stats_gui.png
+
 #begin player_equipment_gui.png
 /importer:TextureImporter
 /processor:TextureProcessor

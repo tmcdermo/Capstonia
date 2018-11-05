@@ -488,8 +488,8 @@ namespace Capstonia.Systems
         {
             switch (itemType)
             {
-                case ItemType.Armor:
-                    return new Armor(game);
+                //case ItemType.Armor:
+                //    return new Armor(game);
                 case ItemType.LeatherChest:
                     return new LeatherChest(game);
                 case ItemType.SteelChest:

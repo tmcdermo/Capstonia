@@ -588,8 +588,8 @@ namespace Capstonia.Core
         {
             if (LoseTurn) // reset player position if they lost their turn from hunger
             {
-                this.X = oldPositionX;
-                this.Y = oldPositionY;
+                game.Level.SetActorPosition(this, oldPositionX, oldPositionY);
+
             }
         }
     }

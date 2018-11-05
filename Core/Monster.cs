@@ -103,7 +103,7 @@ namespace Capstonia.Core
         public void Move()
         {
             //Only call once player has moved - this retains turn based movement
-            if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY)
+            if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY || game.Player.LoseTurn)
             {
                 //Check if monster is in room with player and attack if it is, otherwise refill HP
                 if (game.IsInRoomWithPlayer(this.X, this.Y))
@@ -118,6 +118,7 @@ namespace Capstonia.Core
                 //Update player coordinates for following call to monster move
                 oldPlayerX = game.Player.X;
                 oldPlayerY = game.Player.Y;
+                game.Player.LoseTurn = false;
 
             }
 

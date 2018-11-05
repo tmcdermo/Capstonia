@@ -34,6 +34,7 @@ namespace Capstonia
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
         public Player Player { get; set; }
+        public MapLevel MapLevelDisplay { get; set; }
         public Monster Monster { get; set; }
         public LevelGrid Level { get; private set; }
         public MessageLog Messages { get; set; }
@@ -139,7 +140,11 @@ namespace Capstonia
             //link the messageLog and game instance
             Messages = new MessageLog(this);
 
+            // display glory/score
             ScoreDisplay = new Score(this);
+
+            // display map level player is on
+            MapLevelDisplay = new MapLevel(this);
 
             // Player provided commands
             CommandSystem = new CommandSystem(this);
@@ -304,6 +309,7 @@ namespace Capstonia
             Inventory.Draw(spriteBatch);
             Messages.Draw(spriteBatch);
             ScoreDisplay.Draw(spriteBatch);
+            MapLevelDisplay.Draw(spriteBatch);
             Level.Draw(spriteBatch);
 
             // draw all of the monsters in the list

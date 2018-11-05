@@ -315,6 +315,7 @@ namespace Capstonia.Core
                 {
                     game.mapLevel++;
                     game.GenerateLevel();
+                    game.Messages.AddMessage("You have descended to level " + game.mapLevel + ".");
                 }
                 else
                 {

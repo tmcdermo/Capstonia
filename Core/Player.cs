@@ -10,6 +10,7 @@ namespace Capstonia.Core
         public string ArmorType { get; set; } // e.g., leather, chainmail, plate
         public int ArmorValue { get; set; } // e.g., leather, chainmail, plate
         public int Experience { get; set; } // track progress until next level
+        public int CurrentExperienceMax { get; set; }
         public int Hunger { get; set; } // 0 = full, 100 = starving
         public string WeaponType { get; set; } // e.g., leather, chainmail, plate
         public int WeaponValue { get; set; } // e.g., leather, chainmail, plate
@@ -43,6 +44,15 @@ namespace Capstonia.Core
             return Strength - game.BaseStrength;
         }
 
+        // GetConstitutionBonus()
+        // DESC:    Calculate and return constitution bonus for extra health on level up
+        // PARAMS:  None.
+        // RETURNS: Return constitution bonus (int)
+        public int GetConstitutionBonus()
+        {
+            return Constitution - game.BaseConstitution;
+        }
+
         // Player
         // DESC:    Constructor that inherits from the base class, game.
         // PARAMS:  A GameManager instance.
@@ -58,7 +68,6 @@ namespace Capstonia.Core
             MaxHealth = 100; // initial health value (out of 100) and can grow with constitution
             CurrHealth = 100; // current health value (out of 100)
             Hunger = 100; // 0 = starving, 100 = full
-            Level = 0; // 0 = min, 100 = max
             //MaxHunger = 100; // cap to not over-feed
             MaxDamage = 5; // max dmg Player can cause
             MinDamage = 1; // min dmg Player can cause
@@ -67,6 +76,9 @@ namespace Capstonia.Core
             WeaponType = "Club";
             WeaponValue = 2;  // used in dmg calc during battle
             Glory = 0;
+            Level = 1;
+            Experience = 0;
+            CurrentExperienceMax = 10;
         }
 
         // CalculateHungerPenalty()
@@ -358,6 +370,26 @@ namespace Capstonia.Core
             if (monster.CurrHealth <= 0)
             {
                 game.HandleMonsterDeath(monster);
+            }
+        }
+
+        // CheckLevelUp()
+        // DESC:    Check Player experience to determine if they have levelled up
+        // PARAMS:  None
+        // RETURNS: None
+        public void CheckLevelUp()
+        {
+
+            if(Experience >= CurrentExperienceMax)
+            {
+                Level++;
+                Experience -= CurrentExperienceMax;
+                CurrentExperienceMax *= 2;
+
+                MaxHealth += GameManager.Random.Next(3, 12) + GetConstitutionBonus();
+
+                game.Messages.AddMessage("============================");
+                game.Messages.AddMessage("You are now level " + Level + "!!!");
             }
         }
 

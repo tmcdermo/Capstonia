@@ -296,6 +296,19 @@ namespace Capstonia.Core
             {
                 game.Inventory.UseItem(9);
             }
+            else if (game.currentKeyboardState.IsKeyDown(Keys.OemPeriod) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.OemPeriod))
+            {
+                if(game.Level.LevelExit.X == X && game.Level.LevelExit.Y == Y)
+                {
+                    game.mapLevel++;
+                    game.GenerateLevel();
+                }
+                else
+                {
+                    game.Messages.AddMessage("You must be on the stairs to go down a level!");
+                }
+            }
 
             // save current state to previous and get ready for next move
             game.previousKeyboardState = game.currentKeyboardState;

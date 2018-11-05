@@ -59,6 +59,10 @@ namespace Capstonia.Systems
             // Creates grid that is solid/unwalkable with the given dimensions
             level.Initialize(levelWidth, levelHeight);
 
+            // clear monster and items lists
+            game.Monsters.Clear();
+            game.Items.Clear();
+
             int x, y;
             int roomCounter = 1;
             // assign area for rooms

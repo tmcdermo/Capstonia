@@ -14,6 +14,7 @@ namespace Capstonia.Core
         //Used for preventing too many updates per second
         int oldPlayerX;
         int oldPlayerY;
+
         Path instructions;
 
         public int MinGlory { get; set; }
@@ -116,6 +117,8 @@ namespace Capstonia.Core
                 oldPlayerY = game.Player.Y;
 
             }
+
+            
 
 
         }

@@ -288,7 +288,7 @@ namespace Capstonia
         // DESC:    Generates the entire level grid in which individual rooms will be placed.     
         // PARAMS:  None.
         // RETURNS: None.
-        private void GenerateLevel()
+        public void GenerateLevel()
         {
             LevelGenerator levelGenerator = new LevelGenerator(this, levelWidth, levelHeight, levelRows, levelCols, mapLevel);
             Level = levelGenerator.CreateLevel();

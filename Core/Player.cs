@@ -133,7 +133,6 @@ namespace Capstonia.Core
 
             //TODO - Add messages for when food is consumed and stats are restores?
             HungerStat();
-
             // move player up
             if ((game.currentKeyboardState.IsKeyDown(Keys.Down) &&
                 game.previousKeyboardState.IsKeyUp(Keys.Down)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad2) &&
@@ -143,6 +142,7 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X, Y + 1);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -154,13 +154,14 @@ namespace Capstonia.Core
                 }
             } // move player down
             else if ((game.currentKeyboardState.IsKeyDown(Keys.Up) &&
-                     game.previousKeyboardState.IsKeyUp(Keys.Up)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad8) &&
+                        game.previousKeyboardState.IsKeyUp(Keys.Up)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad8) &&
                 game.previousKeyboardState.IsKeyUp(Keys.NumPad8)))
             {
                 if (game.Level.IsWalkable(game.Player.X, game.Player.Y - 1))
                 {
                     //game.Player.Y -= 1;
                     game.Level.SetActorPosition(this, X, Y - 1);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -172,13 +173,14 @@ namespace Capstonia.Core
                 }
             } // move player left
             else if ((game.currentKeyboardState.IsKeyDown(Keys.Left) &&
-                     game.previousKeyboardState.IsKeyUp(Keys.Left)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad4) &&
+                        game.previousKeyboardState.IsKeyUp(Keys.Left)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad4) &&
                 game.previousKeyboardState.IsKeyUp(Keys.NumPad4)))
             {
                 if (game.Level.IsWalkable(game.Player.X - 1, game.Player.Y))
                 {
                     //game.Player.X -= 1;
                     game.Level.SetActorPosition(this, X - 1, Y);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -190,13 +192,14 @@ namespace Capstonia.Core
                 }
             } // move player right
             else if ((game.currentKeyboardState.IsKeyDown(Keys.Right) &&
-                     game.previousKeyboardState.IsKeyUp(Keys.Right)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad6) &&
+                        game.previousKeyboardState.IsKeyUp(Keys.Right)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad6) &&
                 game.previousKeyboardState.IsKeyUp(Keys.NumPad6)))
             {
                 if (game.Level.IsWalkable(game.Player.X + 1, game.Player.Y))
                 {
                     //game.Player.X += 1;
                     game.Level.SetActorPosition(this, X + 1, Y);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -214,6 +217,7 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y - 1);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -231,6 +235,7 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y + 1);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -248,6 +253,7 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y + 1);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -265,6 +271,7 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y - 1);
+                    HungerUpdate();
                 }
                 else
                 {
@@ -280,6 +287,7 @@ namespace Capstonia.Core
                     game.previousKeyboardState.IsKeyUp(Keys.D1))
             {
                 game.Inventory.UseItem(1);
+
             }
             else if (game.currentKeyboardState.IsKeyDown(Keys.D2) &&
                     game.previousKeyboardState.IsKeyUp(Keys.D2))
@@ -324,7 +332,7 @@ namespace Capstonia.Core
             else if (game.currentKeyboardState.IsKeyDown(Keys.OemPeriod) &&
                     game.previousKeyboardState.IsKeyUp(Keys.OemPeriod))
             {
-                if(game.Level.LevelExit.X == X && game.Level.LevelExit.Y == Y)
+                if (game.Level.LevelExit.X == X && game.Level.LevelExit.Y == Y)
                 {
                     game.mapLevel++;
                     game.GenerateLevel();
@@ -334,11 +342,10 @@ namespace Capstonia.Core
                     game.Messages.AddMessage("You must be on the stairs to go down a level!");
                 }
             }
-
+            LoseMovement();
             // save current state to previous and get ready for next move
             game.previousKeyboardState = game.currentKeyboardState;
-            HungerUpdate();
-            LoseMove();
+  
 
         }
 
@@ -348,44 +355,47 @@ namespace Capstonia.Core
         // RETURNS: None.
         public void Attack(Monster monster)
         {
-            game.Messages.AddMessage("You attack the " + monster.Name + "!!!");
+            if(LoseTurn == false)
+            { 
+                game.Messages.AddMessage("You attack the " + monster.Name + "!!!");
 
-            // calculate rolls for battle
-            int hitRoll = GameManager.Random.Next(1, 20);
-            int defenseRoll = GameManager.Random.Next(1, 20);
+                // calculate rolls for battle
+                int hitRoll = GameManager.Random.Next(1, 20);
+                int defenseRoll = GameManager.Random.Next(1, 20);
 
-            // calculate attack & defense rolls
-            int hitValue = hitRoll + GetHitBonus();
-            int defenseValue = defenseRoll + monster.getDodgeBonus();
+                // calculate attack & defense rolls
+                int hitValue = hitRoll + GetHitBonus();
+                int defenseValue = defenseRoll + monster.getDodgeBonus();
 
-            // Player wins tie
-            if (hitValue < defenseValue)
-            {
-                game.Messages.AddMessage(monster.Name + " dodges hit!");
-                return;
-            }
+                // Player wins tie
+                if (hitValue < defenseValue)
+                {
+                    game.Messages.AddMessage(monster.Name + " dodges hit!");
+                    return;
+                }
 
-            // calculate base Player dmg
-            int dmgRoll = GameManager.Random.Next(MinDamage, MaxDamage);
-            int dmgValue = dmgRoll + GetDamageBonus();
+                // calculate base Player dmg
+                int dmgRoll = GameManager.Random.Next(MinDamage, MaxDamage);
+                int dmgValue = dmgRoll + GetDamageBonus();
 
-            // calculate total dmg
-            int totalDmg = dmgValue - defenseValue;
+                // calculate total dmg
+                int totalDmg = dmgValue - defenseValue;
 
-            if (totalDmg <= 0)
-            {
-                game.Messages.AddMessage(monster.Name + " blocks attack!");
-                return;
-            }
+                if (totalDmg <= 0)
+                {
+                    game.Messages.AddMessage(monster.Name + " blocks attack!");
+                    return;
+                }
 
-            // inflict dmg on Capstonian
-            game.Messages.AddMessage("Player inflicts " + totalDmg + " dmg on " + monster.Name);
-            monster.CurrHealth -= totalDmg;
+                // inflict dmg on Capstonian
+                game.Messages.AddMessage("Player inflicts " + totalDmg + " dmg on " + monster.Name);
+                monster.CurrHealth -= totalDmg;
 
-            if (monster.CurrHealth <= 0)
-            {
-                game.HandleMonsterDeath(monster);
-            }
+                if (monster.CurrHealth <= 0)
+                {
+                    game.HandleMonsterDeath(monster);
+                }
+             }
         }
 
         // DrawStats(...)
@@ -584,11 +594,19 @@ namespace Capstonia.Core
             }
         }
 
-        private void LoseMove()
+        private void LoseMovement()
         {
-            if (LoseTurn) // reset player position if they lost their turn from hunger
+            if (LoseTurn)
             {
                 game.Level.SetActorPosition(this, oldPositionX, oldPositionY);
+                LoseTurn = false;
+                foreach (Monster minion in game.Monsters)
+                {
+                   if(game.IsInRoomWithPlayer(minion.X, minion.Y))
+                   {
+                        minion.FindPath();
+                   }
+                }
 
             }
         }

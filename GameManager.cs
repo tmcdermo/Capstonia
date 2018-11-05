@@ -222,22 +222,53 @@ namespace Capstonia
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //testing hunger timings//
+            bool turnComplete = false;
+            bool playerHasMoved = false;
+            bool monstersHaveMoved = false;
+
+            while (turnComplete == false)
+            {
+                // Handle keyboard input
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Exit();
+
+                // move player
+                if (playerHasMoved == false)
+                {
+                    Player.Move();
+                }
+                playerHasMoved = true;
+
+                if (playerHasMoved)
+                {
+                    //move Monsters
+                    foreach (Monster enemy in Monsters)
+                    {
+                        enemy.Move();
+                    }
+                    monstersHaveMoved = true;
+                }
+
+                if(playerHasMoved && monstersHaveMoved)
+                {
+                    turnComplete = true;
+                }
+            }
+            /*
             // Handle keyboard input
+
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // move player
-            Player.Move();
-            
-            
-
+                    Exit();
+            //move Player
+            Player.Move();     
             //move Monsters
-            foreach( Monster enemy in Monsters)
+            foreach (Monster enemy in Monsters)
             {
                 enemy.Move();
-            }
-
+            }*/
             // update game state
+
             base.Update(gameTime);
         }
 

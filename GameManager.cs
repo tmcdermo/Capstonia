@@ -37,6 +37,7 @@ namespace Capstonia
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
         public Player Player { get; set; }
+        public MapLevel MapLevelDisplay { get; set; }
         public Monster Monster { get; set; }
         public LevelGrid Level { get; private set; }
         public MessageLog Messages { get; set; }
@@ -76,7 +77,33 @@ namespace Capstonia
         public Texture2D strength;
 
         // Monsters
+        public Texture2D banshee;
+        public Texture2D barbarian;
+        public Texture2D bat;
         public Texture2D beholder;
+        public Texture2D demon;
+        public Texture2D dragon;
+        public Texture2D drowelf;
+        public Texture2D fireelemental;
+        public Texture2D goblin;
+        public Texture2D lich;
+        public Texture2D lizardman;
+        public Texture2D minotaur;
+        public Texture2D mummy;
+        public Texture2D ogre;
+        public Texture2D rat;
+        public Texture2D skeleton;
+        public Texture2D slime;
+        public Texture2D snake;
+        public Texture2D spider;
+        public Texture2D spirit;
+        public Texture2D stonegolem;
+        public Texture2D troll;
+        public Texture2D valkyrie;
+        public Texture2D vampire;
+        public Texture2D wolf;
+        public Texture2D wraith;
+        public Texture2D zombie;
 
         // containers
         public List<Monster> Monsters;
@@ -116,7 +143,11 @@ namespace Capstonia
             //link the messageLog and game instance
             Messages = new MessageLog(this);
 
+            // display glory/score
             ScoreDisplay = new Score(this);
+
+            // display map level player is on
+            MapLevelDisplay = new MapLevel(this);
 
             // Player provided commands
             CommandSystem = new CommandSystem(this);
@@ -194,6 +225,32 @@ namespace Capstonia
             // load actor textures
             Player.Sprite = Content.Load<Texture2D>("dknight_1");
             beholder = Content.Load<Texture2D>("beholder_deep_1");
+            banshee = Content.Load<Texture2D>("banshee_1");
+            barbarian = Content.Load<Texture2D>("barbarian_f_1");
+            bat = Content.Load<Texture2D>("bat_giant_1");
+            demon = Content.Load<Texture2D>("demon_red_1");
+            dragon = Content.Load<Texture2D>("dragon_green_1");
+            drowelf = Content.Load<Texture2D>("drow_1");
+            fireelemental = Content.Load<Texture2D>("elemental_fire_1");
+            goblin = Content.Load<Texture2D>("goblin_1");
+            stonegolem = Content.Load<Texture2D>("golem_stone_1");
+            lich = Content.Load<Texture2D>("lich_1");
+            lizardman = Content.Load<Texture2D>("lizardman_blue_1");
+            minotaur = Content.Load<Texture2D>("minotaur_1");
+            mummy = Content.Load<Texture2D>("mummy_1");
+            ogre = Content.Load<Texture2D>("ogre_1");
+            rat = Content.Load<Texture2D>("rat_giant_1");
+            skeleton = Content.Load<Texture2D>("skeleton_1");
+            slime = Content.Load<Texture2D>("slime_purple_1");
+            snake = Content.Load<Texture2D>("snake_giant_1");
+            spider = Content.Load<Texture2D>("spider_black_giant_1");
+            spirit = Content.Load<Texture2D>("spirit_1");
+            troll = Content.Load<Texture2D>("troll_1");
+            valkyrie = Content.Load<Texture2D>("valkyrie_b_1");
+            vampire = Content.Load<Texture2D>("vampire_lord_1");
+            wolf = Content.Load<Texture2D>("wolf_black_1");
+            wraith = Content.Load<Texture2D>("wraith_a_1");
+            zombie = Content.Load<Texture2D>("zombie_a_1");
 
             // load fonts
             mainFont = Content.Load<SpriteFont>("MainFont");
@@ -288,6 +345,7 @@ namespace Capstonia
             Inventory.Draw(spriteBatch);
             Messages.Draw(spriteBatch);
             ScoreDisplay.Draw(spriteBatch);
+            MapLevelDisplay.Draw(spriteBatch);
             Level.Draw(spriteBatch);
 
             // draw all of the monsters in the list
@@ -376,8 +434,14 @@ namespace Capstonia
             int addGlory = Random.Next(monster.MinGlory, monster.MaxGlory);
             Player.Glory += addGlory;
 
+            int addExperience = monster.GetMonsterExperience();
+            Player.Experience += addExperience;
+
             Messages.AddMessage("You have slaughtered the " + monster.Name + "!!!");            
             Messages.AddMessage("You have earned " + addGlory + " Glory worth of gold and bones!!!");
+            Messages.AddMessage("You gained " + addExperience + " Experience Points!!!");
+
+            Player.CheckLevelUp();
             
             Level.SetIsWalkable(monster.X, monster.Y, true);
             Monsters.Remove(monster);            

@@ -204,12 +204,13 @@ namespace Capstonia.Systems
                         randomPoint = GetRandomPointInRoom(room);
                     }
                    
+                    int monsterLevel = GetMonsterLevel();
                     MonsterType monsterIndex;
                     Monster monster;
                     do {
                         monsterIndex = (MonsterType)GameManager.Random.Next(0, Enum.GetNames(typeof(MonsterType)).Length - 1);
                         monster = GetMonster(monsterIndex);
-                    } while (monster.MinLevel > game.mapLevel || monster.MaxLevel < game.mapLevel);
+                    } while (monster.Level != monsterLevel);                    
 
                     monster.X = randomPoint.X;
                     monster.Y = randomPoint.Y;
@@ -218,6 +219,7 @@ namespace Capstonia.Systems
                 }
             }
         }
+
 
         // PlaceItems()
         // DESC:    Place items throughout entire level
@@ -475,9 +477,60 @@ namespace Capstonia.Systems
         {
             switch (monsterType)
             {
+                case MonsterType.Banshee:
+                    return new Banshee(game);
+                case MonsterType.Barbarian:
+                    return new Barbarian(game);
+                case MonsterType.Bat:
+                    return new Bat(game);
                 case MonsterType.Beholder:
                     return new Beholder(game);
-
+                case MonsterType.Demon:
+                    return new Demon(game);
+                case MonsterType.Dragon:
+                    return new Dragon(game);
+                case MonsterType.DrowElf:
+                    return new DrowElf(game);
+                case MonsterType.FireElemental:
+                    return new FireElemental(game);
+                case MonsterType.Goblin:
+                    return new Goblin(game);
+                case MonsterType.Lich:
+                    return new Lich(game);
+                case MonsterType.Lizardman:
+                    return new Lizardman(game);
+                case MonsterType.Minotaur:
+                    return new Minotaur(game);
+                case MonsterType.Mummy:
+                    return new Mummy(game);
+                case MonsterType.Ogre:
+                    return new Ogre(game);
+                case MonsterType.Rat:
+                    return new Rat(game);
+                case MonsterType.Skeleton:
+                    return new Skeleton(game);
+                case MonsterType.Slime:
+                    return new Slime(game);
+                case MonsterType.Snake:
+                    return new Snake(game);
+                case MonsterType.Spider:
+                    return new Spider(game);
+                case MonsterType.Spirit:
+                    return new Spirit(game);
+                case MonsterType.StoneGolem:
+                    return new StoneGolem(game);
+                case MonsterType.Troll:
+                    return new Troll(game);
+                case MonsterType.Valkyrie:
+                    return new Valkyrie(game);
+                case MonsterType.Vampire:
+                    return new Vampire(game);
+                case MonsterType.Wolf:
+                    return new Wolf(game);
+                case MonsterType.Wraith:
+                    return new Wraith(game);
+                case MonsterType.Zombie:
+                    return new Zombie(game);
             }
 
             // should never hit this
@@ -488,8 +541,8 @@ namespace Capstonia.Systems
         {
             switch (itemType)
             {
-                case ItemType.Armor:
-                    return new Armor(game);
+                //case ItemType.Armor:
+                //    return new Armor(game);
                 case ItemType.LeatherChest:
                     return new LeatherChest(game);
                 case ItemType.SteelChest:
@@ -525,6 +578,234 @@ namespace Capstonia.Systems
 
             // should never hit this
             return null;
+        }
+
+        // GetMonsterLevel()
+        // DESC:    Return Random Monster Level Dependent on Dungeon level
+        // PARAMS:  None
+        // RETURNS: Monster Level (int)
+        public int GetMonsterLevel()
+        {
+            int monsterLevelChance = GameManager.Random.Next(1, 100);
+
+            switch (game.mapLevel)
+            {
+                case 1:
+                    if (monsterLevelChance <= 85)
+                    {
+                        return 1;
+                    }
+                    else if (monsterLevelChance <= 94)
+                    {
+                        return 2;
+                    }
+                    else if (monsterLevelChance <= 99)
+                    {
+                        return 3;
+                    }
+                    return 4;
+                case 2:
+                    if(monsterLevelChance <= 60)
+                    {
+                        return 2;
+                    }
+                    else if (monsterLevelChance <= 85)
+                    {
+                        return 1;
+                    }
+                    else if (monsterLevelChance <= 94)
+                    {
+                        return 3;
+                    }
+                    else if (monsterLevelChance <= 99)
+                    {
+                        return 4;
+                    }
+                    return 5;
+                case 3:
+                    if(monsterLevelChance <= 45)
+                    {
+                        return 3;
+                    }
+                    else if (monsterLevelChance <= 70)
+                    {
+                        return 2;
+                    }
+                    else if (monsterLevelChance <= 85)
+                    {
+                        return 1;
+                    }
+                    else if (monsterLevelChance <= 94)
+                    {
+                        return 4;
+                    }
+                    else if (monsterLevelChance <= 99)
+                    {
+                        return 5;
+                    }
+                    return 6;
+                case 4:
+                    if (monsterLevelChance <= 40)
+                    {
+                        return 4;
+                    }
+                    else if (monsterLevelChance <= 65)
+                    {
+                        return 3;
+                    }
+                    else if (monsterLevelChance <= 80)
+                    {
+                        return 2;
+                    }
+                    else if (monsterLevelChance <= 85)
+                    {
+                        return 1;
+                    }
+                    else if (monsterLevelChance <= 94)
+                    {
+                        return 5;
+                    }
+                    else if (monsterLevelChance <= 99)
+                    {
+                        return 6;
+                    }
+                    return 7;
+                case 5:
+                    if (monsterLevelChance <= 40)
+                    {
+                        return 5;
+                    }
+                    else if (monsterLevelChance <= 65)
+                    {
+                        return 4;
+                    }
+                    else if (monsterLevelChance <= 80)
+                    {
+                        return 3;
+                    }
+                    else if (monsterLevelChance <= 85)
+                    {
+                        return 2;
+                    }
+                    else if (monsterLevelChance <= 94)
+                    {
+                        return 6;
+                    }
+                    else if (monsterLevelChance <= 99)
+                    {
+                        return 7;
+                    }
+                    return 8;
+                case 6:
+                    if (monsterLevelChance <= 40)
+                    {
+                        return 6;
+                    }
+                    else if (monsterLevelChance <= 65)
+                    {
+                        return 5;
+                    }
+                    else if (monsterLevelChance <= 80)
+                    {
+                        return 4;
+                    }
+                    else if (monsterLevelChance <= 85)
+                    {
+                        return 3;
+                    }
+                    else if (monsterLevelChance <= 94)
+                    {
+                        return 7;
+                    }
+                    else if (monsterLevelChance <= 99)
+                    {
+                        return 8;
+                    }
+                    return 9;
+                case 7:
+                    if (monsterLevelChance <= 40)
+                    {
+                        return 7;
+                    }
+                    else if (monsterLevelChance <= 65)
+                    {
+                        return 6;
+                    }
+                    else if (monsterLevelChance <= 80)
+                    {
+                        return 5;
+                    }
+                    else if (monsterLevelChance <= 85)
+                    {
+                        return 4;
+                    }
+                    else if (monsterLevelChance <= 94)
+                    {
+                        return 8;
+                    }
+                    else if (monsterLevelChance <= 99)
+                    {
+                        return 9;
+                    }
+                    return 10;
+                case 8:
+                    if (monsterLevelChance <= 41)
+                    {
+                        return 8;
+                    }
+                    else if (monsterLevelChance <= 66)
+                    {
+                        return 7;
+                    }
+                    else if (monsterLevelChance <= 81)
+                    {
+                        return 6;
+                    }
+                    else if (monsterLevelChance <= 86)
+                    {
+                        return 5;
+                    }
+                    else if (monsterLevelChance <= 95)
+                    {
+                        return 9;
+                    }
+                    return 10;
+                case 9:
+                    if (monsterLevelChance <= 41)
+                    {
+                        return 9;
+                    }
+                    else if (monsterLevelChance <= 66)
+                    {
+                        return 8;
+                    }
+                    else if (monsterLevelChance <= 81)
+                    {
+                        return 7;
+                    }
+                    else if (monsterLevelChance <= 86)
+                    {
+                        return 6;
+                    }
+                    return 10;
+                case 10:
+                    if (monsterLevelChance <= 55)
+                    {
+                        return 10;
+                    }
+                    else if (monsterLevelChance <= 80)
+                    {
+                        return 9;
+                    }
+                    else if (monsterLevelChance <= 95)
+                    {
+                        return 8;
+                    }
+                    return 7;
+            }
+
+            // should never get here
+            return -1;
         }
 
     }

@@ -17,8 +17,6 @@ namespace Capstonia.Core
 
         Path instructions;
 
-        public int MinLevel { get; set; }
-        public int MaxLevel { get; set; }
         public int MinGlory { get; set; }
         public int MaxGlory { get; set; }
 
@@ -47,8 +45,6 @@ namespace Capstonia.Core
             MinDamage = 1; // min dmg Capstonain can cause
             Name = "Minstrel"; // name of Capstonian
             Strength = 10;  // every point above 10 gives a dmg bonus
-            MinLevel = 1;
-            MaxLevel = 3;
             MinGlory = 1;
             MaxGlory = 3;
             oldPlayerX = game.Player.X;
@@ -224,6 +220,30 @@ namespace Capstonia.Core
                     ++iteration;
                 }
             }
+        }
+
+        // GetMonsterExperience
+        // DESC:    Returns value of Monster experience determined by level
+        // PARAMS:  None
+        // RETURNS: Experience value (int)
+        public int GetMonsterExperience()
+        {
+            switch (Level)
+            {
+                case 1: return 1;
+                case 2: return 2;
+                case 3: return 4;
+                case 4: return 8;
+                case 5: return 16;
+                case 6: return 32;
+                case 7: return 64;
+                case 8: return 128;
+                case 9: return 256;
+                case 10: return 512;
+            }
+
+            // should never reach this
+            return -1;
         }
 
 

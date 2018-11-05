@@ -4,7 +4,7 @@ namespace Capstonia.Core
 {
     public enum ItemType
     {
-        Armor,
+        //Armor,
         //Bone,
         Book,
         //Chest,

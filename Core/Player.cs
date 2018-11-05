@@ -10,6 +10,7 @@ namespace Capstonia.Core
         public string ArmorType { get; set; } // e.g., leather, chainmail, plate
         public int ArmorValue { get; set; } // e.g., leather, chainmail, plate
         public int Experience { get; set; } // track progress until next level
+        public int CurrentExperienceMax { get; set; }
         public int Hunger { get; set; } // 0 = starving, 100 = full
         public int OldHunger { get; set; } // 0 = starving, 100 = full
         public float NewHungerPenalty { get; set; } //hunger penalty to apply to stats
@@ -50,6 +51,15 @@ namespace Capstonia.Core
             return Strength - game.BaseStrength;
         }
 
+        // GetConstitutionBonus()
+        // DESC:    Calculate and return constitution bonus for extra health on level up
+        // PARAMS:  None.
+        // RETURNS: Return constitution bonus (int)
+        public int GetConstitutionBonus()
+        {
+            return Constitution - game.BaseConstitution;
+        }
+
         // Player
         // DESC:    Constructor that inherits from the base class, game.
         // PARAMS:  A GameManager instance.
@@ -78,6 +88,9 @@ namespace Capstonia.Core
             WeaponType = "Club";
             WeaponValue = 2;  // used in dmg calc during battle
             Glory = 0;
+            Level = 1;
+            Experience = 0;
+            CurrentExperienceMax = 10;
             LoseTurn = false;
         }
 
@@ -336,6 +349,7 @@ namespace Capstonia.Core
                 {
                     game.mapLevel++;
                     game.GenerateLevel();
+                    game.Messages.AddMessage("You have descended to level " + game.mapLevel + ".");
                 }
                 else
                 {
@@ -396,6 +410,26 @@ namespace Capstonia.Core
                     game.HandleMonsterDeath(monster);
                 }
              }
+        }
+
+        // CheckLevelUp()
+        // DESC:    Check Player experience to determine if they have levelled up
+        // PARAMS:  None
+        // RETURNS: None
+        public void CheckLevelUp()
+        {
+
+            if(Experience >= CurrentExperienceMax)
+            {
+                Level++;
+                Experience -= CurrentExperienceMax;
+                CurrentExperienceMax *= 2;
+
+                MaxHealth += GameManager.Random.Next(3, 12) + GetConstitutionBonus();
+
+                game.Messages.AddMessage("============================");
+                game.Messages.AddMessage("You are now level " + Level + "!!!");
+            }
         }
 
         // DrawStats(...)

@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -76,6 +75,32 @@
     <Compile Include="Items\Ring.cs" />
     <Compile Include="Items\Skull.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Monsters\Banshee.cs" />
+    <Compile Include="Monsters\Barbarian.cs" />
+    <Compile Include="Monsters\Bat.cs" />
+    <Compile Include="Monsters\Demon.cs" />
+    <Compile Include="Monsters\Dragon.cs" />
+    <Compile Include="Monsters\DrowElf.cs" />
+    <Compile Include="Monsters\FireElemental.cs" />
+    <Compile Include="Monsters\Goblin.cs" />
+    <Compile Include="Monsters\Lich.cs" />
+    <Compile Include="Monsters\Lizardman.cs" />
+    <Compile Include="Monsters\Minotaur.cs" />
+    <Compile Include="Monsters\Mummy.cs" />
+    <Compile Include="Monsters\Ogre.cs" />
+    <Compile Include="Monsters\Rat.cs" />
+    <Compile Include="Monsters\Skeleton.cs" />
+    <Compile Include="Monsters\Slime.cs" />
+    <Compile Include="Monsters\Snake.cs" />
+    <Compile Include="Monsters\Spider.cs" />
+    <Compile Include="Monsters\Spirit.cs" />
+    <Compile Include="Monsters\StoneGolem.cs" />
+    <Compile Include="Monsters\Troll.cs" />
+    <Compile Include="Monsters\Valkyrie.cs" />
+    <Compile Include="Monsters\Vampire.cs" />
+    <Compile Include="Monsters\Wolf.cs" />
+    <Compile Include="Monsters\Wraith.cs" />
+    <Compile Include="Monsters\Zombie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Systems\CommandSystem.cs" />
@@ -85,6 +110,7 @@
     <Compile Include="Core\UserInputCommands.cs" />
     <Compile Include="Systems\UserInputKeyboard.cs" />
     <Compile Include="Monsters\Beholder.cs" />
+    <Compile Include="Core\MapLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -161,14 +187,40 @@
     <None Include="Content\monster_stats_gui.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\banshee_1.png" />
+    <Content Include="Content\barbarian_f_1.png" />
+    <Content Include="Content\bat_giant_1.png" />
     <Content Include="Content\chest_gold_open.png" />
+    <Content Include="Content\demon_red_1.png" />
     <Content Include="Content\dknight_1.png" />
     <Content Include="Content\door_stone_11.png" />
     <Content Include="Content\door_stone_3.png" />
     <Content Include="Content\door_stone_4.png" />
+    <Content Include="Content\dragon_green_1.png" />
+    <Content Include="Content\drow_1.png" />
+    <Content Include="Content\elemental_fire_1.png" />
     <Content Include="Content\floor_extra_12.png" />
     <Content Include="Content\floor_set_grey_8.png" />
+    <Content Include="Content\goblin_1.png" />
+    <Content Include="Content\golem_stone_1.png" />
+    <Content Include="Content\lich_1.png" />
+    <Content Include="Content\lizardman_blue_1.png" />
+    <Content Include="Content\minotaur_1.png" />
+    <Content Include="Content\mummy_1.png" />
+    <Content Include="Content\ogre_1.png" />
+    <Content Include="Content\rat_giant_1.png" />
+    <Content Include="Content\skeleton_1.png" />
+    <Content Include="Content\slime_purple_1.png" />
+    <Content Include="Content\snake_giant_1.png" />
+    <Content Include="Content\spider_black_giant_1.png" />
+    <Content Include="Content\spirit_1.png" />
+    <Content Include="Content\troll_1.png" />
+    <Content Include="Content\valkyrie_b_1.png" />
+    <Content Include="Content\vampire_lord_1.png" />
     <Content Include="Content\wall_stone_11.png" />
+    <Content Include="Content\wolf_black_1.png" />
+    <Content Include="Content\wraith_a_1.png" />
+    <Content Include="Content\zombie_a_1.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

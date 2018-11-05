@@ -132,8 +132,6 @@ namespace Capstonia.Core
             HungerWarning();
 
             //TODO - Add messages for when food is consumed and stats are restores?
-
-            //TODO - This only decreases stats - still need a way to restore stats when hunger increases
             HungerStat();
 
             // move player up
@@ -512,6 +510,21 @@ namespace Capstonia.Core
                 OldHunger = Hunger;
                 game.Messages.AddMessage("You are famished. Stats decreased by 90%");
             }
+            else if(Hunger > 50 && OldHunger <= 50)
+            {
+                OldHunger = Hunger;
+                game.Messages.AddMessage("You feel a lot stronger after consuming some food. Stats restored to 100%");
+            }
+            else if (Hunger > 25 && OldHunger <= 25)
+            {
+                OldHunger = Hunger;
+                game.Messages.AddMessage("You feel a little bit stronger after consuming some food. Stats restored to 90%");
+            }
+            else if (Hunger > 0 && OldHunger == 0)
+            {
+                OldHunger = Hunger;
+                game.Messages.AddMessage("You feel a tiny bit stronger after consuming some food. Stats restored to 50%");
+            }
         }
 
 
@@ -519,14 +532,26 @@ namespace Capstonia.Core
         {
             if (NewHungerPenalty != OldHungerPenalty)
             {
+                //Check if new hunger is greater or less than old to determine change in stats
+                if (OldHungerPenalty > NewHungerPenalty) //New is less than old, so decrease state
+                {
+                    //Update constitution, dexterity, and strength accordingly
+                    Constitution = (int)(Constitution * NewHungerPenalty);
+                    game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
+                    Dexterity = (int)(Dexterity * NewHungerPenalty);
+                    Strength = (int)(Strength * NewHungerPenalty);
+                }
+                else    //new is greater than old,so increase
+                {
+                    //Update constitution, dexterity, and strength accordingly
+                    Constitution = (int)(Constitution / OldHungerPenalty);
+                    game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
+                    Dexterity = (int)(Dexterity / OldHungerPenalty);
+                    Strength = (int)(Strength / OldHungerPenalty);
+                }
+
                 //Set old penalty to new penalty for next check
                 OldHungerPenalty = NewHungerPenalty;
-
-                //Update constitution, dexterity, and strength accordingly
-                Constitution = (int)(Constitution * NewHungerPenalty);
-                game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
-                Dexterity = (int)(Dexterity * NewHungerPenalty);
-                Strength = (int)(Strength * NewHungerPenalty);
             }
         }
 

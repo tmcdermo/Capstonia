@@ -6,12 +6,12 @@ using Rectangle = RogueSharp.Rectangle;
 
 namespace Capstonia.Monsters
 {
-    public class Beholder : Monster
+    public class Spider : Monster
     {
         int oldPlayerX;
         int oldPlayerY;
         // constructor
-        public Beholder(GameManager game) : base(game)
+        public Spider(GameManager game) : base(game)
         {
             // every point above 10 gives a health bonus
             Constitution = 10;
@@ -26,13 +26,13 @@ namespace Capstonia.Monsters
             // min dmg Capstonain can cause
             MinDamage = 1;
             // name of monster
-            Name = "Beholder";
+            Name = "Giant Spider";
             // every point above 10 gives a dmg bonus
             Strength = 10;
             Level = 3;
             MinGlory = 1;
             MaxGlory = 3;
-            Sprite = game.beholder;
+            Sprite = game.spider;
             oldPlayerX = game.Player.X;
             oldPlayerY = game.Player.Y;
             

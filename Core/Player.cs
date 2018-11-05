@@ -416,6 +416,7 @@ namespace Capstonia.Core
 
             // draw title
             int horiztOffsetForTitle = 780;
+            fudgeFactorScore = 18;
             spriteBatch.DrawString(game.mainFont, "PLAYER STATS", new Vector2(horiztOffsetForTitle, gridVertOffset + fudgeFactorScore), Color.White);
 
             // draw health
@@ -424,19 +425,22 @@ namespace Capstonia.Core
             spriteBatch.DrawString(game.mainFont, CurrHealth.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
 
             // draw level
+            fudgeFactorScore = 25;
             spriteBatch.Draw(game.level, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, "Level", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-            spriteBatch.DrawString(game.mainFont, Level.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Level.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             ++iteration; // offset for next block
 
             // experience level
             fudgeFactorIcon = 1;
+            fudgeFactorScore = -5;
             spriteBatch.Draw(game.experience, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
             spriteBatch.DrawString(game.mainFont, "Experience", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-            spriteBatch.DrawString(game.mainFont, Experience.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, Experience.ToString() + "/" + CurrentExperienceMax, new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             ++iteration; // offset for next block
 
             // strength level
+            fudgeFactorScore = 18;
             fudgeFactorIcon = 3;
             spriteBatch.Draw(game.strength, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
             spriteBatch.DrawString(game.mainFont, "Strength", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
@@ -444,6 +448,7 @@ namespace Capstonia.Core
             ++iteration; // offset for next block
 
             // dexterity level
+            fudgeFactorScore = 18;
             fudgeFactorIcon = 2;
             spriteBatch.Draw(game.dexterity, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset - fudgeFactorIcon), Color.White);
             spriteBatch.DrawString(game.mainFont, "Dexterity", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
@@ -452,6 +457,7 @@ namespace Capstonia.Core
 
             // constitution level
             fudgeFactorIcon = 2;
+            fudgeFactorScore = 18;
             spriteBatch.Draw(game.constitution, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset - fudgeFactorIcon), Color.White);
             spriteBatch.DrawString(game.mainFont, "Constitution", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, Constitution.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);

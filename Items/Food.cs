@@ -33,6 +33,7 @@ namespace Capstonia.Items
             {
                 game.Player.Hunger = game.Player.MaxHunger; // same concept can't eat over capacity
             }
+            game.Messages.AddMessage("Feasted on the flesh of your enemites and recovered " + Value + " hunger");
         }
 
         public override void RemoveStat()
@@ -53,7 +54,6 @@ namespace Capstonia.Items
         public override bool UseItem()
         {
             AddStat();
-            game.Messages.AddMessage("Feasted on the flesh of your enemites and recovered " + Value + " hunger");
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;

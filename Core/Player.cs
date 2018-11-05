@@ -10,10 +10,14 @@ namespace Capstonia.Core
         public string ArmorType { get; set; } // e.g., leather, chainmail, plate
         public int ArmorValue { get; set; } // e.g., leather, chainmail, plate
         public int Experience { get; set; } // track progress until next level
-        public int Hunger { get; set; } // 0 = full, 100 = starving
+        public int Hunger { get; set; } // 0 = starving, 100 = full
+        public int OldHunger { get; set; } // 0 = starving, 100 = full
+        public float NewHungerPenalty { get; set; } //hunger penalty to apply to stats
+        public float OldHungerPenalty { get; set; } //save old state for updates
         public string WeaponType { get; set; } // e.g., leather, chainmail, plate
         public int WeaponValue { get; set; } // e.g., leather, chainmail, plate
         public int MaxHunger { get; set; } // max hunger = player is full
+        public int MinHunger { get; set; } // min hunger = player is famished
         public int Glory { get; set; } // increased after collecting treasure and killing monsters
 
         // GetHitBonus()
@@ -58,8 +62,12 @@ namespace Capstonia.Core
             MaxHealth = 100; // initial health value (out of 100) and can grow with constitution
             CurrHealth = 100; // current health value (out of 100)
             Hunger = 100; // 0 = starving, 100 = full
+            OldHunger = 100; // 0 = starving, 100 = full
+            NewHungerPenalty = 1.0f; //1.0 = full strength
+            OldHungerPenalty = 1.0f; //Save state of old hunger penalty to ensure we don't update too many times
             Level = 0; // 0 = min, 100 = max
-            //MaxHunger = 100; // cap to not over-feed
+            MaxHunger = 100; // cap to not over-feed
+            MinHunger = 0; //hunger can't go below 0
             MaxDamage = 5; // max dmg Player can cause
             MinDamage = 1; // min dmg Player can cause
             Name = "Villain"; // name of Player
@@ -89,11 +97,11 @@ namespace Capstonia.Core
             }
             else if (this.Hunger > 0 && this.Hunger <= 25)
             {
-                hungerPenalty = 0.75f; // multiplier for str, dex, const
+                hungerPenalty = 0.50f; // multiplier for str, dex, const
             }
             else if (this.Hunger > 25 && this.Hunger <= 50)
             {
-                hungerPenalty = 0.50f; // multiplier for str, dex, const
+                hungerPenalty = 0.90f; // multiplier for str, dex, const
             }
             return hungerPenalty;
         }
@@ -109,6 +117,42 @@ namespace Capstonia.Core
             // get current keyboard state
             game.currentKeyboardState = Keyboard.GetState();
 
+            //Only update hunger penalty once for each time it changes
+            NewHungerPenalty = CalculateHungerPenalty();
+            
+
+            //Output warnings as needed
+            if(Hunger == 50 && OldHunger != 50)
+            {
+                OldHunger = Hunger;
+                game.Messages.AddMessage("You start to feel hungry.  Stats decreased by 10%");
+            }
+            if (Hunger == 25 && OldHunger != 25)
+            {
+                OldHunger = Hunger;
+                game.Messages.AddMessage("You start to feel the onset of starvation.  Stats decreased by 50%");
+            }
+            if (Hunger == 0 && OldHunger != 0)
+            {
+                OldHunger = Hunger;
+                game.Messages.AddMessage("You are famished. Stats decreased by 90%");
+            }
+
+            //TODO - Add messages for when food is consumed and stats are restores?
+
+            //TODO - This only decreases stats - still need a way to restore stats when hunger increases
+            if (NewHungerPenalty != OldHungerPenalty)
+            {
+                //Set old penalty to new penalty for next check
+                OldHungerPenalty = NewHungerPenalty;
+
+                //Update constitution, dexterity, and strength accordingly
+                Constitution = (int)(Constitution * NewHungerPenalty);
+                game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
+                Dexterity = (int)(Dexterity * NewHungerPenalty);
+                Strength = (int)(Strength * NewHungerPenalty);
+            }
+
             // move player up
             if ((game.currentKeyboardState.IsKeyDown(Keys.Down) &&
                 game.previousKeyboardState.IsKeyUp(Keys.Down)) || (game.currentKeyboardState.IsKeyDown(Keys.NumPad2) &&
@@ -118,6 +162,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X, Y + 1);
+
+                    //Decrement hunger stat for each move taken
+                    Hunger -= 1;
+                    if(Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -136,6 +188,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y -= 1;
                     game.Level.SetActorPosition(this, X, Y - 1);
+
+                    //Decrement hunger stat for each move taken or attack dealt
+                    Hunger -= 1;
+                    if (Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -154,6 +214,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.X -= 1;
                     game.Level.SetActorPosition(this, X - 1, Y);
+
+                    //Decrement hunger stat for each move taken or attack dealt
+                    Hunger -= 1;
+                    if (Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -172,6 +240,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.X += 1;
                     game.Level.SetActorPosition(this, X + 1, Y);
+
+                    //Decrement hunger stat for each move taken or attack dealt
+                    Hunger -= 1;
+                    if (Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -189,6 +265,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y - 1);
+
+                    //Decrement hunger stat for each move taken or attack dealt
+                    Hunger -= 1;
+                    if (Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -206,6 +290,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y + 1);
+
+                    //Decrement hunger stat for each move taken or attack dealt
+                    Hunger -= 1;
+                    if (Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -223,6 +315,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y + 1);
+
+                    //Decrement hunger stat for each move taken or attack dealt
+                    Hunger -= 1;
+                    if (Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -240,6 +340,14 @@ namespace Capstonia.Core
                 {
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y - 1);
+
+                    //Decrement hunger stat for each move taken or attack dealt
+                    Hunger -= 1;
+                    if (Hunger < MinHunger)
+                    {
+                        Hunger = MinHunger;
+                    }
+                    game.Messages.AddMessage("Hunger: " + Hunger);
                 }
                 else
                 {
@@ -312,6 +420,8 @@ namespace Capstonia.Core
 
             // save current state to previous and get ready for next move
             game.previousKeyboardState = game.currentKeyboardState;
+
+            
 
         }
 

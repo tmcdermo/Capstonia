@@ -30,6 +30,9 @@ namespace Capstonia
         public readonly int BaseStrength = 10;
         public readonly int BaseDexterity = 10;
         public readonly int BaseConstitution = 10;
+        //public readonly float BaseStrength = 10.0f;
+        //public readonly float BaseDexterity = 10.0f;
+        //public readonly float BaseConstitution = 10.0f;
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -225,6 +228,8 @@ namespace Capstonia
 
             // move player
             Player.Move();
+            
+            
 
             //move Monsters
             foreach( Monster enemy in Monsters)

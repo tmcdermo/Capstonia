@@ -114,6 +114,9 @@ namespace Capstonia
         public Rectangle inventoryScreen;
         public Texture2D emptyTexture; //used to fill a blank rectangle (i.e., inventoryScreen)
         public Texture2D Outline;
+
+        //Equipment
+        public Equipment Equip;
         
         // Player Stats and Equipment
         public Texture2D PlayerStatsOutline;
@@ -155,6 +158,9 @@ namespace Capstonia
             //Create Inventory for player
             Inventory = new InventorySystem(this);
             inventoryScreen = new Rectangle(200, 100, 1200, 0);   //Height, Width, X, Y
+
+            //Equipment
+            Equip = new Equipment(this);
 
         }
 

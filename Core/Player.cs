@@ -525,7 +525,15 @@ namespace Capstonia.Core
             spriteBatch.DrawString(game.mainFont, "PLAYER EQUIPMENT", new Vector2(horiztOffsetForTitle, gridVertOffset + fudgeFactorScore), Color.White);
 
             // draw armor
-            spriteBatch.Draw(game.armor, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+            if (game.Equip.Equip["Armor"] == null)
+            {
+                spriteBatch.Draw(game.armor, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(game.Equip.Equip["Armor"].Sprite, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+
+            }
             spriteBatch.DrawString(game.mainFont, ArmorType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, "+" + ArmorValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
 

@@ -276,10 +276,15 @@ namespace Capstonia.Systems
                     else
                         game.Messages.AddMessage("Cannot use while full.");
                 }
-                else
+                else if(Inventory[index].Item1.Name == "Book")
                 {
                     Inventory[index].Item1.UseItem();
                     RemoveItem(index);//Inventory[index].Item1);
+                }
+                else // Weapons and Armor
+                {
+                    game.Equip.Wear(Inventory[index].Item1);
+                    RemoveItem(index);
                 }
             }
             //TODO - Else print out message saying nothing in that slot

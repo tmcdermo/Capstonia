@@ -83,5 +83,8 @@ namespace Capstonia.Core
         {
             return false;
         }
+
+        // Undo what Use item does //
+        public virtual void RemoveItem() { }
     }
 }

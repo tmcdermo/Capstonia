@@ -17,6 +17,7 @@ namespace Capstonia.Items
         public Armor(GameManager game): base(game)
         {
             Name = "Armor";
+            ArmorType = "Leather Jerkin";
             Strength = 0;
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
@@ -24,6 +25,7 @@ namespace Capstonia.Items
             Consumable = false;
             IsEquipped = false;
             MaxStack = 1;
+            Sprite = game.armor;
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace Capstonia.Items
         public override void RemoveStat()
         {
             game.Player.ArmorValue -= Defense;
+            game.Player.ArmorType = "";
         }
 
         public override void Broadcast()
@@ -57,6 +60,11 @@ namespace Capstonia.Items
 
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;
+        }
+
+        public override void RemoveItem()
+        {
+            RemoveStat();
         }
 
 

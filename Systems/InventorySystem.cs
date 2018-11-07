@@ -383,5 +383,32 @@ namespace Capstonia.Systems
                 }
             }
         }
+
+
+        // DisplayStats()
+        // DESC:    Calls the broadcast function that displays stats of item at passed in slot
+        // PARAMS:  slot(int)
+        // RETURNS: None.
+        public void DisplayStats(int slot)
+        {
+            bool slotEmpty = true;
+
+            //If item exists in the slot number, boradcast its message
+            foreach(Tuple<Item,int>item in Inventory)
+            {
+                if (Inventory[slot].Item1 != null)
+                {
+                    Item tmp = Inventory[slot].Item1;
+                    tmp.Broadcast();
+                    slotEmpty = false;
+                }
+            }
+            
+            //If no item in slot, output message informing player slot is empty
+            if(slotEmpty == true)
+            {
+                game.Messages.AddMessage("That inventory slot is empty");
+            }
+        }
     }
 }

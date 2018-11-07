@@ -295,6 +295,13 @@ namespace Capstonia.Core
                     }
                 }
             }
+            //testing display stats
+            else if((game.currentKeyboardState.IsKeyDown(Keys.D1) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyDown(Keys.D1) && game.previousKeyboardState.IsKeyDown(Keys.I)))
+            {
+                //Display stats of first item (index 0)
+                game.Inventory.DisplayStats(0);
+            }
             //testing numbers
             else if (game.currentKeyboardState.IsKeyDown(Keys.D1) &&
                     game.previousKeyboardState.IsKeyUp(Keys.D1))

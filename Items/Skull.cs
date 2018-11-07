@@ -39,7 +39,7 @@ namespace Capstonia.Items
         public override void Broadcast()
         {
             //https://stackoverflow.com/questions/7227413/c-sharp-variables-in-strings //
-            string tmp = String.Format("Found {0} worth of Skulls!.", Value);
+            string tmp = String.Format("Skull worth {0} glory", Value);
             game.Messages.AddMessage(tmp);
         }
 

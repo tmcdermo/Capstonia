@@ -295,6 +295,70 @@ namespace Capstonia.Core
                     }
                 }
             }
+            //testing drop item
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D1)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D1)))
+            {
+                //Drop item at index 0
+                game.Inventory.DropItem(0);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D2)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D2)))
+            {
+                //Drop item at index 1
+                game.Inventory.DropItem(1);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D3)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D3)))
+            {
+                //Drop item at index 2
+                game.Inventory.DropItem(2);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D4)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D4)))
+            {
+                //Drop item at index 3
+                game.Inventory.DropItem(3);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D5)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D5)))
+            {
+                //Drop item at index 4
+                game.Inventory.DropItem(4);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D6)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D6)))
+            {
+                //Drop item at index 5
+                game.Inventory.DropItem(5);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D7)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D7)))
+            {
+                //Drop item at index 6
+                game.Inventory.DropItem(6);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D8)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D8)))
+            {
+                //Drop item at index 7
+                game.Inventory.DropItem(7);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.D9)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.D9)))
+            {
+                //Drop item at index 8
+                game.Inventory.DropItem(8);
+            }
             //testing display stats
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F1) && game.previousKeyboardState.IsKeyUp(Keys.F1)))
             {
@@ -303,42 +367,42 @@ namespace Capstonia.Core
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F2) && game.previousKeyboardState.IsKeyUp(Keys.F2)))
             {
-                //Display stats of first item (index 1)
+                //Display stats of second item (index 1)
                 game.Inventory.DisplayStats(1);
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F3) && game.previousKeyboardState.IsKeyUp(Keys.F3)))
             {
-                //Display stats of first item (index 2)
+                //Display stats of third item (index 2)
                 game.Inventory.DisplayStats(2);
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F4) && game.previousKeyboardState.IsKeyUp(Keys.F4)))
             {
-                //Display stats of first item (index 3)
+                //Display stats of fourth item (index 3)
                 game.Inventory.DisplayStats(3);
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F5) && game.previousKeyboardState.IsKeyUp(Keys.F5)))
             {
-                //Display stats of first item (index 4)
+                //Display stats of fifth item (index 4)
                 game.Inventory.DisplayStats(4);
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F6) && game.previousKeyboardState.IsKeyUp(Keys.F6)))
             {
-                //Display stats of first item (index 5)
+                //Display stats of sixth item (index 5)
                 game.Inventory.DisplayStats(5);
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F7) && game.previousKeyboardState.IsKeyUp(Keys.F7)))
             {
-                //Display stats of first item (index 6)
+                //Display stats of seventh item (index 6)
                 game.Inventory.DisplayStats(6);
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F8) && game.previousKeyboardState.IsKeyUp(Keys.F8)))
             {
-                //Display stats of first item (index 7)
+                //Display stats of eighth item (index 7)
                 game.Inventory.DisplayStats(7);
             }
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F9) && game.previousKeyboardState.IsKeyUp(Keys.F9)))
             {
-                //Display stats of first item (index 8)
+                //Display stats of ninth item (index 8)
                 game.Inventory.DisplayStats(8);
             }
             //testing numbers

@@ -408,5 +408,31 @@ namespace Capstonia.Systems
                 game.Messages.AddMessage("That inventory slot is empty");
             }
         }
+
+
+        // DropItem()
+        // DESC:    Removes the item at passed in slot
+        // PARAMS:  slot(int)
+        // RETURNS: None.
+        public void DropItem(int slot)
+        {
+            bool slotEmpty = true;
+
+            //If item exists in the slot number, boradcast its message
+            //list access source: https://stackoverflow.com/questions/3949113/check-if-element-at-position-x-exists-in-the-list
+            if (Inventory.ElementAtOrDefault(slot) != null)
+            {
+                game.Messages.AddMessage("You dropped " + Inventory[slot].Item1.Name);
+                RemoveItem(slot);
+                slotEmpty = false;
+            }
+
+            //If no item in slot, output message informing player slot is empty
+            if (slotEmpty == true)
+            {
+                game.Messages.AddMessage("That inventory slot is empty");
+            }
+
+        }
     }
 }

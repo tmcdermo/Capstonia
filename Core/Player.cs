@@ -297,64 +297,64 @@ namespace Capstonia.Core
             }
             //testing drop item
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D1)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D1)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F1)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F1)))
             {
                 //Drop item at index 0
                 game.Inventory.DropItem(0);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D2)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D2)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F2)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F2)))
             {
                 //Drop item at index 1
                 game.Inventory.DropItem(1);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D3)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D3)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F3)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F3)))
             {
                 //Drop item at index 2
                 game.Inventory.DropItem(2);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D4)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D4)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F4)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F4)))
             {
                 //Drop item at index 3
                 game.Inventory.DropItem(3);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D5)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D5)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F5)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F5)))
             {
                 //Drop item at index 4
                 game.Inventory.DropItem(4);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D6)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D6)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F6)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F6)))
             {
                 //Drop item at index 5
                 game.Inventory.DropItem(5);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D7)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D7)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F7)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F7)))
             {
                 //Drop item at index 6
                 game.Inventory.DropItem(6);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D8)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D8)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F8)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F8)))
             {
                 //Drop item at index 7
                 game.Inventory.DropItem(7);
             }
             else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.D9)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.D9)))
+                    game.currentKeyboardState.IsKeyUp(Keys.F9)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F9)))
             {
                 //Drop item at index 8
                 game.Inventory.DropItem(8);

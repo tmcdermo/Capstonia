@@ -394,15 +394,16 @@ namespace Capstonia.Systems
             bool slotEmpty = true;
 
             //If item exists in the slot number, boradcast its message
-            if (Inventory[slot].Item1 != null)
+            //list access source: https://stackoverflow.com/questions/3949113/check-if-element-at-position-x-exists-in-the-list
+            if (Inventory.ElementAtOrDefault(slot) != null)
             {
                 Item tmp = Inventory[slot].Item1;
                 tmp.Broadcast();
                 slotEmpty = false;
             }
-            
+
             //If no item in slot, output message informing player slot is empty
-            if(slotEmpty == true)
+            if (slotEmpty == true)
             {
                 game.Messages.AddMessage("That inventory slot is empty");
             }

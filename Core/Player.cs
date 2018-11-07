@@ -301,50 +301,42 @@ namespace Capstonia.Core
                 //Display stats of first item (index 0)
                 game.Inventory.DisplayStats(0);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D2) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D2) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F2) && game.previousKeyboardState.IsKeyUp(Keys.F2)))
             {
                 //Display stats of first item (index 1)
                 game.Inventory.DisplayStats(1);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D3) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D3) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F3) && game.previousKeyboardState.IsKeyUp(Keys.F3)))
             {
                 //Display stats of first item (index 2)
                 game.Inventory.DisplayStats(2);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D4) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D4) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F4) && game.previousKeyboardState.IsKeyUp(Keys.F4)))
             {
                 //Display stats of first item (index 3)
                 game.Inventory.DisplayStats(3);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D5) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D5) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F5) && game.previousKeyboardState.IsKeyUp(Keys.F5)))
             {
                 //Display stats of first item (index 4)
                 game.Inventory.DisplayStats(4);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D6) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D6) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F6) && game.previousKeyboardState.IsKeyUp(Keys.F6)))
             {
                 //Display stats of first item (index 5)
                 game.Inventory.DisplayStats(5);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D7) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D7) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F7) && game.previousKeyboardState.IsKeyUp(Keys.F7)))
             {
                 //Display stats of first item (index 6)
                 game.Inventory.DisplayStats(6);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D8) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D8) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F8) && game.previousKeyboardState.IsKeyUp(Keys.F8)))
             {
                 //Display stats of first item (index 7)
                 game.Inventory.DisplayStats(7);
             }
-            else if ((game.currentKeyboardState.IsKeyDown(Keys.D9) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyUp(Keys.D9) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F9) && game.previousKeyboardState.IsKeyUp(Keys.F9)))
             {
                 //Display stats of first item (index 8)
                 game.Inventory.DisplayStats(8);
@@ -625,17 +617,22 @@ namespace Capstonia.Core
             else if(Hunger > 50 && OldHunger <= 50)
             {
                 OldHunger = Hunger;
-                game.Messages.AddMessage("You feel a lot stronger after consuming some food. Stats restored to 100%");
+                game.Messages.AddMessage("You feel a lot stronger after consuming some food");
+                game.Messages.AddMessage("Stats restored to 100%");
             }
             else if (Hunger > 25 && OldHunger <= 25)
             {
                 OldHunger = Hunger;
-                game.Messages.AddMessage("You feel a little bit stronger after consuming some food. Stats restored to 90%");
+                game.Messages.AddMessage("You feel a little bit stronger after consuming some food");
+                game.Messages.AddMessage("Stats restored to 90%");
+
             }
             else if (Hunger > 0 && OldHunger == 0)
             {
                 OldHunger = Hunger;
-                game.Messages.AddMessage("You feel a tiny bit stronger after consuming some food. Stats restored to 50%");
+                game.Messages.AddMessage("You feel a tiny bit stronger after consuming some food");
+                game.Messages.AddMessage("Stats restored to 50%");
+
             }
         }
 

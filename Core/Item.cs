@@ -85,6 +85,9 @@ namespace Capstonia.Core
         }
 
         // Undo what Use item does //
-        public virtual void RemoveItem() { }
+        public virtual void RemoveItem()
+        {
+            RemoveStat();
+        }
     }
 }

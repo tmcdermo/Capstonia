@@ -62,7 +62,7 @@ namespace Capstonia
         public Texture2D armor_diamond_chest;
         public Texture2D armor_blood_chest;
         public Texture2D food;
-        public Texture2D weapon;
+        public Texture2D weapon_club;
         public Texture2D potion;
         public Texture2D book;
         public Texture2D gem;
@@ -209,7 +209,7 @@ namespace Capstonia
             armor_diamond_chest = Content.Load<Texture2D>("armor_diamond_chest");
             armor_blood_chest = Content.Load<Texture2D>("armor_blood_chest");
             food = Content.Load<Texture2D>("drumstick");
-            weapon = Content.Load<Texture2D>("weapon");
+            weapon_club = Content.Load<Texture2D>("weapon_club");
             potion = Content.Load<Texture2D>("potion");
             book = Content.Load<Texture2D>("book");
             chest = Content.Load<Texture2D>("chest_gold_open");

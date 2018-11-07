@@ -365,7 +365,7 @@ namespace Capstonia.Systems
                         index++;
                         break;
                     case "Weapon":
-                        spriteBatch.Draw(game.weapon, coords[index], Color.White);
+                        spriteBatch.Draw(things.Item1.Sprite, coords[index], Color.White);
                         spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;

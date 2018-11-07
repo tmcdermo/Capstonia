@@ -43,10 +43,15 @@ namespace Capstonia.Systems
                 tmpHolder.RemoveItem();
                 return tmpHolder;
             }
-            else
+            else if (name == "Armor")
             {
                 Item LeatherJerkin = new Armor(game);
                 return LeatherJerkin;
+            }
+            else
+            {
+                Item Club = new Weapon(game);
+                return Club;
             }
         }
 

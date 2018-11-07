@@ -62,11 +62,5 @@ namespace Capstonia.Items
             return false;
         }
 
-        public override void RemoveItem()
-        {
-            RemoveStat();
-        }
-
-
     }
 }

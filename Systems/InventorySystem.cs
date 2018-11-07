@@ -394,14 +394,11 @@ namespace Capstonia.Systems
             bool slotEmpty = true;
 
             //If item exists in the slot number, boradcast its message
-            foreach(Tuple<Item,int>item in Inventory)
+            if (Inventory[slot].Item1 != null)
             {
-                if (Inventory[slot].Item1 != null)
-                {
-                    Item tmp = Inventory[slot].Item1;
-                    tmp.Broadcast();
-                    slotEmpty = false;
-                }
+                Item tmp = Inventory[slot].Item1;
+                tmp.Broadcast();
+                slotEmpty = false;
             }
             
             //If no item in slot, output message informing player slot is empty

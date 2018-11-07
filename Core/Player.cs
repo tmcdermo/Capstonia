@@ -297,10 +297,58 @@ namespace Capstonia.Core
             }
             //testing display stats
             else if((game.currentKeyboardState.IsKeyDown(Keys.D1) && game.currentKeyboardState.IsKeyDown(Keys.I))
-                && (game.previousKeyboardState.IsKeyDown(Keys.D1) && game.previousKeyboardState.IsKeyDown(Keys.I)))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D1) && game.previousKeyboardState.IsKeyUp(Keys.I)))
             {
                 //Display stats of first item (index 0)
                 game.Inventory.DisplayStats(0);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D2) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D2) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 1)
+                game.Inventory.DisplayStats(1);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D3) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D3) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 2)
+                game.Inventory.DisplayStats(2);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D4) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D4) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 3)
+                game.Inventory.DisplayStats(3);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D5) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D5) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 4)
+                game.Inventory.DisplayStats(4);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D6) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D6) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 5)
+                game.Inventory.DisplayStats(5);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D7) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D7) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 6)
+                game.Inventory.DisplayStats(6);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D8) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D8) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 7)
+                game.Inventory.DisplayStats(7);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.D9) && game.currentKeyboardState.IsKeyDown(Keys.I))
+                && (game.previousKeyboardState.IsKeyUp(Keys.D9) && game.previousKeyboardState.IsKeyUp(Keys.I)))
+            {
+                //Display stats of first item (index 8)
+                game.Inventory.DisplayStats(8);
             }
             //testing numbers
             else if (game.currentKeyboardState.IsKeyDown(Keys.D1) &&

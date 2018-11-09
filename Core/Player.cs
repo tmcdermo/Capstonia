@@ -69,7 +69,9 @@ namespace Capstonia.Core
             ArmorType = "Leather Jerkin";
             ArmorValue = 0; // used in dmg calc during battle
             Constitution = 10; // every point above 10 gives a health bonus
+            BaseConstitution = 10;
             Dexterity = 10; // every point above 10 gives a dodge bonus
+            BaseDexterity = 10;
             //Health = 50; // Health total for Player.  If the values reaches 0, the player is killed
             //MaxHealth = 50; // can grow with constitution
             MaxHealth = 100; // initial health value (out of 100) and can grow with constitution
@@ -85,6 +87,7 @@ namespace Capstonia.Core
             MinDamage = 1; // min dmg Player can cause
             Name = "Villain"; // name of Player
             Strength = 10;  // every point above 10 gives a dmg bonus
+            BaseStrength = 10;
             WeaponType = "Club";
             WeaponValue = 2;  // used in dmg calc during battle
             Glory = 0;
@@ -144,7 +147,6 @@ namespace Capstonia.Core
             //Output warnings as needed
             HungerWarning();
 
-            //TODO - Add messages for when food is consumed and stats are restores?
             HungerStat();
             // move player up
             if ((game.currentKeyboardState.IsKeyDown(Keys.Down) &&
@@ -469,8 +471,6 @@ namespace Capstonia.Core
             LoseMovement();
             // save current state to previous and get ready for next move
             game.previousKeyboardState = game.currentKeyboardState;
-  
-
         }
 
         // Attack(...)
@@ -657,7 +657,7 @@ namespace Capstonia.Core
         }
 
 
-        // HungerWarning
+        // HungerWarning()
         // DESC:    Broadcasts a message if the player's hunger level is at certain levels
         // PARAMS:  None
         // RETURNS: None
@@ -700,34 +700,30 @@ namespace Capstonia.Core
             }
         }
 
-
+        // HungerStat()
+        // DESC:    Determines the new value of stats after hunger penalty is changed
+        // PARAMS:  None
+        // RETURNS: None
         private void HungerStat()
         {
             if (NewHungerPenalty != OldHungerPenalty)
             {
-                //Check if new hunger is greater or less than old to determine change in stats
-                if (OldHungerPenalty > NewHungerPenalty) //New is less than old, so decrease state
-                {
-                    //Update constitution, dexterity, and strength accordingly
-                    Constitution = (int)(Constitution * NewHungerPenalty);
-                    game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
-                    Dexterity = (int)(Dexterity * NewHungerPenalty);
-                    Strength = (int)(Strength * NewHungerPenalty);
-                }
-                else    //new is greater than old,so increase
-                {
-                    //Update constitution, dexterity, and strength accordingly
-                    Constitution = (int)(Constitution / OldHungerPenalty);
-                    game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
-                    Dexterity = (int)(Dexterity / OldHungerPenalty);
-                    Strength = (int)(Strength / OldHungerPenalty);
-                }
+
+                //Update constitution, dexterity, and strength accordingly
+                Constitution = (int)(BaseConstitution * NewHungerPenalty);
+                game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
+                Dexterity = (int)(BaseDexterity * NewHungerPenalty);
+                Strength = (int)(BaseStrength * NewHungerPenalty);
 
                 //Set old penalty to new penalty for next check
                 OldHungerPenalty = NewHungerPenalty;
             }
         }
 
+        // HungerUpdate();
+        // DESC:    Decrements hunger with each step. If hunger is 0, 1/4 chance to lose turn
+        // PARAMS:  None
+        // RETURNS: None
         private void HungerUpdate()
         {
             //Only Decrement Hunger if Player has moved// 
@@ -739,15 +735,17 @@ namespace Capstonia.Core
                 {
                     Hunger = MinHunger;
                 }
-                game.Messages.AddMessage("Hunger: " + Hunger);
+                //game.Messages.AddMessage("Hunger: " + Hunger);
             }
 
+            //Give player 1 in 4 chance of losing turn if hunger is 0
             if( Hunger == 0)
             {
-                int x = Capstonia.GameManager.Random.Next(0, 1);
-                if (x == 1)
+                int x = Capstonia.GameManager.Random.Next(0, 4);
+                if (x == 0)
                 {
                     LoseTurn = true;
+                    game.Messages.AddMessage("You are too hungry to move. Lose a turn");
                 }
 
             }
@@ -757,6 +755,10 @@ namespace Capstonia.Core
             }
         }
 
+        // LoseMovement()
+        // DESC:    If player has lsot a turn, reset attempted move to previos position and loop monster movement
+        // PARAMS:  None
+        // RETURNS: None
         private void LoseMovement()
         {
             if (LoseTurn)

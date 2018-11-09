@@ -103,7 +103,7 @@ namespace Capstonia.Core
             //TODO - tried to make bool playerHasActed - did not work - the game updates too fast
             //TODO - Removing the "only when player has moved" statement causes enemeies to attack too fast for player reliably act
             //Only call once player has moved - this retains turn based movement
-            if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY) 
+            if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY || game.Player.hasActed) 
             {
                 //Check if monster is in room with player and move towards player if it is, otherwise refill HP
                 if (game.IsInRoomWithPlayer(this.X, this.Y))

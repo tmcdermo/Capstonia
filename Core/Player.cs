@@ -23,6 +23,7 @@ namespace Capstonia.Core
         private int oldPositionX { get; set; } // save players old positions 
         private int oldPositionY { get; set; }
         public bool LoseTurn { get; set; } // regulator for potentially losing players turn when hunger is 0
+        public bool hasActed { get; set; }
 
         // GetHitBonus()
         // DESC:    Calculate and return hit bonus for combat.
@@ -95,6 +96,7 @@ namespace Capstonia.Core
             Experience = 0;
             CurrentExperienceMax = 10;
             LoseTurn = false;
+            hasActed = false;
         }
 
         // CalculateHungerPenalty()
@@ -136,6 +138,7 @@ namespace Capstonia.Core
             //save players old positions
             oldPositionX = this.X;
             oldPositionY = this.Y;
+            hasActed = false;
 
             // get current keyboard state
             game.currentKeyboardState = Keyboard.GetState();
@@ -158,6 +161,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X, Y + 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -165,6 +169,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player down
@@ -177,6 +182,7 @@ namespace Capstonia.Core
                     //game.Player.Y -= 1;
                     game.Level.SetActorPosition(this, X, Y - 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -184,6 +190,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player left
@@ -196,6 +203,7 @@ namespace Capstonia.Core
                     //game.Player.X -= 1;
                     game.Level.SetActorPosition(this, X - 1, Y);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -203,6 +211,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player right
@@ -215,6 +224,7 @@ namespace Capstonia.Core
                     //game.Player.X += 1;
                     game.Level.SetActorPosition(this, X + 1, Y);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -222,6 +232,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player upright
@@ -233,6 +244,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y - 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -240,6 +252,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } //move player downright
@@ -251,6 +264,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y + 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -258,6 +272,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } //move player down left
@@ -269,6 +284,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y + 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -276,6 +292,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } //move player upleft
@@ -287,6 +304,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y - 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -294,6 +312,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             }

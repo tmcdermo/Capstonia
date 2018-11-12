@@ -745,11 +745,17 @@ namespace Capstonia.Core
         // RETURNS: None
         private void HungerUpdate()
         {
+            int x;
             //Only Decrement Hunger if Player has moved// 
             if (oldPositionX != this.X || oldPositionY != this.Y)
             {
-                //Decrement hunger stat for each move taken or attack dealt
-                Hunger -= 1;
+                //1 in 4 chance to decrement Hunger per turn
+                x = Capstonia.GameManager.Random.Next(0, 4);
+                if (x == 0)
+                {
+                    Hunger -= 1;
+                }
+
                 if (Hunger < MinHunger)
                 {
                     Hunger = MinHunger;
@@ -760,7 +766,7 @@ namespace Capstonia.Core
             //Give player 1 in 4 chance of losing turn if hunger is 0
             if( Hunger == 0)
             {
-                int x = Capstonia.GameManager.Random.Next(0, 4);
+                x = Capstonia.GameManager.Random.Next(0, 4);
                 if (x == 0)
                 {
                     LoseTurn = true;

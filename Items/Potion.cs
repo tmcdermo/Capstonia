@@ -71,7 +71,7 @@ namespace Capstonia.Items
         }
         public override void Broadcast()
         {
-            game.Messages.AddMessage("Cherry-Limeade?");
+            game.Messages.AddMessage("Potion heals " + Value + " health");
         }
 
         // UseItem()

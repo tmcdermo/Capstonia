@@ -276,10 +276,15 @@ namespace Capstonia.Systems
                     else
                         game.Messages.AddMessage("Cannot use while full.");
                 }
-                else
+                else if(Inventory[index].Item1.Name == "Book")
                 {
                     Inventory[index].Item1.UseItem();
                     RemoveItem(index);//Inventory[index].Item1);
+                }
+                else // Weapons and Armor
+                {
+                    game.Equip.Wear(Inventory[index].Item1);
+                    RemoveItem(index);
                 }
             }
             //TODO - Else print out message saying nothing in that slot
@@ -360,7 +365,7 @@ namespace Capstonia.Systems
                         index++;
                         break;
                     case "Weapon":
-                        spriteBatch.Draw(game.weapon, coords[index], Color.White);
+                        spriteBatch.Draw(things.Item1.Sprite, coords[index], Color.White);
                         spriteBatch.DrawString(game.mainFont, "x" + things.Item2, quantityCoords[index], Color.White);
                         index++;
                         break;
@@ -377,6 +382,57 @@ namespace Capstonia.Systems
 
                 }
             }
+        }
+
+
+        // DisplayStats()
+        // DESC:    Calls the broadcast function that displays stats of item at passed in slot
+        // PARAMS:  slot(int)
+        // RETURNS: None.
+        public void DisplayStats(int slot)
+        {
+            bool slotEmpty = true;
+
+            //If item exists in the slot number, boradcast its message
+            //list access source: https://stackoverflow.com/questions/3949113/check-if-element-at-position-x-exists-in-the-list
+            if (Inventory.ElementAtOrDefault(slot) != null)
+            {
+                Item tmp = Inventory[slot].Item1;
+                tmp.Broadcast();
+                slotEmpty = false;
+            }
+
+            //If no item in slot, output message informing player slot is empty
+            if (slotEmpty == true)
+            {
+                game.Messages.AddMessage("That inventory slot is empty");
+            }
+        }
+
+
+        // DropItem()
+        // DESC:    Removes the item at passed in slot
+        // PARAMS:  slot(int)
+        // RETURNS: None.
+        public void DropItem(int slot)
+        {
+            bool slotEmpty = true;
+
+            //If item exists in the slot number, boradcast its message
+            //list access source: https://stackoverflow.com/questions/3949113/check-if-element-at-position-x-exists-in-the-list
+            if (Inventory.ElementAtOrDefault(slot) != null)
+            {
+                game.Messages.AddMessage("You dropped " + Inventory[slot].Item1.Name);
+                RemoveItem(slot);
+                slotEmpty = false;
+            }
+
+            //If no item in slot, output message informing player slot is empty
+            if (slotEmpty == true)
+            {
+                game.Messages.AddMessage("That inventory slot is empty");
+            }
+
         }
     }
 }

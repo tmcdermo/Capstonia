@@ -43,7 +43,7 @@ namespace Capstonia.Items
 
         public override void Broadcast()
         {
-            string tmp = String.Format("You found a drumstick: boosts your hunger by {0}", Value);
+            string tmp = String.Format("Food boosts your hunger by {0}", Value);
             game.Messages.AddMessage(tmp);
         }
 

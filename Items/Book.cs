@@ -81,7 +81,7 @@ namespace Capstonia.Items
 
         public override void Broadcast()
         {
-            game.Messages.AddMessage("Look Book!");
+            game.Messages.AddMessage("TODO - Add something appropriate here");
         }
 
         // UseItem()

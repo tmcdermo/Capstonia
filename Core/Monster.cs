@@ -94,15 +94,18 @@ namespace Capstonia.Core
         }
 
         // MOVE()
-        // DESC: Checks for "IsInRoomWithPlayer" and either moves randomly or target movement towards player
+        // DESC: Checks for "IsInRoomWithPlayer" and finds shortest path to move to player's position
         // PARAMS:None
         // RETURNS: None
         public void Move()
         {
+            //TODO - Make this to where it is called whenever player attacks without moving
+            //TODO - tried to make bool playerHasActed - did not work - the game updates too fast
+            //TODO - Removing the "only when player has moved" statement causes enemeies to attack too fast for player reliably act
             //Only call once player has moved - this retains turn based movement
-            if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY)
+            if (game.Player.X != oldPlayerX || game.Player.Y != oldPlayerY || game.Player.hasActed) 
             {
-                //Check if monster is in room with player and attack if it is, otherwise refill HP
+                //Check if monster is in room with player and move towards player if it is, otherwise refill HP
                 if (game.IsInRoomWithPlayer(this.X, this.Y))
                 {
                     FindPath();
@@ -163,10 +166,13 @@ namespace Capstonia.Core
                     this.X = nextSpot.X;
                     this.Y = nextSpot.Y;
                 }
+                else if((game.Player.X == nextSpot.X) && (game.Player.Y == nextSpot.Y))
+                {
+                    Attack();
+                }
             }
             else
             {
-                //Added call to Attack - error is because it hasn not been merged with master yet - should resolve
                 Attack();
             }
         }

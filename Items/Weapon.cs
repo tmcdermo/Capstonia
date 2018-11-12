@@ -18,7 +18,7 @@ namespace Capstonia.Items
             Consumable = false;
             IsEquipped = false;
             MaxStack = 1;
-            Sprite = game.weapon;
+            Sprite = game.weapon_club;
         }
 
         public override void AddStat()
@@ -32,7 +32,7 @@ namespace Capstonia.Items
         }
         public override void Broadcast()
         {
-            game.Messages.AddMessage("Occupational Hazard Found!");
+            game.Messages.AddMessage(Name + " has " + Strength + " strength");
         }
 
         // UseItem()
@@ -48,5 +48,6 @@ namespace Capstonia.Items
             //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
             return false;
         }
+
     }
 }

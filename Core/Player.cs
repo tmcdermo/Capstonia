@@ -23,6 +23,7 @@ namespace Capstonia.Core
         private int oldPositionX { get; set; } // save players old positions 
         private int oldPositionY { get; set; }
         public bool LoseTurn { get; set; } // regulator for potentially losing players turn when hunger is 0
+        public bool hasActed { get; set; }
 
         // GetHitBonus()
         // DESC:    Calculate and return hit bonus for combat.
@@ -69,7 +70,9 @@ namespace Capstonia.Core
             ArmorType = "Leather Jerkin";
             ArmorValue = 0; // used in dmg calc during battle
             Constitution = 10; // every point above 10 gives a health bonus
+            BaseConstitution = 10;
             Dexterity = 10; // every point above 10 gives a dodge bonus
+            BaseDexterity = 10;
             //Health = 50; // Health total for Player.  If the values reaches 0, the player is killed
             //MaxHealth = 50; // can grow with constitution
             MaxHealth = 100; // initial health value (out of 100) and can grow with constitution
@@ -85,6 +88,7 @@ namespace Capstonia.Core
             MinDamage = 1; // min dmg Player can cause
             Name = "Villain"; // name of Player
             Strength = 10;  // every point above 10 gives a dmg bonus
+            BaseStrength = 10;
             WeaponType = "Club";
             WeaponValue = 2;  // used in dmg calc during battle
             Glory = 0;
@@ -92,6 +96,7 @@ namespace Capstonia.Core
             Experience = 0;
             CurrentExperienceMax = 10;
             LoseTurn = false;
+            hasActed = false;
         }
 
         // CalculateHungerPenalty()
@@ -133,6 +138,7 @@ namespace Capstonia.Core
             //save players old positions
             oldPositionX = this.X;
             oldPositionY = this.Y;
+            hasActed = false;
 
             // get current keyboard state
             game.currentKeyboardState = Keyboard.GetState();
@@ -144,7 +150,6 @@ namespace Capstonia.Core
             //Output warnings as needed
             HungerWarning();
 
-            //TODO - Add messages for when food is consumed and stats are restores?
             HungerStat();
             // move player up
             if ((game.currentKeyboardState.IsKeyDown(Keys.Down) &&
@@ -156,6 +161,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X, Y + 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -163,6 +169,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player down
@@ -175,6 +182,7 @@ namespace Capstonia.Core
                     //game.Player.Y -= 1;
                     game.Level.SetActorPosition(this, X, Y - 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -182,6 +190,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player left
@@ -194,6 +203,7 @@ namespace Capstonia.Core
                     //game.Player.X -= 1;
                     game.Level.SetActorPosition(this, X - 1, Y);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -201,6 +211,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player right
@@ -213,6 +224,7 @@ namespace Capstonia.Core
                     //game.Player.X += 1;
                     game.Level.SetActorPosition(this, X + 1, Y);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -220,6 +232,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } // move player upright
@@ -231,6 +244,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y - 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -238,6 +252,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } //move player downright
@@ -249,6 +264,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X + 1, Y + 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -256,6 +272,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } //move player down left
@@ -267,6 +284,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y + 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -274,6 +292,7 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
             } //move player upleft
@@ -285,6 +304,7 @@ namespace Capstonia.Core
                     //game.Player.Y += 1;
                     game.Level.SetActorPosition(this, X - 1, Y - 1);
                     HungerUpdate();
+                    hasActed = true;
                 }
                 else
                 {
@@ -292,8 +312,119 @@ namespace Capstonia.Core
                     if (monster != null)
                     {
                         Attack(monster);
+                        hasActed = true;
                     }
                 }
+            }
+            //testing drop item
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F1)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F1)))
+            {
+                //Drop item at index 0
+                game.Inventory.DropItem(0);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F2)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F2)))
+            {
+                //Drop item at index 1
+                game.Inventory.DropItem(1);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F3)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F3)))
+            {
+                //Drop item at index 2
+                game.Inventory.DropItem(2);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F4)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F4)))
+            {
+                //Drop item at index 3
+                game.Inventory.DropItem(3);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F5)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F5)))
+            {
+                //Drop item at index 4
+                game.Inventory.DropItem(4);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F6)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F6)))
+            {
+                //Drop item at index 5
+                game.Inventory.DropItem(5);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F7)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F7)))
+            {
+                //Drop item at index 6
+                game.Inventory.DropItem(6);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F8)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F8)))
+            {
+                //Drop item at index 7
+                game.Inventory.DropItem(7);
+            }
+            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
+                    game.currentKeyboardState.IsKeyUp(Keys.F9)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
+                    game.previousKeyboardState.IsKeyDown(Keys.F9)))
+            {
+                //Drop item at index 8
+                game.Inventory.DropItem(8);
+            }
+            //testing display stats
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F1) && game.previousKeyboardState.IsKeyUp(Keys.F1)))
+            {
+                //Display stats of first item (index 0)
+                game.Inventory.DisplayStats(0);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F2) && game.previousKeyboardState.IsKeyUp(Keys.F2)))
+            {
+                //Display stats of second item (index 1)
+                game.Inventory.DisplayStats(1);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F3) && game.previousKeyboardState.IsKeyUp(Keys.F3)))
+            {
+                //Display stats of third item (index 2)
+                game.Inventory.DisplayStats(2);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F4) && game.previousKeyboardState.IsKeyUp(Keys.F4)))
+            {
+                //Display stats of fourth item (index 3)
+                game.Inventory.DisplayStats(3);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F5) && game.previousKeyboardState.IsKeyUp(Keys.F5)))
+            {
+                //Display stats of fifth item (index 4)
+                game.Inventory.DisplayStats(4);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F6) && game.previousKeyboardState.IsKeyUp(Keys.F6)))
+            {
+                //Display stats of sixth item (index 5)
+                game.Inventory.DisplayStats(5);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F7) && game.previousKeyboardState.IsKeyUp(Keys.F7)))
+            {
+                //Display stats of seventh item (index 6)
+                game.Inventory.DisplayStats(6);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F8) && game.previousKeyboardState.IsKeyUp(Keys.F8)))
+            {
+                //Display stats of eighth item (index 7)
+                game.Inventory.DisplayStats(7);
+            }
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.F9) && game.previousKeyboardState.IsKeyUp(Keys.F9)))
+            {
+                //Display stats of ninth item (index 8)
+                game.Inventory.DisplayStats(8);
             }
             //testing numbers
             else if (game.currentKeyboardState.IsKeyDown(Keys.D1) &&
@@ -359,8 +490,6 @@ namespace Capstonia.Core
             LoseMovement();
             // save current state to previous and get ready for next move
             game.previousKeyboardState = game.currentKeyboardState;
-  
-
         }
 
         // Attack(...)
@@ -525,13 +654,21 @@ namespace Capstonia.Core
             spriteBatch.DrawString(game.mainFont, "PLAYER EQUIPMENT", new Vector2(horiztOffsetForTitle, gridVertOffset + fudgeFactorScore), Color.White);
 
             // draw armor
-            spriteBatch.Draw(game.armor, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+            if (game.Equip.Equip["Armor"] == null)
+            {
+                spriteBatch.Draw(game.armor, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(game.Equip.Equip["Armor"].Sprite, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
+
+            }
             spriteBatch.DrawString(game.mainFont, ArmorType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, "+" + ArmorValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
 
             // draw weapon
             fudgeFactorIcon = 3;
-            spriteBatch.Draw(game.weapon, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
+            spriteBatch.Draw(game.weapon_club, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
             spriteBatch.DrawString(game.mainFont, WeaponType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             //spriteBatch.DrawString(game.mainFont, "+" + WeaponValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, "+" + Strength.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
@@ -539,7 +676,7 @@ namespace Capstonia.Core
         }
 
 
-        // HungerWarning
+        // HungerWarning()
         // DESC:    Broadcasts a message if the player's hunger level is at certain levels
         // PARAMS:  None
         // RETURNS: None
@@ -563,48 +700,49 @@ namespace Capstonia.Core
             else if(Hunger > 50 && OldHunger <= 50)
             {
                 OldHunger = Hunger;
-                game.Messages.AddMessage("You feel a lot stronger after consuming some food. Stats restored to 100%");
+                game.Messages.AddMessage("You feel a lot stronger after consuming some food");
+                game.Messages.AddMessage("Stats restored to 100%");
             }
             else if (Hunger > 25 && OldHunger <= 25)
             {
                 OldHunger = Hunger;
-                game.Messages.AddMessage("You feel a little bit stronger after consuming some food. Stats restored to 90%");
+                game.Messages.AddMessage("You feel a little bit stronger after consuming some food");
+                game.Messages.AddMessage("Stats restored to 90%");
+
             }
             else if (Hunger > 0 && OldHunger == 0)
             {
                 OldHunger = Hunger;
-                game.Messages.AddMessage("You feel a tiny bit stronger after consuming some food. Stats restored to 50%");
+                game.Messages.AddMessage("You feel a tiny bit stronger after consuming some food");
+                game.Messages.AddMessage("Stats restored to 50%");
+
             }
         }
 
-
+        // HungerStat()
+        // DESC:    Determines the new value of stats after hunger penalty is changed
+        // PARAMS:  None
+        // RETURNS: None
         private void HungerStat()
         {
             if (NewHungerPenalty != OldHungerPenalty)
             {
-                //Check if new hunger is greater or less than old to determine change in stats
-                if (OldHungerPenalty > NewHungerPenalty) //New is less than old, so decrease state
-                {
-                    //Update constitution, dexterity, and strength accordingly
-                    Constitution = (int)(Constitution * NewHungerPenalty);
-                    game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
-                    Dexterity = (int)(Dexterity * NewHungerPenalty);
-                    Strength = (int)(Strength * NewHungerPenalty);
-                }
-                else    //new is greater than old,so increase
-                {
-                    //Update constitution, dexterity, and strength accordingly
-                    Constitution = (int)(Constitution / OldHungerPenalty);
-                    game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
-                    Dexterity = (int)(Dexterity / OldHungerPenalty);
-                    Strength = (int)(Strength / OldHungerPenalty);
-                }
+
+                //Update constitution, dexterity, and strength accordingly
+                Constitution = (int)(BaseConstitution * NewHungerPenalty);
+                game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
+                Dexterity = (int)(BaseDexterity * NewHungerPenalty);
+                Strength = (int)(BaseStrength * NewHungerPenalty);
 
                 //Set old penalty to new penalty for next check
                 OldHungerPenalty = NewHungerPenalty;
             }
         }
 
+        // HungerUpdate();
+        // DESC:    Decrements hunger with each step. If hunger is 0, 1/4 chance to lose turn
+        // PARAMS:  None
+        // RETURNS: None
         private void HungerUpdate()
         {
             //Only Decrement Hunger if Player has moved// 
@@ -616,15 +754,17 @@ namespace Capstonia.Core
                 {
                     Hunger = MinHunger;
                 }
-                game.Messages.AddMessage("Hunger: " + Hunger);
+                //game.Messages.AddMessage("Hunger: " + Hunger);
             }
 
+            //Give player 1 in 4 chance of losing turn if hunger is 0
             if( Hunger == 0)
             {
-                int x = Capstonia.GameManager.Random.Next(0, 1);
-                if (x == 1)
+                int x = Capstonia.GameManager.Random.Next(0, 4);
+                if (x == 0)
                 {
                     LoseTurn = true;
+                    game.Messages.AddMessage("You are too hungry to move. Lose a turn");
                 }
 
             }
@@ -634,6 +774,10 @@ namespace Capstonia.Core
             }
         }
 
+        // LoseMovement()
+        // DESC:    If player has lsot a turn, reset attempted move to previos position and loop monster movement
+        // PARAMS:  None
+        // RETURNS: None
         private void LoseMovement()
         {
             if (LoseTurn)

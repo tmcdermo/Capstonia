@@ -75,6 +75,12 @@
     <Compile Include="Items\Ring.cs" />
     <Compile Include="Items\Skull.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Items\WeaponTier\AxeGold.cs" />
+    <Compile Include="Items\WeaponTier\LanceVorpal.cs" />
+    <Compile Include="Items\WeaponTier\SwordAcid.cs" />
+    <Compile Include="Items\WeaponTier\SwordDiamond.cs" />
+    <Compile Include="Items\WeaponTier\SwordHellfire.cs" />
+    <Compile Include="Items\WeaponTier\SwordLightning.cs" />
     <Compile Include="Monsters\Banshee.cs" />
     <Compile Include="Monsters\Barbarian.cs" />
     <Compile Include="Monsters\Bat.cs" />

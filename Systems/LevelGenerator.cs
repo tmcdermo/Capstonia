@@ -12,6 +12,7 @@ using Capstonia.Core;
 using Capstonia.Monsters;
 using Capstonia.Items;
 using Capstonia.Items.ArmorTier;
+using Capstonia.Items.WeaponTier;
 using System;
 using System.Diagnostics;
 
@@ -573,6 +574,18 @@ namespace Capstonia.Systems
                 //    return new Skull(game);
                 case ItemType.Weapon:
                     return new Weapon(game);
+                case ItemType.AxeGold:
+                    return new AxeGold(game);
+                case ItemType.LanceVorpal:
+                    return new LanceVorpal(game);
+                case ItemType.SwordAcid:
+                    return new SwordAcid(game);
+                case ItemType.SwordDiamond:
+                    return new SwordDiamond(game);
+                case ItemType.SwordHellfire:
+                    return new SwordHellfire(game);
+                case ItemType.SwordLightning:
+                    return new SwordLightning(game);
 
             }
 

@@ -19,7 +19,13 @@ namespace Capstonia.Core
         GoldChest,
         EmeraldChest,
         DiamondChest,
-        BloodChest
+        BloodChest,
+        AxeGold,
+        LanceVorpal,
+        SwordAcid,
+        SwordDiamond,
+        SwordHellfire,
+        SwordLightning
     }
 
     public enum ArmorTier

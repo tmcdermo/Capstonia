@@ -22,6 +22,8 @@ namespace Capstonia.Systems
 
             Options = new List<string>();
 
+            Options.Add("Dungeons of Capstonia");
+            Options.Add(Environment.NewLine);
             Options.Add("Choose an Option, Adventurer!");
             Options.Add("1) Play Game!");
             Options.Add("2) Game Instructions");
@@ -58,8 +60,8 @@ namespace Capstonia.Systems
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int xOffset = 100;
-            int yOffset = 100;
+            int xOffset = 25;
+            int yOffset = 25;
 
             foreach(string message in Options)
             {

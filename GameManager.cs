@@ -290,49 +290,55 @@ namespace Capstonia
             bool playerHasMoved = false;
             bool monstersHaveMoved = false;
 
-            while (turnComplete == false)
+            if(Player.CurrHealth > 0)
             {
-                // Handle keyboard input
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-
-                // move player
-                if (playerHasMoved == false)
+                while (turnComplete == false)
                 {
-                    Player.Move();
-                }
-                playerHasMoved = true;
+                    // Handle keyboard input
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                        Exit();
 
-                if (playerHasMoved)
-                {
-                    //move Monsters
-                    foreach (Monster enemy in Monsters)
+                    // move player
+                    if (playerHasMoved == false)
                     {
-                        enemy.Move();
+                        Player.Move();
                     }
-                    monstersHaveMoved = true;
-                }
+                    playerHasMoved = true;
 
-                if(playerHasMoved && monstersHaveMoved)
-                {
-                    turnComplete = true;
+                    if (playerHasMoved)
+                    {
+                        //move Monsters
+                        foreach (Monster enemy in Monsters)
+                        {
+                            enemy.Move();
+                        }
+                        monstersHaveMoved = true;
+                    }
+
+                    if (playerHasMoved && monstersHaveMoved)
+                    {
+                        turnComplete = true;
+                    }
                 }
             }
-            /*
-            // Handle keyboard input
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-            //move Player
-            Player.Move();     
-            //move Monsters
-            foreach (Monster enemy in Monsters)
-            {
-                enemy.Move();
-            }*/
-            // update game state
+                Exit();
+                /*
+                // Handle keyboard input
 
-            base.Update(gameTime);
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                        Exit();
+                //move Player
+                Player.Move();     
+                //move Monsters
+                foreach (Monster enemy in Monsters)
+                {
+                    enemy.Move();
+                }*/
+                // update game state
+
+                base.Update(gameTime);
         }
 
         /// <summary>
@@ -462,11 +468,6 @@ namespace Capstonia
             Messages.AddMessage("You have DIED!  Game Over!");
             Messages.AddMessage("Press <ESC> to Exit Game.");
 
-            while (true)
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-            };
         }
     }
 }

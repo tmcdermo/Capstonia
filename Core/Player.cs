@@ -75,8 +75,8 @@ namespace Capstonia.Core
             BaseDexterity = 10;
             //Health = 50; // Health total for Player.  If the values reaches 0, the player is killed
             //MaxHealth = 50; // can grow with constitution
-            MaxHealth = 10; // initial health value (out of 100) and can grow with constitution
-            CurrHealth = 10; // current health value (out of 100)
+            MaxHealth = 100; // initial health value (out of 100) and can grow with constitution
+            CurrHealth = 100; // current health value (out of 100)
             Hunger = 100; // 0 = starving, 100 = full
             OldHunger = 100; // 0 = starving, 100 = full
             NewHungerPenalty = 1.0f; //1.0 = full strength

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\Standard.cs" />
     <Compile Include="Core\Actor.cs" />
+    <Compile Include="Core\GameState.cs" />
     <Compile Include="Items\ArmorTier\BloodChest.cs" />
     <Compile Include="Items\ArmorTier\DiamondChest.cs" />
     <Compile Include="Items\ArmorTier\EmeraldChest.cs" />
@@ -107,6 +108,10 @@
     <Compile Include="Systems\Equipment.cs" />
     <Compile Include="Systems\InventorySystem.cs" />
     <Compile Include="Systems\LevelGenerator.cs" />
+    <Compile Include="Systems\Credits.cs" />
+    <Compile Include="Systems\Leaderboard.cs" />
+    <Compile Include="Systems\Instructions.cs" />
+    <Compile Include="Systems\MainMenu.cs" />
     <Compile Include="Systems\MessageLog.cs" />
     <Compile Include="Core\UserInputCommands.cs" />
     <Compile Include="Systems\UserInputKeyboard.cs" />

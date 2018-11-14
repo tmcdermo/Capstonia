@@ -17,6 +17,14 @@ namespace Capstonia
     /// </summary>
     public class GameManager : Game
     {
+        // GameState Controller (Scene Control)
+        public GameState state;
+        public MainMenu MainMenu { get; set; }        
+        public Instructions Instructions { get; set; }
+        public Leaderboard Leaderboard { get; set; }
+        public Credits Credits { get; set; }
+
+
         // Game Variable Declarations
         public readonly int levelWidth = 70;
         public readonly int levelHeight = 70;
@@ -131,6 +139,14 @@ namespace Capstonia
 
         public GameManager() : base()
         {
+            state = GameState.MainMenu;
+
+            // Scenes other than GameManager itself
+            MainMenu = new MainMenu(this);
+            Instructions = new Instructions(this);
+            Leaderboard = new Leaderboard(this);
+            Credits = new Credits(this);            
+
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1000;
@@ -285,12 +301,40 @@ namespace Capstonia
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            switch (state)
+            {
+                case GameState.MainMenu:
+                    MainMenu.Update();
+                    break;
+                case GameState.Instructions:
+                    Instructions.Update();
+                    break;
+                case GameState.Leaderboard:
+                    Leaderboard.Update();
+                    break;
+                case GameState.Credits:
+                    Credits.Update();
+                    break;
+                case GameState.GamePlay:
+                    UpdateGamePlay();
+                    break;
+            }
+
+            base.Update(gameTime);
+        }
+
+
+        /// <summary>
+        /// This is the GamePlay Update Controller
+        /// </summary>
+        protected void UpdateGamePlay()
+        {
             //testing hunger timings//
             bool turnComplete = false;
             bool playerHasMoved = false;
             bool monstersHaveMoved = false;
 
-            if(Player.CurrHealth > 0)
+            if (Player.CurrHealth > 0)
             {
                 while (turnComplete == false)
                 {
@@ -324,21 +368,6 @@ namespace Capstonia
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-                /*
-                // Handle keyboard input
-
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                        Exit();
-                //move Player
-                Player.Move();     
-                //move Monsters
-                foreach (Monster enemy in Monsters)
-                {
-                    enemy.Move();
-                }*/
-                // update game state
-
-                base.Update(gameTime);
         }
 
         /// <summary>
@@ -354,6 +383,35 @@ namespace Capstonia
             // spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Begin();
 
+            switch (state)
+            {
+                case GameState.MainMenu:
+                    MainMenu.Draw(spriteBatch);
+                    break;
+                case GameState.Instructions:
+                    Instructions.Draw(spriteBatch);
+                    break;
+                case GameState.Leaderboard:
+                    Leaderboard.Draw(spriteBatch);
+                    break;
+                case GameState.Credits:
+                    Credits.Draw(spriteBatch);
+                    break;
+                case GameState.GamePlay:
+                    DrawGamePlay(spriteBatch);
+                    break;
+            }
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Draw method for GamePlay
+        /// </summary>
+        protected void DrawGamePlay(SpriteBatch spriteBatch)
+        {
             Inventory.Draw(spriteBatch);
             Messages.Draw(spriteBatch);
             ScoreDisplay.Draw(spriteBatch);
@@ -367,7 +425,7 @@ namespace Capstonia
             }
 
             // draw all of the items in the list
-            foreach(var item in Items)
+            foreach (var item in Items)
             {
                 item.Draw(spriteBatch);
             }
@@ -383,12 +441,7 @@ namespace Capstonia
 
             // draw equipment grid for player
             Player.DrawEquipment(spriteBatch);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime);
         }
-
 
         // GenerateLevel()
         // DESC:    Generates the entire level grid in which individual rooms will be placed.     

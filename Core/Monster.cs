@@ -89,7 +89,7 @@ namespace Capstonia.Core
 
             if (game.Player.CurrHealth <= 0)
             {
-                game.HandlePlayerDeath();
+                game.HandlePlayerDeath(Name);
             }
         }
 

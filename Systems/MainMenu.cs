@@ -36,7 +36,7 @@ namespace Capstonia.Systems
                 game.Exit();
             else if (Keyboard.GetState().IsKeyDown(Keys.D1) || Keyboard.GetState().IsKeyDown(Keys.NumPad1))
             {
-                game.state = GameState.GamePlay;
+                game.state = GameState.PlayerCreation;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D2) || Keyboard.GetState().IsKeyDown(Keys.NumPad2))
             {

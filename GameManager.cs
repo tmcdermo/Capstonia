@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using RogueSharp;
 using RogueSharp.Random;
 using System;
@@ -38,9 +39,7 @@ namespace Capstonia
         public readonly int BaseStrength = 10;
         public readonly int BaseDexterity = 10;
         public readonly int BaseConstitution = 10;
-        //public readonly float BaseStrength = 10.0f;
-        //public readonly float BaseDexterity = 10.0f;
-        //public readonly float BaseConstitution = 10.0f;
+
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -54,7 +53,7 @@ namespace Capstonia
         public PathFinder GlobalPositionSystem;
 
         // MonoGame Specific Declarations
-        GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public Texture2D floor;
         public Texture2D wall;

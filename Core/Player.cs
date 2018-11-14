@@ -760,7 +760,7 @@ namespace Capstonia.Core
                 {
                     Hunger = MinHunger;
                 }
-                //game.Messages.AddMessage("Hunger: " + Hunger);
+                game.Messages.AddMessage("Hunger: " + Hunger);
             }
 
             //Give player 1 in 4 chance of losing turn if hunger is 0

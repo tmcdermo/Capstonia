@@ -504,7 +504,7 @@ namespace Capstonia.Core
 
                 // calculate rolls for battle
                 int hitRoll = GameManager.Random.Next(1, 20);
-                int defenseRoll = GameManager.Random.Next(1, 20);
+                int defenseRoll = GameManager.Random.Next(1, 20) - 10;
 
                 // calculate attack & defense rolls
                 int hitValue = hitRoll + GetHitBonus();

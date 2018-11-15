@@ -476,6 +476,42 @@
 /processorParam:TextureFormat=Color
 /build:monster_stats_gui.png
 
+#begin MS-AmbientDungeon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MS-AmbientDungeon.wav
+
+#begin MS-BarrenDungeon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MS-BarrenDungeon.wav
+
+#begin MS-DangerousDungeon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MS-DangerousDungeon.wav
+
+#begin MS-DarkDungeon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MS-DarkDungeon.wav
+
+#begin MS-Melancholy Ambience.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MS-Melancholy Ambience.wav
+
+#begin MS-PrettyDungeon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MS-PrettyDungeon.wav
+
 #begin mummy_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

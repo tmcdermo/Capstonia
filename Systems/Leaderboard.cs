@@ -130,7 +130,7 @@ namespace Capstonia.Systems
             foreach(Entry entry in leaderboard)
             {
                 string message1 = "[ " + entry.Glory + " Glory ]";
-                string message2 = "|   " + entry.Name + " was killed on level " + entry.Level + " by a " + entry.KilledBy + " on " + entry.Date + "!!";
+                string message2 = "|   " + entry.Name + " was killed on level " + entry.Level + " by a " + entry.KilledBy + " on " + entry.Date;
                 spriteBatch.DrawString(game.mainFont, message1, new Vector2(xOffset, yOffset), Color.White);
                 spriteBatch.DrawString(game.mainFont, message2, new Vector2(xOffset + 100, yOffset), Color.White);
                 yOffset += 18;

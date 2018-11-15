@@ -230,6 +230,12 @@
     <Content Include="Content\lich_1.png" />
     <Content Include="Content\lizardman_blue_1.png" />
     <Content Include="Content\minotaur_1.png" />
+    <Content Include="Content\MS-AmbientDungeon.wav" />
+    <Content Include="Content\MS-BarrenDungeon.wav" />
+    <Content Include="Content\MS-DangerousDungeon.wav" />
+    <Content Include="Content\MS-DarkDungeon.wav" />
+    <Content Include="Content\MS-Melancholy Ambience.wav" />
+    <Content Include="Content\MS-PrettyDungeon.wav" />
     <Content Include="Content\mummy_1.png" />
     <Content Include="Content\ogre_1.png" />
     <Content Include="Content\rat_giant_1.png" />

@@ -10,6 +10,7 @@ using Capstonia.Systems;
 using Capstonia.Core;
 using Capstonia.Items;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Capstonia
 {
@@ -116,6 +117,16 @@ namespace Capstonia
 
         // main menu graphic
         public Texture2D mainMenuGraphic;
+
+        // music
+        public SoundEffect menuSong;
+        public SoundEffectInstance menuMusic;
+
+        public SoundEffect gameSong;
+        public SoundEffectInstance gameMusic;
+
+
+        // sfx
 
         // containers
         public List<Monster> Monsters;
@@ -282,6 +293,16 @@ namespace Capstonia
             // load main menu graphic
             mainMenuGraphic = Content.Load<Texture2D>("main-menu");
 
+            // load music
+            menuSong = Content.Load<SoundEffect>("MS-Melancholy Ambience");
+            menuMusic = menuSong.CreateInstance();
+
+            gameSong = Content.Load<SoundEffect>("MS-PrettyDungeon");
+            gameMusic = gameSong.CreateInstance();
+
+            // load sfx
+
+
             // load fonts
             mainFont = Content.Load<SpriteFont>("MainFont");
 
@@ -311,7 +332,10 @@ namespace Capstonia
         {
             switch (state)
             {
-                case GameState.MainMenu:
+                case GameState.MainMenu:                    
+                    menuMusic.IsLooped = true;
+                    menuMusic.Volume = 0.5f;
+                    menuMusic.Play();
                     MainMenu.Update();
                     break;
                 case GameState.PlayerCreation:
@@ -327,6 +351,10 @@ namespace Capstonia
                     Credits.Update();
                     break;
                 case GameState.GamePlay:
+                    menuMusic.Stop();
+                    gameMusic.Volume = 0.5f;
+                    gameMusic.IsLooped = true;
+                    gameMusic.Play();
                     UpdateGamePlay();
                     break;
             }

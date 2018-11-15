@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using Capstonia.Core;
+using Microsoft.Xna.Framework.Media;
 
 namespace Capstonia.Systems
 {
@@ -33,7 +34,7 @@ namespace Capstonia.Systems
         }
 
         public void Update()
-        {
+        { 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 game.Leaderboard.CloseFile();

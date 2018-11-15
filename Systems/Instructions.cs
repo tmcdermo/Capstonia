@@ -22,7 +22,7 @@ namespace Capstonia.Systems
             Instruct = new List<string>();
 
             Instruct.Add("Welcome to Dungeons of Capstonia!");
-            Instruct.Add("Press ESC to return to the Main Menu at any time");
+            Instruct.Add("Press <SPACE> to go to the Main Menu");
             Instruct.Add(Environment.NewLine);
             Instruct.Add("Dungeons of Capstonia is a roguelike game that uses random generation to create a different layout every time you play");
             Instruct.Add("In this twist on a classic tale of adventure, instead of a Hero, you play as a Villain");
@@ -44,7 +44,7 @@ namespace Capstonia.Systems
             Instruct.Add("Check item description: F#");
             Instruct.Add("This shows info such as how much health a potion will restore or how much strength a weapon has");
             Instruct.Add(Environment.NewLine);
-            Instruct.Add("Drop item: Shift + F#");
+            Instruct.Add("Drop item: Hold Shift + F#");
             Instruct.Add(Environment.NewLine);
 
         }
@@ -55,7 +55,7 @@ namespace Capstonia.Systems
             // get current keyboard state
             game.currentKeyboardState = Keyboard.GetState();
 
-            if (game.currentKeyboardState.IsKeyUp(Keys.Escape) && game.previousKeyboardState.IsKeyDown(Keys.Escape))
+            if (game.currentKeyboardState.IsKeyUp(Keys.Space) && game.previousKeyboardState.IsKeyDown(Keys.Space))
             {
                 game.state = GameState.MainMenu;
             }
@@ -67,8 +67,20 @@ namespace Capstonia.Systems
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int xOffset = 25;
-            int yOffset = 25;
+            int xOffset = 50;
+            int yOffset = 50;
+
+            //Set vectors to draw sprites in the corners of the screen
+            Vector2 topLeft = new Vector2(0, 0);
+            Vector2 topRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, 0);
+            Vector2 bottomLeft = new Vector2(0, game.graphics.PreferredBackBufferHeight - 48);
+            Vector2 bottomRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, game.graphics.PreferredBackBufferHeight - 48);
+
+            //Place sprites of the player in the corners of the screen
+            spriteBatch.Draw(game.Player.Sprite, topLeft, Color.White);
+            spriteBatch.Draw(game.Player.Sprite, topRight, Color.White);
+            spriteBatch.Draw(game.Player.Sprite, bottomLeft, Color.White);
+            spriteBatch.Draw(game.Player.Sprite, bottomRight, Color.White);
 
             foreach (string message in Instruct)
             {

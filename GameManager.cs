@@ -114,6 +114,9 @@ namespace Capstonia
         public Texture2D wraith;
         public Texture2D zombie;
 
+        // main menu graphic
+        public Texture2D mainMenuGraphic;
+
         // containers
         public List<Monster> Monsters;
         public List<Item> Items;
@@ -275,6 +278,9 @@ namespace Capstonia
             wolf = Content.Load<Texture2D>("wolf_black_1");
             wraith = Content.Load<Texture2D>("wraith_a_1");
             zombie = Content.Load<Texture2D>("zombie_a_1");
+
+            // load main menu graphic
+            mainMenuGraphic = Content.Load<Texture2D>("main-menu");
 
             // load fonts
             mainFont = Content.Load<SpriteFont>("MainFont");

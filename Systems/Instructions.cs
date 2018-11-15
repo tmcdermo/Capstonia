@@ -44,7 +44,7 @@ namespace Capstonia.Systems
             Instruct.Add("Check item description: F#");
             Instruct.Add("This shows info such as how much health a potion will restore or how much strength a weapon has");
             Instruct.Add(Environment.NewLine);
-            Instruct.Add("Drop item: Hold Shift + F#");
+            Instruct.Add("Drop item: Hold d + #");
             Instruct.Add(Environment.NewLine);
 
         }

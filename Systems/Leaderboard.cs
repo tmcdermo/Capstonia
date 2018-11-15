@@ -46,16 +46,24 @@ namespace Capstonia.Systems
             this.game = game;  
             leaderboard = new List<Entry>();
 
-            file = new FileStream("leaderboard.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            sw = new StreamWriter(file);
+            file = new FileStream("leaderboard.txt", FileMode.OpenOrCreate, FileAccess.Read);
+            
             sr = new StreamReader(file);
 
             string line;
-            while((line = sr.ReadLine()) != null)
+            while ((line = sr.ReadLine()) != null)
             {
                 string[] subStrings = line.Split(',');
                 leaderboard.Add(new Entry(subStrings[0], int.Parse(subStrings[1]), int.Parse(subStrings[2]), subStrings[3], subStrings[4]));
             }
+
+            sr.Close();
+
+            file = new FileStream("leaderboard.txt", FileMode.Truncate, FileAccess.Write);
+
+            sw = new StreamWriter(file);
+
+
         }
 
 
@@ -70,14 +78,13 @@ namespace Capstonia.Systems
         {
             if(leaderboard.Count > 0)
             {
-                if (glory > leaderboard[leaderboard.Count - 1].Glory || leaderboard.Count < 10)
+                if (glory > leaderboard[leaderboard.Count - 1].Glory || leaderboard.Count <= 10)
                 {
-                    Entry newEntry = new Entry(name, glory, level, killedby, date);
-                    leaderboard.Add(newEntry);
+                    leaderboard.Add(new Entry(name, glory, level, killedby, date));
 
                     leaderboard.Sort((b, a) => a.Glory.CompareTo(b.Glory));
 
-                    if (leaderboard.Count >= 10)
+                    if (leaderboard.Count > 10)
                     {
                         leaderboard.RemoveAt(9);
                     }
@@ -85,13 +92,13 @@ namespace Capstonia.Systems
             }
             else
             {
-                Entry newEntry = new Entry(name, glory, level, killedby, date);
-                leaderboard.Add(newEntry);
+                leaderboard.Add(new Entry(name, glory, level, killedby, date));
+            }     
+        }
 
-                leaderboard.Sort((b, a) => a.Glory.CompareTo(b.Glory));
-            }
-
-            foreach(Entry entry in leaderboard)
+        public void CloseFile()
+        {
+            foreach (Entry entry in leaderboard)
             {
                 string line = entry.Name + "," + entry.Glory + "," + entry.Level + "," + entry.KilledBy + "," + entry.Date;
                 sw.WriteLine(line);

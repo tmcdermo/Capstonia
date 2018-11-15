@@ -345,7 +345,11 @@ namespace Capstonia
                 {
                     // Handle keyboard input
                     if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    {
+                        Leaderboard.CloseFile();
                         Exit();
+                    }
+
 
                     // move player
                     if (playerHasMoved == false)
@@ -379,6 +383,7 @@ namespace Capstonia
                 }
                 else
                 {
+                    Leaderboard.CloseFile();
                     Exit();
                 }
             }

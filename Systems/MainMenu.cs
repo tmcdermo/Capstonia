@@ -35,10 +35,13 @@ namespace Capstonia.Systems
         public void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                game.Leaderboard.CloseFile();
                 game.Exit();
+            }                
             else if (Keyboard.GetState().IsKeyDown(Keys.D1) || Keyboard.GetState().IsKeyDown(Keys.NumPad1))
             {
-                game.state = GameState.GamePlay;
+                game.state = GameState.PlayerCreation;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D2) || Keyboard.GetState().IsKeyDown(Keys.NumPad2))
             {
@@ -54,6 +57,7 @@ namespace Capstonia.Systems
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D5) || Keyboard.GetState().IsKeyDown(Keys.NumPad5))
             {
+                game.Leaderboard.CloseFile();
                 game.Exit();
             }
         }

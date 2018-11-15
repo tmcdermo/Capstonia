@@ -19,8 +19,10 @@ namespace Capstonia
     public class GameManager : Game
     {
         // GameState Controller (Scene Control)
+        // based on: http://community.monogame.net/t/switch-scenes-in-monogame/2605
         public GameState state;
-        public MainMenu MainMenu { get; set; }        
+        public MainMenu MainMenu { get; set; }      
+        public PlayerCreation PlayerCreation { get; set; }
         public Instructions Instructions { get; set; }
         public Leaderboard Leaderboard { get; set; }
         public Credits Credits { get; set; }
@@ -142,6 +144,7 @@ namespace Capstonia
 
             // Scenes other than GameManager itself
             MainMenu = new MainMenu(this);
+            PlayerCreation = new PlayerCreation(this);
             Instructions = new Instructions(this);
             Leaderboard = new Leaderboard(this);
             Credits = new Credits(this);            
@@ -305,6 +308,9 @@ namespace Capstonia
                 case GameState.MainMenu:
                     MainMenu.Update();
                     break;
+                case GameState.PlayerCreation:
+                    PlayerCreation.Update();
+                    break;
                 case GameState.Instructions:
                     Instructions.Update();
                     break;
@@ -339,7 +345,11 @@ namespace Capstonia
                 {
                     // Handle keyboard input
                     if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    {
+                        Leaderboard.CloseFile();
                         Exit();
+                    }
+
 
                     // move player
                     if (playerHasMoved == false)
@@ -366,7 +376,17 @@ namespace Capstonia
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            {
+                if(Player.CurrHealth <= 0)
+                {
+                    state = GameState.Leaderboard;
+                }
+                else
+                {
+                    Leaderboard.CloseFile();
+                    Exit();
+                }
+            }
         }
 
         /// <summary>
@@ -386,6 +406,9 @@ namespace Capstonia
             {
                 case GameState.MainMenu:
                     MainMenu.Draw(spriteBatch);
+                    break;
+                case GameState.PlayerCreation:
+                    PlayerCreation.Draw(spriteBatch);
                     break;
                 case GameState.Instructions:
                     Instructions.Draw(spriteBatch);
@@ -515,10 +538,18 @@ namespace Capstonia
         // DESC:    Handle player death
         // PARAMS:  None
         // RETURNS: None
-        public void HandlePlayerDeath()
+        public void HandlePlayerDeath(string monster)
         {
             Messages.AddMessage("You have DIED!  Game Over!");
             Messages.AddMessage("Press <ESC> to Exit Game.");
+
+            DateTime today = DateTime.Now;
+
+            string date = today.Month + "/" + today.Day + "/" + today.Year;
+
+            Leaderboard.AddToLeaderboard(Player.Name, Player.Glory, mapLevel, monster, date);
+
+            
 
         }
     }

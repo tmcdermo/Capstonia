@@ -53,44 +53,48 @@ namespace Capstonia.Core
 
         public void Attack()
         {
-            game.Messages.AddMessage(Name + " attacks YOU!");
-
-            // calculate rolls for battle
-            int hitRoll = GameManager.Random.Next(1, 20);
-            int defenseRoll = GameManager.Random.Next(1, 20) - 10;
-
-            // calculate attack & defense rolls
-            int hitValue = hitRoll + getHitBonus();
-            int defenseValue = defenseRoll + game.Player.GetDodgeBonus();
-
-            // Player wins tie
-            if (hitValue < defenseValue)
+            if(game.Player.CurrHealth > 0)
             {
-                game.Messages.AddMessage("You dodge the " + Name + "'s attack!");
-                return;
+                game.Messages.AddMessage(Name + " attacks YOU!");
+
+                // calculate rolls for battle
+                int hitRoll = GameManager.Random.Next(1, 20);
+                int defenseRoll = GameManager.Random.Next(1, 20) - 10;
+
+                // calculate attack & defense rolls
+                int hitValue = hitRoll + getHitBonus();
+                int defenseValue = defenseRoll + game.Player.GetDodgeBonus();
+
+                // Player wins tie
+                if (hitValue < defenseValue)
+                {
+                    game.Messages.AddMessage("You dodge the " + Name + "'s attack!");
+                    return;
+                }
+
+                // calculate base Player dmg
+                int dmgRoll = GameManager.Random.Next(MinDamage, MaxDamage);
+                int dmgValue = dmgRoll + getDamageBonus();
+
+                // calculate total dmg
+                int totalDmg = dmgValue - defenseValue;
+
+                if (totalDmg <= 0)
+                {
+                    game.Messages.AddMessage("You block the " + Name + "'s attack!");
+                    return;
+                }
+
+                // inflict dmg on Capstonian
+                game.Messages.AddMessage(Name + " inflicts " + totalDmg + " dmg on you!! ");
+                game.Player.CurrHealth -= totalDmg;
+
+                if (game.Player.CurrHealth <= 0)
+                {
+                    game.HandlePlayerDeath(Name);
+                }
             }
-
-            // calculate base Player dmg
-            int dmgRoll = GameManager.Random.Next(MinDamage, MaxDamage);
-            int dmgValue = dmgRoll + getDamageBonus();
-
-            // calculate total dmg
-            int totalDmg = dmgValue - defenseValue;
-
-            if (totalDmg <= 0)
-            {
-                game.Messages.AddMessage("You block the " + Name + "'s attack!");
-                return;
-            }
-
-            // inflict dmg on Capstonian
-            game.Messages.AddMessage(Name + " inflicts " + totalDmg + " dmg on you!! ");
-            game.Player.CurrHealth -= totalDmg;
-
-            if (game.Player.CurrHealth <= 0)
-            {
-                game.HandlePlayerDeath();
-            }
+            
         }
 
         // MOVE()

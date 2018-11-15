@@ -67,6 +67,7 @@ namespace Capstonia.Core
         // RETURNS: Instantiate instance of class.
         public Player(GameManager game) : base(game)
         {
+            Name = "Empty";
             ArmorType = "Leather Jerkin";
             ArmorValue = 0; // used in dmg calc during battle
             Constitution = 10; // every point above 10 gives a health bonus
@@ -76,7 +77,7 @@ namespace Capstonia.Core
             //Health = 50; // Health total for Player.  If the values reaches 0, the player is killed
             //MaxHealth = 50; // can grow with constitution
             MaxHealth = 100; // initial health value (out of 100) and can grow with constitution
-            CurrHealth = 100; // current health value (out of 100)
+            CurrHealth = 10; // current health value (out of 100)
             Hunger = 100; // 0 = starving, 100 = full
             OldHunger = 100; // 0 = starving, 100 = full
             NewHungerPenalty = 1.0f; //1.0 = full strength

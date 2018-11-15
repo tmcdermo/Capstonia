@@ -41,29 +41,29 @@ namespace Capstonia.Systems
         //coordinates for each slot on the inventory outline
         private Vector2[] coords =
         {
-            new Vector2(670,50),
-            new Vector2(779,50),
-            new Vector2(888,50),
-            new Vector2(670,100),
-            new Vector2(779,100),
-            new Vector2(888,100),
-            new Vector2(670,150),
-            new Vector2(779,150),
-            new Vector2(888,150),
+            new Vector2(690,50),
+            new Vector2(799,50),
+            new Vector2(908,50),
+            new Vector2(690,100),
+            new Vector2(799,100),
+            new Vector2(908,100),
+            new Vector2(690,150),
+            new Vector2(799,150),
+            new Vector2(908,150),
         };
 
         //coordinates for each slot on the inventory quantity outline
         private Vector2[] quantityCoords =
         {
-            new Vector2(670 + 50,50 + 5),
-            new Vector2(779 + 50,50 + 5),
-            new Vector2(888 + 50,50 + 5),
-            new Vector2(670 + 50,100 + 5),
-            new Vector2(779 + 50,100 + 5),
-            new Vector2(888 + 50,100 + 5),
-            new Vector2(670 + 50,150 + 5),
-            new Vector2(779 + 50,150 + 5),
-            new Vector2(888 + 50,150 + 5),
+            new Vector2(670 + 75,50 + 5),
+            new Vector2(779 + 75,50 + 5),
+            new Vector2(888 + 75,50 + 5),
+            new Vector2(670 + 75,100 + 5),
+            new Vector2(779 + 75,100 + 5),
+            new Vector2(888 + 75,100 + 5),
+            new Vector2(670 + 75,150 + 5),
+            new Vector2(779 + 75,150 + 5),
+            new Vector2(888 + 75,150 + 5),
         };
 
 
@@ -200,7 +200,6 @@ namespace Capstonia.Systems
             return itemAdded;
         }
 
-        //TODO - Final Item in inventory not being removed
         // RemoveItem()
         // DESC:    Removes item to the inventory.
         // PARAMS:  Item object.
@@ -217,31 +216,6 @@ namespace Capstonia.Systems
             }
             Item tmp = Inventory[slot].Item1;
             Inventory[slot] = Tuple.Create(tmp, tempCount);
-
-            //Cycle through inventory and look for names that match the name parameter
-            //For loop rather than foreach so that we can use the RemoveAt() member function for the List
-
-
-            /*/Go through all items and decrease counter then remove if 0
-            for(int x = 0; x < Inventory.Count(); x++)
-            {
-                int tmpCount = Inventory[x].Item2;
-                if(Inventory[x].Item1.Name == iType.Name)
-                {
-                    tmpCount--;
-                    if (tmpCount <= 0)
-                    {
-                        Inventory.RemoveAt(x);
-                        currentItems--;
-                        break;
-                    }
-                    Item tmp = Inventory[x].Item1;
-                    Inventory[x] = Tuple.Create(tmp, tmpCount);
-                }
-
-            }*/
-
-
         }
 
         // useItem()
@@ -287,7 +261,6 @@ namespace Capstonia.Systems
                     RemoveItem(index);
                 }
             }
-            //TODO - Else print out message saying nothing in that slot
         }
 
         // usePotion()
@@ -349,6 +322,18 @@ namespace Capstonia.Systems
             // Draw our skeleton //
             spriteBatch.Draw(game.Outline, new Vector2(672, 1), Color.White);
             spriteBatch.DrawString(game.mainFont, "INVENTORY", new Vector2(795, 15), Color.White);
+
+            //Draw numbers in each box
+            spriteBatch.DrawString(game.mainFont, "1.", new Vector2(680, 65), Color.White);
+            spriteBatch.DrawString(game.mainFont, "2.", new Vector2(790, 65), Color.White);
+            spriteBatch.DrawString(game.mainFont, "3.", new Vector2(900, 65), Color.White);
+            spriteBatch.DrawString(game.mainFont, "4.", new Vector2(680, 115), Color.White);
+            spriteBatch.DrawString(game.mainFont, "5.", new Vector2(790, 115), Color.White);
+            spriteBatch.DrawString(game.mainFont, "6.", new Vector2(900, 115), Color.White);
+            spriteBatch.DrawString(game.mainFont, "7.", new Vector2(680, 165), Color.White);
+            spriteBatch.DrawString(game.mainFont, "8.", new Vector2(790, 165), Color.White);
+            spriteBatch.DrawString(game.mainFont, "9.", new Vector2(900, 165), Color.White);
+
             int index = 0; // used for accessing coordinates
             foreach (Tuple<Item,int> things in Inventory)
             {

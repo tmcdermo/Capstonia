@@ -24,6 +24,7 @@ namespace Capstonia.Core
         private int oldPositionY { get; set; }
         public bool LoseTurn { get; set; } // regulator for potentially losing players turn when hunger is 0
         public bool hasActed { get; set; }
+        public bool shiftPressed { get; set; }
 
         // GetHitBonus()
         // DESC:    Calculate and return hit bonus for combat.
@@ -77,7 +78,7 @@ namespace Capstonia.Core
             //Health = 50; // Health total for Player.  If the values reaches 0, the player is killed
             //MaxHealth = 50; // can grow with constitution
             MaxHealth = 100; // initial health value (out of 100) and can grow with constitution
-            CurrHealth = 10; // current health value (out of 100)
+            CurrHealth = 100; // current health value (out of 100)
             Hunger = 100; // 0 = starving, 100 = full
             OldHunger = 100; // 0 = starving, 100 = full
             NewHungerPenalty = 1.0f; //1.0 = full strength
@@ -98,6 +99,7 @@ namespace Capstonia.Core
             CurrentExperienceMax = 10;
             LoseTurn = false;
             hasActed = false;
+            shiftPressed = false;
         }
 
         // CalculateHungerPenalty()
@@ -318,68 +320,53 @@ namespace Capstonia.Core
                 }
             }
             //testing drop item
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F1)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F1)))
+            else if(game.currentKeyboardState.IsKeyDown(Keys.D))
             {
-                //Drop item at index 0
-                game.Inventory.DropItem(0);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F2)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F2)))
-            {
-                //Drop item at index 1
-                game.Inventory.DropItem(1);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F3)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F3)))
-            {
-                //Drop item at index 2
-                game.Inventory.DropItem(2);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F4)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F4)))
-            {
-                //Drop item at index 3
-                game.Inventory.DropItem(3);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F5)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F5)))
-            {
-                //Drop item at index 4
-                game.Inventory.DropItem(4);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F6)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F6)))
-            {
-                //Drop item at index 5
-                game.Inventory.DropItem(5);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F7)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F7)))
-            {
-                //Drop item at index 6
-                game.Inventory.DropItem(6);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F8)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F8)))
-            {
-                //Drop item at index 7
-                game.Inventory.DropItem(7);
-            }
-            else if ((game.currentKeyboardState.IsKeyUp(Keys.LeftShift) &&
-                    game.currentKeyboardState.IsKeyUp(Keys.F9)) && (game.previousKeyboardState.IsKeyDown(Keys.LeftShift) &&
-                    game.previousKeyboardState.IsKeyDown(Keys.F9)))
-            {
-                //Drop item at index 8
-                game.Inventory.DropItem(8);
+                if(game.currentKeyboardState.IsKeyDown(Keys.D1) && game.previousKeyboardState.IsKeyUp(Keys.D1))
+                {
+                    //Drop item at index 0
+                    game.Inventory.DropItem(0);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D2) && game.previousKeyboardState.IsKeyUp(Keys.D2))
+                { 
+                    //Drop item at index 1
+                    game.Inventory.DropItem(1);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D3) && game.previousKeyboardState.IsKeyUp(Keys.D3))
+                {
+                    //Drop item at index 2
+                    game.Inventory.DropItem(2);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D4) && game.previousKeyboardState.IsKeyUp(Keys.D4))
+                {
+                    //Drop item at index 3
+                    game.Inventory.DropItem(3);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D5) && game.previousKeyboardState.IsKeyUp(Keys.D5))
+                {
+                    //Drop item at index 4
+                    game.Inventory.DropItem(4);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D6) && game.previousKeyboardState.IsKeyUp(Keys.D6))
+                {
+                    //Drop item at index 5
+                    game.Inventory.DropItem(5);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D7) && game.previousKeyboardState.IsKeyUp(Keys.D7))
+                {
+                    //Drop item at index 6
+                    game.Inventory.DropItem(6);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D8) && game.previousKeyboardState.IsKeyUp(Keys.D8))
+                {
+                    //Drop item at index 7
+                    game.Inventory.DropItem(7);
+                }
+                if (game.currentKeyboardState.IsKeyDown(Keys.D9) && game.previousKeyboardState.IsKeyUp(Keys.D9))
+                {
+                    //Drop item at index 8
+                    game.Inventory.DropItem(8);
+                }
             }
             //testing display stats
             else if ((game.currentKeyboardState.IsKeyDown(Keys.F1) && game.previousKeyboardState.IsKeyUp(Keys.F1)))
@@ -590,6 +577,12 @@ namespace Capstonia.Core
             // draw health
             spriteBatch.Draw(game.health, new Vector2(gridHorizOffset, gridVertOffset + iconVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, "Health", new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
+
+            //Can't have negative health
+            if(CurrHealth < 0)
+            {
+                CurrHealth = 0;
+            }
             spriteBatch.DrawString(game.mainFont, CurrHealth.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
 
             // draw level

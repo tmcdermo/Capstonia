@@ -58,6 +58,7 @@ namespace Capstonia.Systems
             CreditMessages.Add("Balance/Tweaking: " + Environment.NewLine + "Tyler Bernero" +
                                Environment.NewLine + "Tommy McDermott" + Environment.NewLine +
                                "Chido Nguyen" + Environment.NewLine + "Bobby Welch");
+            CreditMessages.Add("Press <SPACE> to go to the Main Menu");
         }
 
         public void Update()
@@ -65,7 +66,7 @@ namespace Capstonia.Systems
             // get current keyboard state
             game.currentKeyboardState = Keyboard.GetState();
 
-            if (game.currentKeyboardState.IsKeyUp(Keys.Escape) && game.previousKeyboardState.IsKeyDown(Keys.Escape))
+            if (game.currentKeyboardState.IsKeyUp(Keys.Space) && game.previousKeyboardState.IsKeyDown(Keys.Space))
             {
                 game.state = GameState.MainMenu;
             }
@@ -80,8 +81,21 @@ namespace Capstonia.Systems
         public void Draw(SpriteBatch spriteBatch)
         {
             //Stopwatch source; https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch.startnew?view=netframework-4.7.2
-            int xOffset = 25;
-            int yOffset = 25;
+            int xOffset = 50;
+            int yOffset = 50;
+
+            //Set vectors to draw sprites in the corners of the screen
+            Vector2 topLeft = new Vector2(0, 0);
+            Vector2 topRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, 0);
+            Vector2 bottomLeft = new Vector2(0, game.graphics.PreferredBackBufferHeight - 48);
+            Vector2 bottomRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, game.graphics.PreferredBackBufferHeight - 48);
+
+            //Place sprites of the player in the corners of the screen
+            spriteBatch.Draw(game.Player.Sprite, topLeft, Color.White);
+            spriteBatch.Draw(game.Player.Sprite, topRight, Color.White);
+            spriteBatch.Draw(game.Player.Sprite, bottomLeft, Color.White);
+            spriteBatch.Draw(game.Player.Sprite, bottomRight, Color.White);
+
             Stopwatch elapsedTime = new Stopwatch();
             
             foreach (string message in CreditMessages)
@@ -93,7 +107,7 @@ namespace Capstonia.Systems
                 if(yOffset >= 800)
                 {
                     xOffset += 333;
-                    yOffset = 25;
+                    yOffset = 50;
                 }
                 //elapsedTime.Reset();
                 //elapsedTime.Start();

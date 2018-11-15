@@ -332,7 +332,8 @@ namespace Capstonia
         {
             switch (state)
             {
-                case GameState.MainMenu:                    
+                case GameState.MainMenu:
+                    gameMusic.Stop();
                     menuMusic.IsLooped = true;
                     menuMusic.Volume = 0.5f;
                     menuMusic.Play();

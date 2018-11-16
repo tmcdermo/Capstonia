@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using RogueSharp;
 using RogueSharp.Random;
 using System;
@@ -9,6 +10,7 @@ using Capstonia.Systems;
 using Capstonia.Core;
 using Capstonia.Items;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Capstonia
 {
@@ -17,6 +19,16 @@ namespace Capstonia
     /// </summary>
     public class GameManager : Game
     {
+        // GameState Controller (Scene Control)
+        // based on: http://community.monogame.net/t/switch-scenes-in-monogame/2605
+        public GameState state;
+        public MainMenu MainMenu { get; set; }      
+        public PlayerCreation PlayerCreation { get; set; }
+        public Instructions Instructions { get; set; }
+        public Leaderboard Leaderboard { get; set; }
+        public Credits Credits { get; set; }
+
+
         // Game Variable Declarations
         public readonly int levelWidth = 70;
         public readonly int levelHeight = 70;
@@ -30,9 +42,7 @@ namespace Capstonia
         public readonly int BaseStrength = 10;
         public readonly int BaseDexterity = 10;
         public readonly int BaseConstitution = 10;
-        //public readonly float BaseStrength = 10.0f;
-        //public readonly float BaseDexterity = 10.0f;
-        //public readonly float BaseConstitution = 10.0f;
+
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -46,12 +56,13 @@ namespace Capstonia
         public PathFinder GlobalPositionSystem;
 
         // MonoGame Specific Declarations
-        GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public Texture2D floor;
         public Texture2D wall;
         public Texture2D exit;
         public SpriteFont mainFont;
+        public SpriteFont pressStart2PFont;
 
         // Items - Gameboard
             // Armor
@@ -122,6 +133,19 @@ namespace Capstonia
         public Texture2D wraith;
         public Texture2D zombie;
 
+        // main menu graphic
+        public Texture2D mainMenuGraphic;
+
+        // music
+        public SoundEffect menuSong;
+        public SoundEffectInstance menuMusic;
+
+        public SoundEffect gameSong;
+        public SoundEffectInstance gameMusic;
+
+
+        // sfx
+
         // containers
         public List<Monster> Monsters;
         public List<Item> Items;
@@ -148,6 +172,15 @@ namespace Capstonia
 
         public GameManager() : base()
         {
+            state = GameState.MainMenu;
+
+            // Scenes other than GameManager itself
+            MainMenu = new MainMenu(this);
+            PlayerCreation = new PlayerCreation(this);
+            Instructions = new Instructions(this);
+            Leaderboard = new Leaderboard(this);
+            Credits = new Credits(this);            
+
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1000;
@@ -292,8 +325,22 @@ namespace Capstonia
             wraith = Content.Load<Texture2D>("wraith_a_1");
             zombie = Content.Load<Texture2D>("zombie_a_1");
 
+            // load main menu graphic
+            mainMenuGraphic = Content.Load<Texture2D>("main-menu");
+
+            // load music
+            menuSong = Content.Load<SoundEffect>("MS-Melancholy Ambience");
+            menuMusic = menuSong.CreateInstance();
+
+            gameSong = Content.Load<SoundEffect>("MS-PrettyDungeon");
+            gameMusic = gameSong.CreateInstance();
+
+            // load sfx
+
+
             // load fonts
             mainFont = Content.Load<SpriteFont>("MainFont");
+            pressStart2PFont = Content.Load<SpriteFont>("PressStart2P");
 
             //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
             emptyTexture = new Texture2D(GraphicsDevice, 1, 1);
@@ -319,54 +366,98 @@ namespace Capstonia
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            switch (state)
+            {
+                case GameState.MainMenu:
+                    gameMusic.Stop();
+                    menuMusic.IsLooped = true;
+                    menuMusic.Volume = 0.5f;
+                    menuMusic.Play();
+                    MainMenu.Update();
+                    break;
+                case GameState.PlayerCreation:
+                    PlayerCreation.Update();
+                    break;
+                case GameState.Instructions:
+                    Instructions.Update();
+                    break;
+                case GameState.Leaderboard:
+                    Leaderboard.Update();
+                    break;
+                case GameState.Credits:
+                    Credits.Update();
+                    break;
+                case GameState.GamePlay:
+                    menuMusic.Stop();
+                    gameMusic.Volume = 0.5f;
+                    gameMusic.IsLooped = true;
+                    gameMusic.Play();
+                    UpdateGamePlay();
+                    break;
+            }
+
+            base.Update(gameTime);
+        }
+
+
+        /// <summary>
+        /// This is the GamePlay Update Controller
+        /// </summary>
+        protected void UpdateGamePlay()
+        {
             //testing hunger timings//
             bool turnComplete = false;
             bool playerHasMoved = false;
             bool monstersHaveMoved = false;
 
-            while (turnComplete == false)
+            if (Player.CurrHealth > 0)
             {
-                // Handle keyboard input
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-
-                // move player
-                if (playerHasMoved == false)
+                while (turnComplete == false)
                 {
-                    Player.Move();
-                }
-                playerHasMoved = true;
-
-                if (playerHasMoved)
-                {
-                    //move Monsters
-                    foreach (Monster enemy in Monsters)
+                    // Handle keyboard input
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     {
-                        enemy.Move();
+                        Leaderboard.CloseFile();
+                        Exit();
                     }
-                    monstersHaveMoved = true;
-                }
 
-                if(playerHasMoved && monstersHaveMoved)
-                {
-                    turnComplete = true;
+
+                    // move player
+                    if (playerHasMoved == false)
+                    {
+                        Player.Move();
+                    }
+                    playerHasMoved = true;
+
+                    if (playerHasMoved)
+                    {
+                        //move Monsters
+                        foreach (Monster enemy in Monsters)
+                        {
+                            enemy.Move();
+                        }
+                        monstersHaveMoved = true;
+                    }
+
+                    if (playerHasMoved && monstersHaveMoved)
+                    {
+                        turnComplete = true;
+                    }
                 }
             }
-            /*
-            // Handle keyboard input
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-            //move Player
-            Player.Move();     
-            //move Monsters
-            foreach (Monster enemy in Monsters)
             {
-                enemy.Move();
-            }*/
-            // update game state
-
-            base.Update(gameTime);
+                if(Player.CurrHealth <= 0)
+                {
+                    state = GameState.Leaderboard;
+                }
+                else
+                {
+                    Leaderboard.CloseFile();
+                    Exit();
+                }
+            }
         }
 
         /// <summary>
@@ -382,6 +473,38 @@ namespace Capstonia
             // spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Begin();
 
+            switch (state)
+            {
+                case GameState.MainMenu:
+                    MainMenu.Draw(spriteBatch);
+                    break;
+                case GameState.PlayerCreation:
+                    PlayerCreation.Draw(spriteBatch);
+                    break;
+                case GameState.Instructions:
+                    Instructions.Draw(spriteBatch);
+                    break;
+                case GameState.Leaderboard:
+                    Leaderboard.Draw(spriteBatch);
+                    break;
+                case GameState.Credits:
+                    Credits.Draw(spriteBatch);
+                    break;
+                case GameState.GamePlay:
+                    DrawGamePlay(spriteBatch);
+                    break;
+            }
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Draw method for GamePlay
+        /// </summary>
+        protected void DrawGamePlay(SpriteBatch spriteBatch)
+        {
             Inventory.Draw(spriteBatch);
             Messages.Draw(spriteBatch);
             ScoreDisplay.Draw(spriteBatch);
@@ -395,7 +518,7 @@ namespace Capstonia
             }
 
             // draw all of the items in the list
-            foreach(var item in Items)
+            foreach (var item in Items)
             {
                 item.Draw(spriteBatch);
             }
@@ -411,12 +534,7 @@ namespace Capstonia
 
             // draw equipment grid for player
             Player.DrawEquipment(spriteBatch);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime);
         }
-
 
         // GenerateLevel()
         // DESC:    Generates the entire level grid in which individual rooms will be placed.     
@@ -491,16 +609,19 @@ namespace Capstonia
         // DESC:    Handle player death
         // PARAMS:  None
         // RETURNS: None
-        public void HandlePlayerDeath()
+        public void HandlePlayerDeath(string monster)
         {
             Messages.AddMessage("You have DIED!  Game Over!");
             Messages.AddMessage("Press <ESC> to Exit Game.");
 
-            while (true)
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-            };
+            DateTime today = DateTime.Now;
+
+            string date = today.Month + "/" + today.Day + "/" + today.Year;
+
+            Leaderboard.AddToLeaderboard(Player.Name, Player.Glory, mapLevel, monster, date);
+
+            
+
         }
     }
 }

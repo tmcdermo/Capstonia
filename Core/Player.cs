@@ -92,7 +92,8 @@ namespace Capstonia.Core
             Strength = 10;  // every point above 10 gives a dmg bonus
             BaseStrength = 10;
             WeaponType = "Club";
-            WeaponValue = 2;  // used in dmg calc during battle
+            //WeaponValue = 2;  // used in dmg calc during battle   //NEW - COMMENTED
+            WeaponValue = 0;    //NEW
             Glory = 0;
             Level = 1;
             Experience = 0;
@@ -681,8 +682,8 @@ namespace Capstonia.Core
 
             }
             spriteBatch.DrawString(game.mainFont, WeaponType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-            //spriteBatch.DrawString(game.mainFont, "+" + WeaponValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-            spriteBatch.DrawString(game.mainFont, "+" + Strength.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, "+" + WeaponValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White); //NEW - UNCOMMENTED
+            //spriteBatch.DrawString(game.mainFont, "+" + Strength.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White); //NEW - COMMENTED
             ++iteration; // offset for next block
         }
 

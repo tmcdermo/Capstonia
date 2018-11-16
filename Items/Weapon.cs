@@ -26,13 +26,17 @@ namespace Capstonia.Items
 
         public override void AddStat()
         {
-            game.Player.Strength += this.Strength;
+            //game.Player.Strength += this.Strength;  //NEW - COMMENTED
+            game.Player.MaxDamage += this.Strength;  //NEW
+            game.Player.WeaponValue += this.Strength;    //NEW
             game.Player.WeaponType = weaponType;
         }
 
         public override void RemoveStat()
         {
-            game.Player.Strength -= this.Strength;
+            //game.Player.Strength -= this.Strength;    //NEW - COMMENTED
+            game.Player.MaxDamage -= this.Strength;  //NEW
+            game.Player.WeaponValue -= this.Strength;    //NEW
             game.Player.WeaponType = "";
         }
         public override void Broadcast()

@@ -257,8 +257,10 @@ namespace Capstonia.Systems
                 }
                 else // Weapons and Armor
                 {
-                    game.Equip.Wear(Inventory[index].Item1);
+                    //Wear will attempt to swap places and if full instantly destroys item
+                    Item placeHolder = Inventory[index].Item1;
                     RemoveItem(index);
+                    game.Equip.Wear(placeHolder);
                 }
             }
         }

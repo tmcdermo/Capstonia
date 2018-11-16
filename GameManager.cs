@@ -22,11 +22,12 @@ namespace Capstonia
         // GameState Controller (Scene Control)
         // based on: http://community.monogame.net/t/switch-scenes-in-monogame/2605
         public GameState state;
-        public MainMenu MainMenu { get; set; }      
+        public MainMenu MainMenu { get; set; }
         public PlayerCreation PlayerCreation { get; set; }
         public Instructions Instructions { get; set; }
         public Leaderboard Leaderboard { get; set; }
         public Credits Credits { get; set; }
+        public Confirmation Confirmation {get; set;}
 
 
         // Game Variable Declarations
@@ -204,7 +205,8 @@ namespace Capstonia
             PlayerCreation = new PlayerCreation(this);
             Instructions = new Instructions(this);
             Leaderboard = new Leaderboard(this);
-            Credits = new Credits(this);            
+            Credits = new Credits(this);
+            Confirmation = new Confirmation(this);
 
             // MonoGame Graphic/Content setup
             graphics = new GraphicsDeviceManager(this);
@@ -453,6 +455,9 @@ namespace Capstonia
                 case GameState.Credits:
                     Credits.Update();
                     break;
+                case GameState.Confirmation:
+                    Confirmation.Update();
+                    break;
                 case GameState.GamePlay:
                     menuMusic.Stop();
                     gameMusic.Volume = 0.5f;
@@ -483,8 +488,7 @@ namespace Capstonia
                     // Handle keyboard input
                     if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     {
-                        Leaderboard.CloseFile();
-                        Exit();
+                        state = GameState.Confirmation;
                     }
 
 
@@ -520,8 +524,7 @@ namespace Capstonia
                 }
                 else
                 {
-                    Leaderboard.CloseFile();
-                    Exit();
+                    state = GameState.Confirmation;
                 }
             }
         }
@@ -555,6 +558,9 @@ namespace Capstonia
                     break;
                 case GameState.Credits:
                     Credits.Draw(spriteBatch);
+                    break;
+                case GameState.Confirmation:
+                    Confirmation.Draw(spriteBatch);
                     break;
                 case GameState.GamePlay:
                     DrawGamePlay(spriteBatch);

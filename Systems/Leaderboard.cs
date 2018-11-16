@@ -59,9 +59,9 @@ namespace Capstonia.Systems
 
             sr.Close();
 
-            file = new FileStream("leaderboard.txt", FileMode.Truncate, FileAccess.Write);
+            
 
-            sw = new StreamWriter(file);
+            
 
 
         }
@@ -101,6 +101,9 @@ namespace Capstonia.Systems
 
         public void CloseFile()
         {
+            file = new FileStream("leaderboard.txt", FileMode.Truncate, FileAccess.Write);
+            sw = new StreamWriter(file);
+
             foreach (Entry entry in leaderboard)
             {
                 string line = entry.Name + "," + entry.Glory + "," + entry.Level + "," + entry.KilledBy + "," + entry.Date;

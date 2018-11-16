@@ -359,7 +359,7 @@ namespace Capstonia
             mainMenuGraphic = Content.Load<Texture2D>("Art/UI/main-menu");
 
             // load new player graphic
-            darkKnightLarge = Content.Load<Texture2D>("dark-knight-large");
+            darkKnightLarge = Content.Load<Texture2D>("Art/UI/dark-knight-large");
 
             // load music
             menuSong = Content.Load<SoundEffect>("Sounds/Music/MS-Melancholy Ambience");

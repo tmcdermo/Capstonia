@@ -572,6 +572,13 @@
 /processorParam:TextureFormat=Color
 /build:potion.png
 
+#begin PressStart2P.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PressStart2P.spritefont
+
 #begin rat_giant_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

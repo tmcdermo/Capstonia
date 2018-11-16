@@ -53,9 +53,9 @@ namespace Capstonia.Systems
             spriteBatch.Draw(game.Player.Sprite, bottomLeft, Color.White);
             spriteBatch.Draw(game.Player.Sprite, bottomRight, Color.White);
 
-            spriteBatch.DrawString(game.mainFont, "What is your name, Adventurer?", new Vector2(xOffset, yOffset), Color.White);
+            spriteBatch.DrawString(game.pressStart2PFont, "What is your name, Adventurer?", new Vector2(xOffset, yOffset), Color.White);
 
-            spriteBatch.DrawString(game.mainFont, ksr.TextString, new Vector2(xOffset, yOffset + 50), Color.White);
+            spriteBatch.DrawString(game.pressStart2PFont, ksr.TextString, new Vector2(xOffset, yOffset + 50), Color.White);
 
             
         }

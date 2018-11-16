@@ -35,6 +35,8 @@ namespace Capstonia.Systems
             if (ksr.IsFinished || ksr.TextString.Length == 30) 
             {
                 game.Player.Name = ksr.TextString;
+                ksr.TextString = "";
+                ksr.IsFinished = false;
                 game.state = GameState.GamePlay;
             }
 

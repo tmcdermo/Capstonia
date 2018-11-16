@@ -73,6 +73,8 @@ namespace Capstonia.Systems
             {
                 game.MenuDown.Play();
                 game.state = GameState.MainMenu;
+                if (game.PlayerDead)
+                    game.Reinitialize();
             }
 
         }

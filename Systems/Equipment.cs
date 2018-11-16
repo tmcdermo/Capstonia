@@ -54,7 +54,7 @@ namespace Capstonia.Systems
             else
             {
                 Item Club = new Weapon(game);
-                Club.Strength = 0;
+                Club.Damage = 0;
                 return Club;
             }
         }

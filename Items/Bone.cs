@@ -12,7 +12,7 @@ namespace Capstonia.Items
         public Bone(GameManager game) : base(game)
         {
             Name = "Bone";
-            Strength = 0;
+            Damage = 0;
             Defense = 0;
             Value = ValuePoints();
             History = "Spooky Scary Sekelton Carcass";

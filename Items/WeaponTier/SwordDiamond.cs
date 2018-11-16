@@ -12,7 +12,7 @@ namespace Capstonia.Items.WeaponTier
         {
             Sprite = game.weapon_sword_diamond;
             weaponType = "Hard Carbon Sword";
-            Strength = StrengthGet(1, 2);
+            Damage = DamageGet(1, 2);
         }
     }
 }

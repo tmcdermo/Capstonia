@@ -28,7 +28,7 @@ namespace Capstonia.Items
         {
             Name = "Book";
             Genre = DeweyDecimal.None;
-            Strength = 0;
+            Damage = 0;
             Defense = 0;
             Value = 0;
             History = "Read something for once.";

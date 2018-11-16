@@ -12,7 +12,7 @@ namespace Capstonia.Items.WeaponTier
         {
             Sprite = game.weapon_sword_hellfire;
             weaponType = "Hellfire";
-            Strength = StrengthGet(1, 4);
+            Damage = DamageGet(1, 4);
         }
     }
 }

@@ -12,8 +12,7 @@ namespace Capstonia.Items.WeaponTier
         {
             Sprite = game.weapon_axe_gold;
             weaponType = "Gold Axe";
-            Strength = StrengthGet(1, 2);
+            Damage = DamageGet(1, 2);
         }
-            
     }
 }

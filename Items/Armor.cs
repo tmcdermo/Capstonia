@@ -61,10 +61,14 @@ namespace Capstonia.Items
             game.Messages.AddMessage("Equipped armor with +" + Defense + " defense");
 
         }
-
+        // Scales Armor 
+        // Armor are tier'd out 0/1/2/3 
+        // Each level increase increases the randomized range of possible drop defense value
         protected int getArmorValue()
         {
-
+            int baseValue = ArmorTier;
+            int levelAdvantage = game.Player.Level + ArmorTier;
+            return Capstonia.GameManager.Random.Next(baseValue, levelAdvantage);
         }
 
     }

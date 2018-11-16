@@ -9,8 +9,8 @@ namespace Capstonia.Items.ArmorTier
         public GoldChest(GameManager game) : base(game)
         {
             ArmorType = "Gold Armor";
-            ArmorTier = 2;
-            Defense = Defense = Capstonia.GameManager.Random.Next(5, 9);
+            ArmorTier = 1;
+            Defense = getArmorValue();
             Sprite = game.armor_gold_chest;
         }
     }

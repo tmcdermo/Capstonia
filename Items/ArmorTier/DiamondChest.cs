@@ -9,8 +9,8 @@ namespace Capstonia.Items.ArmorTier
         public DiamondChest(GameManager game) : base(game)
         {
             ArmorType = "Diamond Armor";
-            ArmorTier = 4;
-            Defense = Defense = Capstonia.GameManager.Random.Next(9, 13);
+            ArmorTier = 2;
+            Defense = getArmorValue();
             Sprite = game.armor_diamond_chest;
         }
     }

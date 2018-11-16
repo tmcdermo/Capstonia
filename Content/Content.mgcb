@@ -891,3 +891,201 @@
 /processorParam:Quality=Best
 /build:Sounds/Music/MS-PrettyDungeon.wav
 
+#begin Sounds/SFX/ArmorSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/ArmorSound.wav
+
+#begin Sounds/SFX/BlockAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/BlockAttack.wav
+
+#begin Sounds/SFX/BookSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/BookSound.wav
+
+#begin Sounds/SFX/DodgeAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/DodgeAttack.wav
+
+#begin Sounds/SFX/EatingSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/EatingSound.wav
+
+#begin Sounds/SFX/Footstep1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep1.wav
+
+#begin Sounds/SFX/Footstep2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep2.wav
+
+#begin Sounds/SFX/Footstep3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep3.wav
+
+#begin Sounds/SFX/Footstep4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep4.wav
+
+#begin Sounds/SFX/Footstep5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep5.wav
+
+#begin Sounds/SFX/Footstep6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep6.wav
+
+#begin Sounds/SFX/Footstep7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep7.wav
+
+#begin Sounds/SFX/Footstep8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/Footstep8.wav
+
+#begin Sounds/SFX/GameOverVoice.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/GameOverVoice.wav
+
+#begin Sounds/SFX/ItemPickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/ItemPickup.wav
+
+#begin Sounds/SFX/LevelUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/LevelUp.wav
+
+#begin Sounds/SFX/MenuDown.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/MenuDown.wav
+
+#begin Sounds/SFX/MenuUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/MenuUp.wav
+
+#begin Sounds/SFX/MonsterDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/MonsterDeath.wav
+
+#begin Sounds/SFX/MonsterHit1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/MonsterHit1.wav
+
+#begin Sounds/SFX/MonsterHit2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/MonsterHit2.wav
+
+#begin Sounds/SFX/MonsterHit3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/MonsterHit3.wav
+
+#begin Sounds/SFX/PlayerDeathPiano.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerDeathPiano.wav
+
+#begin Sounds/SFX/PlayerHit1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit1.wav
+
+#begin Sounds/SFX/PlayerHit2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit2.wav
+
+#begin Sounds/SFX/PlayerHit3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit3.wav
+
+#begin Sounds/SFX/PlayerHit4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit4.wav
+
+#begin Sounds/SFX/PlayerHit5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit5.wav
+
+#begin Sounds/SFX/PlayerHit6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit6.wav
+
+#begin Sounds/SFX/PlayerHit7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit7.wav
+
+#begin Sounds/SFX/PlayerHit8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PlayerHit8.wav
+
+#begin Sounds/SFX/PotionDrinking.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/PotionDrinking.wav
+
+#begin Sounds/SFX/WeaponSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/SFX/WeaponSound.wav
+

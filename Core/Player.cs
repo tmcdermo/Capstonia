@@ -461,8 +461,10 @@ namespace Capstonia.Core
             {
                 game.Inventory.UseItem(9);
             }
-            else if (game.currentKeyboardState.IsKeyDown(Keys.OemPeriod) &&
-                    game.previousKeyboardState.IsKeyUp(Keys.OemPeriod))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.OemPeriod) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.OemPeriod)) || 
+                    (game.currentKeyboardState.IsKeyDown(Keys.NumPad5) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.NumPad5)))
             {
                 if (game.Level.LevelExit.X == X && game.Level.LevelExit.Y == Y)
                 {
@@ -547,6 +549,9 @@ namespace Capstonia.Core
                 CurrentExperienceMax *= 2;
 
                 MaxHealth += GameManager.Random.Next(3, 12) + GetConstitutionBonus();
+
+                //Restore health completely - can be changed later
+                CurrHealth = MaxHealth;
 
                 game.Messages.AddMessage("============================");
                 game.Messages.AddMessage("You are now level " + Level + "!!!");
@@ -766,7 +771,9 @@ namespace Capstonia.Core
                 {
                     Hunger = MinHunger;
                 }
-                game.Messages.AddMessage("Hunger: " + Hunger);
+
+                //Draw Hunger to screen
+                //game.Messages.AddMessage("Hunger: " + Hunger);
             }
 
             //Give player 1 in 4 chance of losing turn if hunger is 0

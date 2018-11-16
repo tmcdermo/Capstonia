@@ -136,6 +136,9 @@ namespace Capstonia
         // main menu graphic
         public Texture2D mainMenuGraphic;
 
+        // new player graphic
+        public Texture2D darkKnightLarge;
+
         // music
         public SoundEffect menuSong;
         public SoundEffectInstance menuMusic;
@@ -354,6 +357,9 @@ namespace Capstonia
 
             // load main menu graphic
             mainMenuGraphic = Content.Load<Texture2D>("Art/UI/main-menu");
+
+            // load new player graphic
+            darkKnightLarge = Content.Load<Texture2D>("dark-knight-large");
 
             // load music
             menuSong = Content.Load<SoundEffect>("Sounds/Music/MS-Melancholy Ambience");

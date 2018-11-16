@@ -210,6 +210,8 @@
     <None Include="Content\PressStart2P-Regular.ttf" />
     <None Include="Content\PressStart2P.spritefont" />
     <None Include="packages.config" />
+    <None Include="Content\dark-knight-large.png" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\armor.png" />

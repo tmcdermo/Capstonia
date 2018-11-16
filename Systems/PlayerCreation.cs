@@ -30,7 +30,9 @@ namespace Capstonia.Systems
 
             ksr.UpdateInput();
 
-            if (ksr.IsFinished)
+            // If string legnth is greater than 30 or <enter>
+            // has been pressed, continue.
+            if (ksr.IsFinished || ksr.TextString.Length == 30) 
             {
                 game.Player.Name = ksr.TextString;
                 game.state = GameState.GamePlay;
@@ -41,28 +43,25 @@ namespace Capstonia.Systems
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int xOffset = 50;
-            int yOffset = 50;
+            int xOffset; // horizontal offset
+            int yOffset; // vertical offset
 
-            //Set vectors to draw sprites in the corners of the screen
-            Vector2 topLeft = new Vector2(0, 0);
-            Vector2 topRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, 0);
-            Vector2 bottomLeft = new Vector2(0, game.graphics.PreferredBackBufferHeight - 48);
-            Vector2 bottomRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, game.graphics.PreferredBackBufferHeight - 48);
+            // draw avatar
+            xOffset = 285;
+            yOffset = 230;
+            spriteBatch.Draw(game.darkKnightLarge, new Vector2(xOffset, yOffset), Color.White);
 
-            //Place sprites of the player in the corners of the screen
-            spriteBatch.Draw(game.Player.Sprite, topLeft, Color.White);
-            spriteBatch.Draw(game.Player.Sprite, topRight, Color.White);
-            spriteBatch.Draw(game.Player.Sprite, bottomLeft, Color.White);
-            spriteBatch.Draw(game.Player.Sprite, bottomRight, Color.White);
-
+            // place text above avatar
+            xOffset = 200;
+            yOffset = 150;
             spriteBatch.DrawString(game.pressStart2PFont, "What is your name, Adventurer?", new Vector2(xOffset, yOffset), Color.White);
 
+            // place player's name below avatar
             int centerOffset = 500;
+            yOffset = 680;
             int numChars = ksr.TextString.Length;
-            spriteBatch.DrawString(game.pressStart2PFont, ksr.TextString, new Vector2((int)(centerOffset - (10.5*numChars)), yOffset + 50), Color.White);
+            spriteBatch.DrawString(game.pressStart2PFont, ksr.TextString, new Vector2((int)(centerOffset - (10.5 * numChars)), yOffset), Color.White);
 
-            
         }
     }
 }

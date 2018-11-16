@@ -6,7 +6,7 @@ namespace Capstonia.Core
     {
         //Armor,
         //Bone,
-        Book,
+        //Book,
         //Chest,
         Food,
         //Gem,
@@ -25,7 +25,11 @@ namespace Capstonia.Core
         SwordAcid,
         SwordDiamond,
         SwordHellfire,
-        SwordLightning
+        SwordLightning,
+        StrengthBook,
+        DexterityBook,
+        ConstitutionBook,
+        EvilBook
     }
 
     public enum ArmorTier

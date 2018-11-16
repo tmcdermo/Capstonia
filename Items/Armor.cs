@@ -51,15 +51,12 @@ namespace Capstonia.Items
         }
 
         //Overrides parent class function
-        public override bool UseItem()
+        public override void UseItem()
         {
             //Add damage and defense values and dipslay on message log
             AddStat();
             game.Messages.AddMessage("Equipped armor with +" + Defense + " defense");
 
-
-            //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
-            return false;
         }
 
     }

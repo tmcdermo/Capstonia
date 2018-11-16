@@ -76,6 +76,10 @@ namespace Capstonia
         public Texture2D potion;
             //Book
         public Texture2D book;
+        public Texture2D bookStr;
+        public Texture2D BookDex;
+        public Texture2D BookCst;
+        public Texture2D BookBad;
             //Gem
         public Texture2D gem;
             //Chest
@@ -237,6 +241,10 @@ namespace Capstonia
             potion = Content.Load<Texture2D>("potion");
             //books
             book = Content.Load<Texture2D>("book");
+            bookStr = Content.Load<Texture2D>("book_strength");
+            BookDex = Content.Load<Texture2D>("book_dexterity");
+            BookCst = Content.Load<Texture2D>("book_constitution");
+            BookBad = Content.Load<Texture2D>("book_evil");
             //chest
             chest = Content.Load<Texture2D>("chest_gold_open");
 

@@ -118,6 +118,10 @@
     <Compile Include="Systems\UserInputKeyboard.cs" />
     <Compile Include="Monsters\Beholder.cs" />
     <Compile Include="Core\MapLevel.cs" />
+    <Compile Include="Items\BookTier\StrengthBook.cs" />
+    <Compile Include="Items\BookTier\DexterityBook.cs" />
+    <Compile Include="Items\BookTier\ConstitutionBook.cs" />
+    <Compile Include="Items\BookTier\EvilBook.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -230,6 +234,9 @@
     <Content Include="Content\zombie_a_1.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Items\BookTier\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

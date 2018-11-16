@@ -44,14 +44,11 @@ namespace Capstonia.Items
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        public override bool UseItem()
+        public override void UseItem()
         {
             //If weapon is equipped
             AddStat();
             game.Messages.AddMessage("Equipped weapon with +" + Strength + " strength");
-
-            //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
-            return false;
         }
 
         // Level factor to increase weapon potency as needed 

@@ -72,17 +72,9 @@ namespace Capstonia.Core
             }
         }
 
-        //TODO - Not sure why we need this, but was in the tutorial. Might remove later?
-        public bool Use()
-        {
-            return UseItem();
-        }
 
         //Virtual function that is overridden by child classes
-        public virtual bool UseItem()
-        {
-            return false;
-        }
+        public virtual void UseItem() {}
 
         // Undo what Use item does //
         public virtual void RemoveItem()

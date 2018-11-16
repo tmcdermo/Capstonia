@@ -8,6 +8,7 @@ namespace Capstonia.Core
         Instructions,
         Leaderboard,
         Credits,
+        Confirmation,
         GamePlay
     }
 }

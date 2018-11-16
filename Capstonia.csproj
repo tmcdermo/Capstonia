@@ -133,6 +133,7 @@
     <Compile Include="Systems\Credits.cs" />
     <Compile Include="Systems\Leaderboard.cs" />
     <Compile Include="Systems\Instructions.cs" />
+    <Compile Include="Systems\Confirmation.cs" />
     <Compile Include="Systems\PlayerCreation.cs" />
     <Compile Include="Systems\MainMenu.cs" />
     <Compile Include="Systems\MessageLog.cs" />
@@ -211,7 +212,6 @@
     <None Include="Content\PressStart2P.spritefont" />
     <None Include="packages.config" />
     <None Include="Content\dark-knight-large.png" />
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\armor.png" />

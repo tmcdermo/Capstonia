@@ -209,6 +209,7 @@
     <None Include="Content\player_equipment_gui.png" />
     <None Include="Content\monster_stats_gui.png" />
     <None Include="Content\main-menu.png" />
+    <None Include="Content\PressStart2P.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\banshee_1.png" />

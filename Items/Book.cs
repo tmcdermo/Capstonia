@@ -106,7 +106,10 @@ namespace Capstonia.Items
         public override void UseItem()
         {
             AddStat();
-            game.Messages.AddMessage("Something something book side");
+            if (Genre != DeweyDecimal.Evil)
+                game.Messages.AddMessage(String.Format("Gained {0} {2} from the Book of {1}", Value, Genre, Genre));
+            else
+                game.Messages.AddMessage(String.Format("Lost {0} from all 3 stats.", Value));
 
         }
 

@@ -583,7 +583,7 @@ namespace Capstonia.Core
             {
                 CurrHealth = 0;
             }
-            spriteBatch.DrawString(game.mainFont, CurrHealth.ToString() + "/100", new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, CurrHealth.ToString() + "/" + MaxHealth.ToString(), new Vector2(gridHorizOffset + textHorizOffset, gridVertOffset + iconVertOffset + textVertOffset), Color.White);
 
             // draw level
             fudgeFactorScore = 25;

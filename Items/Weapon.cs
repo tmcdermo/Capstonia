@@ -46,6 +46,7 @@ namespace Capstonia.Items
         // RETURNS: Bool. True if item is used, False otherwise.
         public override void UseItem()
         {
+            game.WeaponSound.Play();
             //If weapon is equipped
             AddStat();
             game.Messages.AddMessage("Equipped weapon with +" + Strength + " strength");

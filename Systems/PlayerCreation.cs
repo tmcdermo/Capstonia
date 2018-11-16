@@ -23,7 +23,10 @@ namespace Capstonia.Systems
         {
             
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                game.MenuDown.Play();
                 game.state = GameState.MainMenu;
+            }                
 
             ksr.UpdateInput();
 

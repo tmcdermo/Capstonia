@@ -80,7 +80,7 @@ namespace Capstonia.Items
         // RETURNS: Bool. True if item is used, False otherwise.
         public override void UseItem()
         {
-            //If item is picked up
+            game.DrinkingSound.Play();
    
         }
     }

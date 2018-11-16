@@ -501,6 +501,7 @@ namespace Capstonia.Core
                 // Player wins tie
                 if (hitValue < defenseValue)
                 {
+                    game.DodgeAttack.Play();
                     game.Messages.AddMessage(monster.Name + " dodges hit!");
                     return;
                 }
@@ -514,11 +515,13 @@ namespace Capstonia.Core
 
                 if (totalDmg <= 0)
                 {
+                    game.BlockAttack.Play();
                     game.Messages.AddMessage(monster.Name + " blocks attack!");
                     return;
                 }
 
-                // inflict dmg on Capstonian
+                // inflict dmg on Capstonian   
+                game.PlayRandomFromList(game.MonsterHit);
                 game.Messages.AddMessage("Player inflicts " + totalDmg + " dmg on " + monster.Name);
                 monster.CurrHealth -= totalDmg;
 
@@ -538,6 +541,7 @@ namespace Capstonia.Core
 
             if(Experience >= CurrentExperienceMax)
             {
+                game.LevelUp.Play();
                 Level++;
                 Experience -= CurrentExperienceMax;
                 CurrentExperienceMax *= 2;

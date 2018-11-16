@@ -145,6 +145,28 @@ namespace Capstonia
 
 
         // sfx
+        public SoundEffect BlockAttack;
+        //public SoundEffectInstance BlockInst;
+        public SoundEffect DodgeAttack;
+        //public SoundEffectInstance DodgeInst;
+        public SoundEffect MonsterDeath;
+        //public SoundEffectInstance MonsterDeathInst;
+        public List<SoundEffect> MonsterHit;
+        public List<SoundEffect> PlayerHit;
+        public SoundEffect BookSound;
+        public SoundEffect EatingSound;
+        public SoundEffect DrinkingSound;
+        public List<SoundEffect> Footsteps;
+        public SoundEffect GameOver;
+        public SoundEffect PlayerDeath;
+        public SoundEffect ItemPickup;
+        public SoundEffect LevelUp;
+        public SoundEffect MenuDown;
+        public SoundEffect MenuUp;
+        public SoundEffect ArmorSound;
+        public SoundEffect WeaponSound;
+
+        
 
         // containers
         public List<Monster> Monsters;
@@ -229,6 +251,11 @@ namespace Capstonia
             // get seed based on current time and set up RogueSharp Random instance
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
+
+            // initialize soundeffect lists
+            MonsterHit = new List<SoundEffect>();
+            PlayerHit = new List<SoundEffect>();
+            Footsteps = new List<SoundEffect>();
 
             //https://stackoverflow.com/questions/22535699/mouse-cursor-is-not-showing-in-windows-store-game-developing-using-monogame
             this.IsMouseVisible = true;
@@ -336,6 +363,39 @@ namespace Capstonia
             gameMusic = gameSong.CreateInstance();
 
             // load sfx
+            BlockAttack = Content.Load<SoundEffect>("Sounds/SFX/BlockAttack");
+            BookSound = Content.Load<SoundEffect>("Sounds/SFX/BookSound");
+            DodgeAttack = Content.Load<SoundEffect>("Sounds/SFX/DodgeAttack");
+            EatingSound = Content.Load<SoundEffect>("Sounds/SFX/EatingSound");
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep1"));
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep2"));
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep3"));
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep4"));
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep5"));
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep6"));
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep7"));
+            Footsteps.Add(Content.Load<SoundEffect>("Sounds/SFX/Footstep8"));
+            GameOver = Content.Load<SoundEffect>("Sounds/SFX/GameOverVoice");
+            ItemPickup = Content.Load<SoundEffect>("Sounds/SFX/ItemPickup");
+            LevelUp = Content.Load<SoundEffect>("Sounds/SFX/LevelUp");
+            MenuDown = Content.Load<SoundEffect>("Sounds/SFX/MenuDown");
+            MenuUp = Content.Load<SoundEffect>("Sounds/SFX/MenuUp");
+            MonsterDeath = Content.Load<SoundEffect>("Sounds/SFX/MonsterDeath");
+            PlayerDeath = Content.Load<SoundEffect>("Sounds/SFX/PlayerDeathPiano");
+            DrinkingSound = Content.Load<SoundEffect>("Sounds/SFX/PotionDrinking");
+            MonsterHit.Add(Content.Load<SoundEffect>("Sounds/SFX/MonsterHit1"));
+            MonsterHit.Add(Content.Load<SoundEffect>("Sounds/SFX/MonsterHit2"));
+            MonsterHit.Add(Content.Load<SoundEffect>("Sounds/SFX/MonsterHit3"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit1"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit2"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit3"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit4"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit5"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit6"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit7"));
+            PlayerHit.Add(Content.Load<SoundEffect>("Sounds/SFX/PlayerHit8"));
+            ArmorSound = Content.Load<SoundEffect>("Sounds/SFX/ArmorSound");
+            WeaponSound = Content.Load<SoundEffect>("Sounds/SFX/WeaponSound");
 
 
             // load fonts
@@ -369,7 +429,7 @@ namespace Capstonia
             switch (state)
             {
                 case GameState.MainMenu:
-                    gameMusic.Stop();
+                    gameMusic.Stop();                   
                     menuMusic.IsLooped = true;
                     menuMusic.Volume = 0.5f;
                     menuMusic.Play();
@@ -589,6 +649,7 @@ namespace Capstonia
         // RETURNS: None
         public void HandleMonsterDeath(Monster monster)
         {
+            MonsterDeath.Play();
             int addGlory = Random.Next(monster.MinGlory, monster.MaxGlory);
             Player.Glory += addGlory;
 
@@ -611,6 +672,8 @@ namespace Capstonia
         // RETURNS: None
         public void HandlePlayerDeath(string monster)
         {
+            gameMusic.Stop();
+            PlayerDeath.Play();
             Messages.AddMessage("You have DIED!  Game Over!");
             Messages.AddMessage("Press <ESC> to Exit Game.");
 
@@ -622,6 +685,15 @@ namespace Capstonia
 
             
 
+        }
+
+        // PlayRandomFromList()
+        // DESC:    Play random sound from list passed in
+        // PARAMS:  List of sounds
+        // RETURNS: None
+        public void PlayRandomFromList(List<SoundEffect> list)
+        {
+            list[Random.Next(0, list.Count - 1)].Play();
         }
     }
 }

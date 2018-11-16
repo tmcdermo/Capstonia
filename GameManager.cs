@@ -246,101 +246,101 @@ namespace Capstonia
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // load level textures
-            floor = Content.Load<Texture2D>("floor_extra_12");
-            wall = Content.Load<Texture2D>("wall_stone_11");
-            exit = Content.Load<Texture2D>("floor_set_grey_8");
+            floor = Content.Load<Texture2D>("Art/Sprites/floor_extra_12");
+            wall = Content.Load<Texture2D>("Art/Sprites/wall_stone_11");
+            exit = Content.Load<Texture2D>("Art/Sprites/floor_set_grey_8");
 
             // load item textures - gameboard
             
             //armor
-            armor = Content.Load<Texture2D>("armor");
-            armor_leather_chest = Content.Load<Texture2D>("armor_leather_chest");
-            armor_steel_chest = Content.Load<Texture2D>("armor_steel_chest");
-            armor_gold_chest = Content.Load<Texture2D>("armor_gold_chest");
-            armor_emerald_chest = Content.Load<Texture2D>("armor_emerald_chest");
-            armor_diamond_chest = Content.Load<Texture2D>("armor_diamond_chest");
-            armor_blood_chest = Content.Load<Texture2D>("armor_blood_chest");
+            armor = Content.Load<Texture2D>("Art/Sprites/armor");
+            armor_leather_chest = Content.Load<Texture2D>("Art/Sprites/armor_leather_chest");
+            armor_steel_chest = Content.Load<Texture2D>("Art/Sprites/armor_steel_chest");
+            armor_gold_chest = Content.Load<Texture2D>("Art/Sprites/armor_gold_chest");
+            armor_emerald_chest = Content.Load<Texture2D>("Art/Sprites/armor_emerald_chest");
+            armor_diamond_chest = Content.Load<Texture2D>("Art/Sprites/armor_diamond_chest");
+            armor_blood_chest = Content.Load<Texture2D>("Art/Sprites/armor_blood_chest");
             //food
-            food = Content.Load<Texture2D>("drumstick");
+            food = Content.Load<Texture2D>("Art/Sprites/drumstick");
             //weapon
-            weapon_club = Content.Load<Texture2D>("weapon_club");
-            weapon_axe_gold = Content.Load<Texture2D>("weapon_axe_gold");
-            weapon_lance_vorpal = Content.Load<Texture2D>("weapon_lance_vorpal");
-            weapon_sword_acid = Content.Load<Texture2D>("weapon_sword_acid");
-            weapon_sword_diamond = Content.Load<Texture2D>("weapon_sword_diamond");
-            weapon_sword_hellfire = Content.Load<Texture2D>("weapon_sword_hellfire");
-            weapon_sword_lightning = Content.Load<Texture2D>("weapon_sword_lightning");
+            weapon_club = Content.Load<Texture2D>("Art/Sprites/weapon_club");
+            weapon_axe_gold = Content.Load<Texture2D>("Art/Sprites/weapon_axe_gold");
+            weapon_lance_vorpal = Content.Load<Texture2D>("Art/Sprites/weapon_lance_vorpal");
+            weapon_sword_acid = Content.Load<Texture2D>("Art/Sprites/weapon_sword_acid");
+            weapon_sword_diamond = Content.Load<Texture2D>("Art/Sprites/weapon_sword_diamond");
+            weapon_sword_hellfire = Content.Load<Texture2D>("Art/Sprites/weapon_sword_hellfire");
+            weapon_sword_lightning = Content.Load<Texture2D>("Art/Sprites/weapon_sword_lightning");
             //potions
-            potion = Content.Load<Texture2D>("potion");
+            potion = Content.Load<Texture2D>("Art/Sprites/potion");
             //books
-            book = Content.Load<Texture2D>("book");
-            bookStr = Content.Load<Texture2D>("book_strength");
-            BookDex = Content.Load<Texture2D>("book_dexterity");
-            BookCst = Content.Load<Texture2D>("book_constitution");
-            BookBad = Content.Load<Texture2D>("book_evil");
+            book = Content.Load<Texture2D>("Art/Sprites/book");
+            bookStr = Content.Load<Texture2D>("Art/Sprites/book_strength");
+            BookDex = Content.Load<Texture2D>("Art/Sprites/book_dexterity");
+            BookCst = Content.Load<Texture2D>("Art/Sprites/book_constitution");
+            BookBad = Content.Load<Texture2D>("Art/Sprites/book_evil");
             //chest
-            chest = Content.Load<Texture2D>("chest_gold_open");
+            chest = Content.Load<Texture2D>("Art/Sprites/chest_gold_open");
 
             // load item textures - player stats
-            constitution = Content.Load<Texture2D>("constitution");
-            dexterity = Content.Load<Texture2D>("dexterity");
-            experience = Content.Load<Texture2D>("experience");
-            health = Content.Load<Texture2D>("health");
-            level = Content.Load<Texture2D>("level");
-            strength = Content.Load<Texture2D>("strength");
+            constitution = Content.Load<Texture2D>("Art/Sprites/constitution");
+            dexterity = Content.Load<Texture2D>("Art/Sprites/dexterity");
+            experience = Content.Load<Texture2D>("Art/Sprites/experience");
+            health = Content.Load<Texture2D>("Art/Sprites/health");
+            level = Content.Load<Texture2D>("Art/Sprites/level");
+            strength = Content.Load<Texture2D>("Art/Sprites/strength");
 
             // load gui textures
-            Outline = Content.Load<Texture2D>("inventory_gui");
-            PlayerStatsOutline = Content.Load<Texture2D>("player_stats_gui");
-            PlayerEquipmentOutline = Content.Load<Texture2D>("player_equipment_gui");
-            MonsterStatsOutline = Content.Load<Texture2D>("monster_stats_gui");
+            Outline = Content.Load<Texture2D>("Art/UI/inventory_gui");
+            PlayerStatsOutline = Content.Load<Texture2D>("Art/UI/player_stats_gui");
+            PlayerEquipmentOutline = Content.Load<Texture2D>("Art/UI/player_equipment_gui");
+            MonsterStatsOutline = Content.Load<Texture2D>("Art/UI/monster_stats_gui");
 
             // load actor textures
-            Player.Sprite = Content.Load<Texture2D>("dknight_1");
-            beholder = Content.Load<Texture2D>("beholder_deep_1");
-            banshee = Content.Load<Texture2D>("banshee_1");
-            barbarian = Content.Load<Texture2D>("barbarian_f_1");
-            bat = Content.Load<Texture2D>("bat_giant_1");
-            demon = Content.Load<Texture2D>("demon_red_1");
-            dragon = Content.Load<Texture2D>("dragon_green_1");
-            drowelf = Content.Load<Texture2D>("drow_1");
-            fireelemental = Content.Load<Texture2D>("elemental_fire_1");
-            goblin = Content.Load<Texture2D>("goblin_1");
-            stonegolem = Content.Load<Texture2D>("golem_stone_1");
-            lich = Content.Load<Texture2D>("lich_1");
-            lizardman = Content.Load<Texture2D>("lizardman_blue_1");
-            minotaur = Content.Load<Texture2D>("minotaur_1");
-            mummy = Content.Load<Texture2D>("mummy_1");
-            ogre = Content.Load<Texture2D>("ogre_1");
-            rat = Content.Load<Texture2D>("rat_giant_1");
-            skeleton = Content.Load<Texture2D>("skeleton_1");
-            slime = Content.Load<Texture2D>("slime_purple_1");
-            snake = Content.Load<Texture2D>("snake_giant_1");
-            spider = Content.Load<Texture2D>("spider_black_giant_1");
-            spirit = Content.Load<Texture2D>("spirit_1");
-            troll = Content.Load<Texture2D>("troll_1");
-            valkyrie = Content.Load<Texture2D>("valkyrie_b_1");
-            vampire = Content.Load<Texture2D>("vampire_lord_1");
-            wolf = Content.Load<Texture2D>("wolf_black_1");
-            wraith = Content.Load<Texture2D>("wraith_a_1");
-            zombie = Content.Load<Texture2D>("zombie_a_1");
+            Player.Sprite = Content.Load<Texture2D>("Art/Sprites/dknight_1");
+            beholder = Content.Load<Texture2D>("Art/Sprites/beholder_deep_1");
+            banshee = Content.Load<Texture2D>("Art/Sprites/banshee_1");
+            barbarian = Content.Load<Texture2D>("Art/Sprites/barbarian_f_1");
+            bat = Content.Load<Texture2D>("Art/Sprites/bat_giant_1");
+            demon = Content.Load<Texture2D>("Art/Sprites/demon_red_1");
+            dragon = Content.Load<Texture2D>("Art/Sprites/dragon_green_1");
+            drowelf = Content.Load<Texture2D>("Art/Sprites/drow_1");
+            fireelemental = Content.Load<Texture2D>("Art/Sprites/elemental_fire_1");
+            goblin = Content.Load<Texture2D>("Art/Sprites/goblin_1");
+            stonegolem = Content.Load<Texture2D>("Art/Sprites/golem_stone_1");
+            lich = Content.Load<Texture2D>("Art/Sprites/lich_1");
+            lizardman = Content.Load<Texture2D>("Art/Sprites/lizardman_blue_1");
+            minotaur = Content.Load<Texture2D>("Art/Sprites/minotaur_1");
+            mummy = Content.Load<Texture2D>("Art/Sprites/mummy_1");
+            ogre = Content.Load<Texture2D>("Art/Sprites/ogre_1");
+            rat = Content.Load<Texture2D>("Art/Sprites/rat_giant_1");
+            skeleton = Content.Load<Texture2D>("Art/Sprites/skeleton_1");
+            slime = Content.Load<Texture2D>("Art/Sprites/slime_purple_1");
+            snake = Content.Load<Texture2D>("Art/Sprites/snake_giant_1");
+            spider = Content.Load<Texture2D>("Art/Sprites/spider_black_giant_1");
+            spirit = Content.Load<Texture2D>("Art/Sprites/spirit_1");
+            troll = Content.Load<Texture2D>("Art/Sprites/troll_1");
+            valkyrie = Content.Load<Texture2D>("Art/Sprites/valkyrie_b_1");
+            vampire = Content.Load<Texture2D>("Art/Sprites/vampire_lord_1");
+            wolf = Content.Load<Texture2D>("Art/Sprites/wolf_black_1");
+            wraith = Content.Load<Texture2D>("Art/Sprites/wraith_a_1");
+            zombie = Content.Load<Texture2D>("Art/Sprites/zombie_a_1");
 
             // load main menu graphic
-            mainMenuGraphic = Content.Load<Texture2D>("main-menu");
+            mainMenuGraphic = Content.Load<Texture2D>("Art/UI/main-menu");
 
             // load music
-            menuSong = Content.Load<SoundEffect>("MS-Melancholy Ambience");
+            menuSong = Content.Load<SoundEffect>("Sounds/Music/MS-Melancholy Ambience");
             menuMusic = menuSong.CreateInstance();
 
-            gameSong = Content.Load<SoundEffect>("MS-PrettyDungeon");
+            gameSong = Content.Load<SoundEffect>("Sounds/Music/MS-PrettyDungeon");
             gameMusic = gameSong.CreateInstance();
 
             // load sfx
 
 
             // load fonts
-            mainFont = Content.Load<SpriteFont>("MainFont");
-            pressStart2PFont = Content.Load<SpriteFont>("PressStart2P");
+            mainFont = Content.Load<SpriteFont>("Fonts/MainFont");
+            pressStart2PFont = Content.Load<SpriteFont>("Fonts/PressStart2P");
 
             //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
             emptyTexture = new Texture2D(GraphicsDevice, 1, 1);

@@ -55,7 +55,9 @@ namespace Capstonia.Systems
 
             spriteBatch.DrawString(game.pressStart2PFont, "What is your name, Adventurer?", new Vector2(xOffset, yOffset), Color.White);
 
-            spriteBatch.DrawString(game.pressStart2PFont, ksr.TextString, new Vector2(xOffset, yOffset + 50), Color.White);
+            int centerOffset = 500;
+            int numChars = ksr.TextString.Length;
+            spriteBatch.DrawString(game.pressStart2PFont, ksr.TextString, new Vector2((int)(centerOffset - (10.5*numChars)), yOffset + 50), Color.White);
 
             
         }

@@ -662,7 +662,15 @@ namespace Capstonia.Core
 
             // draw weapon
             fudgeFactorIcon = 3;
-            spriteBatch.Draw(game.weapon_club, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
+            if (game.Equip.Equip["Weapon"] == null)
+            {
+                spriteBatch.Draw(game.weapon_club, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(game.Equip.Equip["Weapon"].Sprite, new Vector2(gridHorizOffset, gridVertOffset + iteration * iconVertOffset + fudgeFactorIcon), Color.White);
+
+            }
             spriteBatch.DrawString(game.mainFont, WeaponType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             //spriteBatch.DrawString(game.mainFont, "+" + WeaponValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
             spriteBatch.DrawString(game.mainFont, "+" + Strength.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);

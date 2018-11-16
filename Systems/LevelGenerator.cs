@@ -12,6 +12,8 @@ using Capstonia.Core;
 using Capstonia.Monsters;
 using Capstonia.Items;
 using Capstonia.Items.ArmorTier;
+using Capstonia.Items.WeaponTier;
+using Capstonia.Items.BookTier;
 using System;
 using System.Diagnostics;
 
@@ -557,8 +559,8 @@ namespace Capstonia.Systems
                     return new BloodChest(game);
                 //case ItemType.Bone:
                 //    return new Bone(game);
-                case ItemType.Book:
-                    return new Book(game);
+                //case ItemType.Book:
+                 //   return new Book(game);
                 //case ItemType.Chest:
                 //    return new Chest(game);
                 case ItemType.Food:
@@ -573,6 +575,27 @@ namespace Capstonia.Systems
                 //    return new Skull(game);
                 case ItemType.Weapon:
                     return new Weapon(game);
+                case ItemType.AxeGold:
+                    return new AxeGold(game);
+                case ItemType.LanceVorpal:
+                    return new LanceVorpal(game);
+                case ItemType.SwordAcid:
+                    return new SwordAcid(game);
+                case ItemType.SwordDiamond:
+                    return new SwordDiamond(game);
+                case ItemType.SwordHellfire:
+                    return new SwordHellfire(game);
+                case ItemType.SwordLightning:
+                    return new SwordLightning(game);
+                case ItemType.StrengthBook:
+                    return new StrengthBook(game);
+                case ItemType.DexterityBook:
+                    return new DexterityBook(game);
+                case ItemType.ConstitutionBook:
+                    return new ConstitutionBook(game);
+                case ItemType.EvilBook:
+                    return new EvilBook(game);
+
 
             }
 

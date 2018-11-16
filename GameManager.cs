@@ -65,6 +65,7 @@ namespace Capstonia
         public SpriteFont pressStart2PFont;
 
         // Items - Gameboard
+            // Armor
         public Texture2D armor;
         public Texture2D armor_leather_chest;
         public Texture2D armor_steel_chest;
@@ -72,11 +73,27 @@ namespace Capstonia
         public Texture2D armor_emerald_chest;
         public Texture2D armor_diamond_chest;
         public Texture2D armor_blood_chest;
+            //Food
         public Texture2D food;
+            //Weapon
         public Texture2D weapon_club;
+        public Texture2D weapon_axe_gold;
+        public Texture2D weapon_lance_vorpal;
+        public Texture2D weapon_sword_acid;
+        public Texture2D weapon_sword_diamond;
+        public Texture2D weapon_sword_hellfire;
+        public Texture2D weapon_sword_lightning;
+            //Potion
         public Texture2D potion;
+            //Book
         public Texture2D book;
+        public Texture2D bookStr;
+        public Texture2D BookDex;
+        public Texture2D BookCst;
+        public Texture2D BookBad;
+            //Gem
         public Texture2D gem;
+            //Chest
         public Texture2D chest;
 
         // Items - Player Stats
@@ -234,6 +251,8 @@ namespace Capstonia
             exit = Content.Load<Texture2D>("floor_set_grey_8");
 
             // load item textures - gameboard
+            
+            //armor
             armor = Content.Load<Texture2D>("armor");
             armor_leather_chest = Content.Load<Texture2D>("armor_leather_chest");
             armor_steel_chest = Content.Load<Texture2D>("armor_steel_chest");
@@ -241,10 +260,25 @@ namespace Capstonia
             armor_emerald_chest = Content.Load<Texture2D>("armor_emerald_chest");
             armor_diamond_chest = Content.Load<Texture2D>("armor_diamond_chest");
             armor_blood_chest = Content.Load<Texture2D>("armor_blood_chest");
+            //food
             food = Content.Load<Texture2D>("drumstick");
+            //weapon
             weapon_club = Content.Load<Texture2D>("weapon_club");
+            weapon_axe_gold = Content.Load<Texture2D>("weapon_axe_gold");
+            weapon_lance_vorpal = Content.Load<Texture2D>("weapon_lance_vorpal");
+            weapon_sword_acid = Content.Load<Texture2D>("weapon_sword_acid");
+            weapon_sword_diamond = Content.Load<Texture2D>("weapon_sword_diamond");
+            weapon_sword_hellfire = Content.Load<Texture2D>("weapon_sword_hellfire");
+            weapon_sword_lightning = Content.Load<Texture2D>("weapon_sword_lightning");
+            //potions
             potion = Content.Load<Texture2D>("potion");
+            //books
             book = Content.Load<Texture2D>("book");
+            bookStr = Content.Load<Texture2D>("book_strength");
+            BookDex = Content.Load<Texture2D>("book_dexterity");
+            BookCst = Content.Load<Texture2D>("book_constitution");
+            BookBad = Content.Load<Texture2D>("book_evil");
+            //chest
             chest = Content.Load<Texture2D>("chest_gold_open");
 
             // load item textures - player stats

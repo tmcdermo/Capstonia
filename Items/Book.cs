@@ -14,31 +14,33 @@ namespace Capstonia.Items
         {
             Constitution,
             Dexterity,
-            Strength
+            Strength,
+            Evil,
+            None
         }
 
         //Consitution Advancement//
         private DeweyDecimal genre;
         public DeweyDecimal Genre { get { return genre; } set { genre = value; } }
 
-        RogueSharp.Random.DotNetRandom Die = new RogueSharp.Random.DotNetRandom();
 
         public Book(GameManager game): base(game)
         {
             Name = "Book";
+            Genre = DeweyDecimal.None;
             Strength = 0;
             Defense = 0;
-            Value = 10;
+            Value = 0;
             History = "Read something for once.";
             Interactive = true;
             Consumable = true;
-            Genre = BookPick();
             MaxStack = 1;
             Sprite = game.book;
 
         }
 
-        //Randomly choose a book attribute//
+        // Removed Pick Book function to refactor and expand on more book choices
+        /*/Randomly choose a book attribute//
         //https://stackoverflow.com/questions/3132126/how-do-i-select-a-random-value-from-an-enumeration
         /// <summary>
         /// Enum values stored into an Array, Randomize a value between 0 and Length of array minus 1
@@ -50,6 +52,7 @@ namespace Capstonia.Items
             int x = Die.Next(0, Lottery.Length - 1);
             return (DeweyDecimal)Lottery.GetValue(x);
         }
+        */
 
         //Tentatively Will have the item class itself permnantly buff the Players 
         public override void AddStat()
@@ -61,8 +64,7 @@ namespace Capstonia.Items
             {
                 case DeweyDecimal.Constitution:
                     game.Player.Constitution += Value;
-                    //IFFFFFFY//
-                    int y = game.Player.Constitution / 10;
+                    int y = game.Player.Constitution - 10; // every point above 10
                     game.Player.MaxHealth += y;
                     break;
                 case DeweyDecimal.Dexterity:
@@ -70,6 +72,19 @@ namespace Capstonia.Items
                     break;
                 case DeweyDecimal.Strength:
                     game.Player.Strength += Value;
+                    break;
+                case DeweyDecimal.Evil:
+                    game.Player.Dexterity -= Value;
+                    game.Player.Strength -= Value;
+                    game.Player.Constitution -= Value;
+                    int z = game.Player.Constitution - 10;
+                    game.Player.MaxHealth = 100 + z;
+                    if(game.Player.CurrHealth > game.Player.MaxHealth)
+                    {
+                        game.Player.CurrHealth = game.Player.MaxHealth;
+                    }
+                    break;
+                case DeweyDecimal.None:
                     break;
             }
         }
@@ -81,21 +96,27 @@ namespace Capstonia.Items
 
         public override void Broadcast()
         {
-            game.Messages.AddMessage("TODO - Add something appropriate here");
+            game.Messages.AddMessage(String.Format("Book of {0} : Knowledge is power.",Genre));
         }
 
         // UseItem()
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
         // RETURNS: Bool. True if item is used, False otherwise.
-        public override bool UseItem()
+        public override void UseItem()
         {
-            //If item is picked up
             AddStat();
             game.Messages.AddMessage("Something something book side");
 
-            //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
-            return false;
+        }
+
+        // Function GetStrength() : Scales book to level
+        protected int GetAttributeValue()
+        {
+            int baseGain = 1;
+            float levelScale = game.Player.Level / (float)2.0;
+            int levelGain = (int)Math.Ceiling(levelScale);
+            return Capstonia.GameManager.Random.Next(baseGain, levelGain);
         }
     }
 }

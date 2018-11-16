@@ -91,6 +91,12 @@
     <Compile Include="Items\Ring.cs" />
     <Compile Include="Items\Skull.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Items\WeaponTier\AxeGold.cs" />
+    <Compile Include="Items\WeaponTier\LanceVorpal.cs" />
+    <Compile Include="Items\WeaponTier\SwordAcid.cs" />
+    <Compile Include="Items\WeaponTier\SwordDiamond.cs" />
+    <Compile Include="Items\WeaponTier\SwordHellfire.cs" />
+    <Compile Include="Items\WeaponTier\SwordLightning.cs" />
     <Compile Include="Monsters\Banshee.cs" />
     <Compile Include="Monsters\Barbarian.cs" />
     <Compile Include="Monsters\Bat.cs" />
@@ -134,6 +140,10 @@
     <Compile Include="Systems\UserInputKeyboard.cs" />
     <Compile Include="Monsters\Beholder.cs" />
     <Compile Include="Core\MapLevel.cs" />
+    <Compile Include="Items\BookTier\StrengthBook.cs" />
+    <Compile Include="Items\BookTier\DexterityBook.cs" />
+    <Compile Include="Items\BookTier\ConstitutionBook.cs" />
+    <Compile Include="Items\BookTier\EvilBook.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -252,6 +262,10 @@
     <Content Include="Content\wolf_black_1.png" />
     <Content Include="Content\wraith_a_1.png" />
     <Content Include="Content\zombie_a_1.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Items\BookTier\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

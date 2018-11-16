@@ -9,7 +9,8 @@ namespace Capstonia.Items.ArmorTier
         public EmeraldChest(GameManager game) : base(game)
         {
             ArmorType = "Rayquaza Armor";
-            Defense = Defense = Capstonia.GameManager.Random.Next(7,11);
+            ArmorTier = 2;
+            Defense = getArmorValue();
             Sprite = game.armor_emerald_chest;
         }
     }

@@ -9,7 +9,8 @@ namespace Capstonia.Items.ArmorTier
         public SteelChest(GameManager game) : base(game)
         {
             ArmorType = "Steel Armor";
-            Defense = Defense = Capstonia.GameManager.Random.Next(3, 7);
+            ArmorTier = 1;
+            Defense = getArmorValue();
             Sprite = game.armor_steel_chest;
         }
     }

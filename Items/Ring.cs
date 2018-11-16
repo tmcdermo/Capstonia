@@ -45,15 +45,12 @@ namespace Capstonia.Items
         // UseItem()
         // DESC:    Overrides parent class function and uses the item
         // PARAMS:  None.
-        // RETURNS: Bool. True if item is used, False otherwise.
-        public override bool UseItem()
+        public override void UseItem()
         {
             //If item is picked up
             AddStat();
             game.Messages.AddMessage("Found a ring worth " + Value + " value");
 
-            //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
-            return false;
         }
 
 

@@ -9,7 +9,8 @@ namespace Capstonia.Items.ArmorTier
         public LeatherChest(GameManager game): base(game)
         {
             ArmorType = "Leather Armor";
-            Defense = Defense = Capstonia.GameManager.Random.Next(1, 5);
+            ArmorTier = 0;
+            Defense = getArmorValue();
             Sprite = game.armor_leather_chest;
         }
     }

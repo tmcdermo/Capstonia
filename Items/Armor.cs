@@ -14,10 +14,13 @@ namespace Capstonia.Items
         public string ArmorType { get { return armorType; } set { armorType = value; } }
         private int armorMultiplier;
         public int ArmorMultiplier { get { return armorMultiplier; } set { armorMultiplier = value; } }
+        private int armorTier;
+        public int ArmorTier { get; set; }
         public Armor(GameManager game): base(game)
         {
             Name = "Armor";
             ArmorType = "Leather Jerkin";
+            ArmorTier = 0;
             Strength = 0;
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
@@ -51,15 +54,21 @@ namespace Capstonia.Items
         }
 
         //Overrides parent class function
-        public override bool UseItem()
+        public override void UseItem()
         {
             //Add damage and defense values and dipslay on message log
             AddStat();
             game.Messages.AddMessage("Equipped armor with +" + Defense + " defense");
 
-
-            //TODO - RETURN FALSE JUST THERE FOR COMPILATION REASONS, WILL UPDATE
-            return false;
+        }
+        // Scales Armor 
+        // Armor are tier'd out 0/1/2/3 
+        // Each level increase increases the randomized range of possible drop defense value
+        protected int getArmorValue()
+        {
+            int baseValue = ArmorTier;
+            int levelAdvantage = game.Player.Level + ArmorTier;
+            return Capstonia.GameManager.Random.Next(baseValue, levelAdvantage);
         }
 
     }

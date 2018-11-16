@@ -44,6 +44,9 @@ namespace Capstonia
         public readonly int BaseDexterity = 10;
         public readonly int BaseConstitution = 10;
 
+        // used for game resetting checks
+        public bool PlayerDead = false;
+
 
         // RogueSharp Specific Declarations
         public static IRandom Random { get; private set; }
@@ -267,6 +270,30 @@ namespace Capstonia
 
             base.Initialize();
         }
+
+
+        // Reinitialize()
+        // DESC:        Initializes game back to starting state
+        // PARAMS:      None
+        // RETURNS:     None
+        public void Reinitialize()
+        {
+            PlayerDead = false;
+
+            Monsters.Clear();
+            Items.Clear();
+            mapLevel = 1;
+
+            Player = new Player(this);
+            Player.Sprite = Content.Load<Texture2D>("Art/Sprites/dknight_1");
+            Messages = new MessageLog(this);
+            Inventory = new InventorySystem(this);
+            Equip = new Equipment(this);
+
+            GenerateLevel();
+
+        }
+
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -515,16 +542,11 @@ namespace Capstonia
                     }
                 }
             }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            else
             {
-                if(Player.CurrHealth <= 0)
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     state = GameState.Leaderboard;
-                }
-                else
-                {
-                    state = GameState.Confirmation;
                 }
             }
         }
@@ -684,6 +706,8 @@ namespace Capstonia
         // RETURNS: None
         public void HandlePlayerDeath(string monster)
         {
+            PlayerDead = true;
+
             gameMusic.Stop();
             PlayerDeath.Play();
             Messages.AddMessage("You have DIED!  Game Over!");

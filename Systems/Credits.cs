@@ -68,7 +68,6 @@ namespace Capstonia.Systems
 
             if (game.currentKeyboardState.IsKeyUp(Keys.Space) && game.previousKeyboardState.IsKeyDown(Keys.Space))
             {
-                game.MenuDown.Play();
                 game.state = GameState.MainMenu;
             }
 

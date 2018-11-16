@@ -105,7 +105,6 @@ namespace Capstonia.Items
         // RETURNS: Bool. True if item is used, False otherwise.
         public override void UseItem()
         {
-            game.BookSound.Play();
             AddStat();
             if (Genre != DeweyDecimal.Evil)
                 game.Messages.AddMessage(String.Format("Gained {0} {2} from the Book of {1}", Value, Genre, Genre));

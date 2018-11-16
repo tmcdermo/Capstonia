@@ -56,7 +56,6 @@ namespace Capstonia.Items
         //Overrides parent class function
         public override void UseItem()
         {
-            game.ArmorSound.Play();
             //Add damage and defense values and dipslay on message log
             AddStat();
             game.Messages.AddMessage("Equipped armor with +" + Defense + " defense");

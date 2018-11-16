@@ -42,22 +42,18 @@ namespace Capstonia.Systems
             }                
             else if (Keyboard.GetState().IsKeyDown(Keys.D1) || Keyboard.GetState().IsKeyDown(Keys.NumPad1))
             {
-                game.MenuUp.Play();
                 game.state = GameState.PlayerCreation;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D2) || Keyboard.GetState().IsKeyDown(Keys.NumPad2))
             {
-                game.MenuUp.Play();
                 game.state = GameState.Instructions;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D3) || Keyboard.GetState().IsKeyDown(Keys.NumPad3))
             {
-                game.MenuUp.Play();
                 game.state = GameState.Leaderboard;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D4) || Keyboard.GetState().IsKeyDown(Keys.NumPad4))
             {
-                game.MenuUp.Play();
                 game.state = GameState.Credits;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D5) || Keyboard.GetState().IsKeyDown(Keys.NumPad5))

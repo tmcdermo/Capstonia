@@ -70,10 +70,7 @@ namespace Capstonia.Systems
         public void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                game.MenuDown.Play();
                 game.state = GameState.MainMenu;
-            }
 
         }
 

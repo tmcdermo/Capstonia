@@ -161,7 +161,6 @@ namespace Capstonia.Core
                 //Check if player is standing on an item and add it to inventory if not full
                 if(actor is Player)
                 {
-                    game.PlayRandomFromList(game.Footsteps);
                     foreach(Item item in game.Items)
                     {
                         //Actor is standing on item
@@ -170,7 +169,6 @@ namespace Capstonia.Core
                             //Attempt to add item
                             if(game.Inventory.AddItem(item))
                             {
-                                game.ItemPickup.Play();
                                 //Remove item from game screen if added to inventory
                                 game.Items.Remove(item);
                             }

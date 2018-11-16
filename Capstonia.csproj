@@ -207,41 +207,56 @@
     </None>
     <None Include="app.manifest" />
     <None Include="Content\MainFont.spritefont" />
-    <None Include="packages.config" />
-    <None Include="Content\beholder_deep_1.png" />
-    <None Include="Content\strength.png" />
-    <None Include="Content\player_stats_gui.png" />
-    <None Include="Content\health.png" />
-    <None Include="Content\level.png" />
-    <None Include="Content\experience.png" />
-    <None Include="Content\dexterity.png" />
-    <None Include="Content\constitution.png" />
-    <None Include="Content\player_equipment_gui.png" />
-    <None Include="Content\monster_stats_gui.png" />
-    <None Include="Content\main-menu.png" />
+    <None Include="Content\PressStart2P-Regular.ttf" />
     <None Include="Content\PressStart2P.spritefont" />
+    <None Include="packages.config" />
     <None Include="Content\dark-knight-large.png" />
+
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\armor.png" />
+    <Content Include="Content\armor_blood_chest.png" />
+    <Content Include="Content\armor_diamond_chest.png" />
+    <Content Include="Content\armor_emerald_chest.png" />
+    <Content Include="Content\armor_gold_chest.png" />
+    <Content Include="Content\armor_leather_chest.png" />
+    <Content Include="Content\armor_steel_chest.png" />
     <Content Include="Content\banshee_1.png" />
     <Content Include="Content\barbarian_f_1.png" />
     <Content Include="Content\bat_giant_1.png" />
+    <Content Include="Content\beholder_deep_1.png" />
+    <Content Include="Content\book.png" />
+    <Content Include="Content\book_constitution.png" />
+    <Content Include="Content\book_dexterity.png" />
+    <Content Include="Content\book_evil.png" />
+    <Content Include="Content\book_strength.png" />
     <Content Include="Content\chest_gold_open.png" />
+    <Content Include="Content\constitution.png" />
+    <Content Include="Content\dark-knight-large.png" />
     <Content Include="Content\demon_red_1.png" />
+    <Content Include="Content\dexterity.png" />
     <Content Include="Content\dknight_1.png" />
     <Content Include="Content\door_stone_11.png" />
     <Content Include="Content\door_stone_3.png" />
     <Content Include="Content\door_stone_4.png" />
     <Content Include="Content\dragon_green_1.png" />
     <Content Include="Content\drow_1.png" />
+    <Content Include="Content\drumstick.png" />
     <Content Include="Content\elemental_fire_1.png" />
+    <Content Include="Content\experience.png" />
     <Content Include="Content\floor_extra_12.png" />
     <Content Include="Content\floor_set_grey_8.png" />
+    <Content Include="Content\gem.png" />
     <Content Include="Content\goblin_1.png" />
     <Content Include="Content\golem_stone_1.png" />
+    <Content Include="Content\health.png" />
+    <Content Include="Content\inventory_gui.png" />
+    <Content Include="Content\level.png" />
     <Content Include="Content\lich_1.png" />
     <Content Include="Content\lizardman_blue_1.png" />
+    <Content Include="Content\main-menu.png" />
     <Content Include="Content\minotaur_1.png" />
+    <Content Include="Content\monster_stats_gui.png" />
     <Content Include="Content\MS-AmbientDungeon.wav" />
     <Content Include="Content\MS-BarrenDungeon.wav" />
     <Content Include="Content\MS-DangerousDungeon.wav" />
@@ -250,24 +265,32 @@
     <Content Include="Content\MS-PrettyDungeon.wav" />
     <Content Include="Content\mummy_1.png" />
     <Content Include="Content\ogre_1.png" />
+    <Content Include="Content\player_equipment_gui.png" />
+    <Content Include="Content\player_stats_gui.png" />
+    <Content Include="Content\potion.png" />
     <Content Include="Content\rat_giant_1.png" />
     <Content Include="Content\skeleton_1.png" />
     <Content Include="Content\slime_purple_1.png" />
     <Content Include="Content\snake_giant_1.png" />
     <Content Include="Content\spider_black_giant_1.png" />
     <Content Include="Content\spirit_1.png" />
+    <Content Include="Content\strength.png" />
     <Content Include="Content\troll_1.png" />
     <Content Include="Content\valkyrie_b_1.png" />
     <Content Include="Content\vampire_lord_1.png" />
     <Content Include="Content\wall_stone_11.png" />
+    <Content Include="Content\weapon_axe_gold.png" />
+    <Content Include="Content\weapon_club.png" />
+    <Content Include="Content\weapon_lance_vorpal.png" />
+    <Content Include="Content\weapon_sword_acid.png" />
+    <Content Include="Content\weapon_sword_diamond.png" />
+    <Content Include="Content\weapon_sword_hellfire.png" />
+    <Content Include="Content\weapon_sword_lightning.png" />
     <Content Include="Content\wolf_black_1.png" />
     <Content Include="Content\wraith_a_1.png" />
     <Content Include="Content\zombie_a_1.png" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Items\BookTier\" />
-  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>

@@ -23,7 +23,10 @@ namespace Capstonia.Systems
         {
             
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                game.MenuDown.Play();
                 game.state = GameState.MainMenu;
+            }                
 
             ksr.UpdateInput();
 
@@ -58,6 +61,7 @@ namespace Capstonia.Systems
             yOffset = 680;
             int numChars = ksr.TextString.Length;
             spriteBatch.DrawString(game.pressStart2PFont, ksr.TextString, new Vector2((int)(centerOffset - (10.5 * numChars)), yOffset), Color.White);
+
         }
     }
 }

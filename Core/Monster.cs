@@ -68,6 +68,7 @@ namespace Capstonia.Core
                 // Player wins tie
                 if (hitValue < defenseValue)
                 {
+                    game.DodgeAttack.Play();
                     game.Messages.AddMessage("You dodge the " + Name + "'s attack!");
                     return;
                 }
@@ -81,11 +82,13 @@ namespace Capstonia.Core
 
                 if (totalDmg <= 0)
                 {
+                    game.BlockAttack.Play();
                     game.Messages.AddMessage("You block the " + Name + "'s attack!");
                     return;
                 }
 
                 // inflict dmg on Capstonian
+                game.PlayRandomFromList(game.PlayerHit);
                 game.Messages.AddMessage(Name + " inflicts " + totalDmg + " dmg on you!! ");
                 game.Player.CurrHealth -= totalDmg;
 

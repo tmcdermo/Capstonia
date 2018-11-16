@@ -14,10 +14,13 @@ namespace Capstonia.Items
         public string ArmorType { get { return armorType; } set { armorType = value; } }
         private int armorMultiplier;
         public int ArmorMultiplier { get { return armorMultiplier; } set { armorMultiplier = value; } }
+        private int armorTier;
+        public int ArmorTier { get; set; }
         public Armor(GameManager game): base(game)
         {
             Name = "Armor";
             ArmorType = "Leather Jerkin";
+            ArmorTier = 0;
             Strength = 0;
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
@@ -56,6 +59,11 @@ namespace Capstonia.Items
             //Add damage and defense values and dipslay on message log
             AddStat();
             game.Messages.AddMessage("Equipped armor with +" + Defense + " defense");
+
+        }
+
+        protected int getArmorValue()
+        {
 
         }
 

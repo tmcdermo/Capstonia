@@ -21,7 +21,7 @@ namespace Capstonia.Items
             Name = "Armor";
             ArmorType = "Leather Jerkin";
             ArmorTier = 0;
-            Strength = 0;
+            Damage = 0;
             Value = 0;
             History = "Bullet Stopping Cotton Threads";
             Interactive = true;

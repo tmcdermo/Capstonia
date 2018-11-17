@@ -12,7 +12,7 @@ namespace Capstonia.Items.WeaponTier
         {
             Sprite = game.weapon_sword_acid;
             weaponType = "Toxic Waste";
-            Strength = StrengthGet(1, 3);
+            Damage = DamageGet(1, 3);
         }
     }
 }

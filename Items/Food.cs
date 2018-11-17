@@ -11,7 +11,7 @@ namespace Capstonia.Items
         public Food(GameManager game): base(game)
         {
             Name = "Food";
-            Strength = 0;
+            Damage = 0;
             Defense = 0;
             Value = ValuePoints();
             History = "ChittyChittyBangBang";

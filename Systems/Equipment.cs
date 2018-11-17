@@ -32,6 +32,9 @@ namespace Capstonia.Systems
             Equip[newItem.Name] = newItem ;
             newItem.UseItem();
             TransferBackpack(oldItem);
+
+            game.Messages.AddMessage("weaponValue: " + game.Player.WeaponValue);    //NEW
+            game.Messages.AddMessage("maxDamage: " + game.Player.MaxDamage);    //NEW
         }
 
         private Item Strip(string name)
@@ -51,7 +54,7 @@ namespace Capstonia.Systems
             else
             {
                 Item Club = new Weapon(game);
-                Club.Strength = 0;
+                Club.Damage = 0;
                 return Club;
             }
         }

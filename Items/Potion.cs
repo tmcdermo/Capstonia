@@ -21,7 +21,7 @@ namespace Capstonia.Items
         {
             Name = "Potion";
             Brew = PotionType();
-            Strength = 0;
+            Damage = 0;
             Defense = 0;
             Value = HealValue();
             History = "Never too early for a drink.";

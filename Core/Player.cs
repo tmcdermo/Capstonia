@@ -92,7 +92,8 @@ namespace Capstonia.Core
             Strength = 10;  // every point above 10 gives a dmg bonus
             BaseStrength = 10;
             WeaponType = "Club";
-            WeaponValue = 2;  // used in dmg calc during battle
+            //WeaponValue = 2;  // used in dmg calc during battle   //NEW - COMMENTED
+            WeaponValue = 0;    //NEW
             Glory = 0;
             Level = 1;
             Experience = 0;
@@ -461,8 +462,10 @@ namespace Capstonia.Core
             {
                 game.Inventory.UseItem(9);
             }
-            else if (game.currentKeyboardState.IsKeyDown(Keys.OemPeriod) &&
-                    game.previousKeyboardState.IsKeyUp(Keys.OemPeriod))
+            else if ((game.currentKeyboardState.IsKeyDown(Keys.OemPeriod) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.OemPeriod)) || 
+                    (game.currentKeyboardState.IsKeyDown(Keys.NumPad5) &&
+                    game.previousKeyboardState.IsKeyUp(Keys.NumPad5)))
             {
                 if (game.Level.LevelExit.X == X && game.Level.LevelExit.Y == Y)
                 {
@@ -547,6 +550,9 @@ namespace Capstonia.Core
                 CurrentExperienceMax *= 2;
 
                 MaxHealth += GameManager.Random.Next(3, 12) + GetConstitutionBonus();
+
+                //Restore health completely - can be changed later
+                CurrHealth = MaxHealth;
 
                 game.Messages.AddMessage("============================");
                 game.Messages.AddMessage("You are now level " + Level + "!!!");
@@ -676,8 +682,8 @@ namespace Capstonia.Core
 
             }
             spriteBatch.DrawString(game.mainFont, WeaponType, new Vector2(gridHorizOffset + iconHorizOffset, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-            //spriteBatch.DrawString(game.mainFont, "+" + WeaponValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
-            spriteBatch.DrawString(game.mainFont, "+" + Strength.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White);
+            spriteBatch.DrawString(game.mainFont, "+" + WeaponValue.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White); //NEW - UNCOMMENTED
+            //spriteBatch.DrawString(game.mainFont, "+" + Strength.ToString(), new Vector2(gridHorizOffset + textHorizOffset + fudgeFactorScore, gridVertOffset + iteration * iconVertOffset + textVertOffset), Color.White); //NEW - COMMENTED
             ++iteration; // offset for next block
         }
 
@@ -766,7 +772,9 @@ namespace Capstonia.Core
                 {
                     Hunger = MinHunger;
                 }
-                game.Messages.AddMessage("Hunger: " + Hunger);
+
+                //Draw Hunger to screen
+                //game.Messages.AddMessage("Hunger: " + Hunger);
             }
 
             //Give player 1 in 4 chance of losing turn if hunger is 0

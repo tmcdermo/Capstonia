@@ -12,8 +12,7 @@ namespace Capstonia.Items.WeaponTier
         {
             Sprite = game.weapon_lance_vorpal;
             weaponType = "Archon Lance";
-            Strength = StrengthGet(1, 3);
-
+            Damage = DamageGet(1, 3);
         }
     }
 }

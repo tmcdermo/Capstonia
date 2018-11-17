@@ -12,7 +12,7 @@ namespace Capstonia.Items
         public Skull(GameManager game): base(game)
         {
             Name = "Score";
-            Strength = 0;
+            Damage = 0;
             Defense = 0;
             Value = ValuePoints();
             History = "ChittyChittyBangBang";

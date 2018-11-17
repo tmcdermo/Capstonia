@@ -22,6 +22,7 @@ namespace Capstonia.Systems
             {
                 game.Leaderboard.CloseFile();
                 game.Exit();
+                //TODO - Maybe go to main menu instead exit?
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.N))
             {

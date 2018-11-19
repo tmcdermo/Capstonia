@@ -32,7 +32,7 @@ namespace Capstonia.Systems
 
             // If string legnth is greater than 30 or <enter>
             // has been pressed, continue.
-            if (ksr.IsFinished || ksr.TextString.Length == 30) 
+            if (ksr.IsFinished || ksr.TextString.Length == 15) 
             {
                 game.Player.Name = ksr.TextString;
                 ksr.TextString = "";

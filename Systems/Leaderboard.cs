@@ -118,33 +118,34 @@ namespace Capstonia.Systems
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int xOffset = 80;
-            int yOffset = 80;
 
-            //Set vectors to draw sprites in the corners of the screen
-            Vector2 topLeft = new Vector2(0, 0);
-            Vector2 topRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, 0);
-            Vector2 bottomLeft = new Vector2(0, game.graphics.PreferredBackBufferHeight - 48);
-            Vector2 bottomRight = new Vector2(game.graphics.PreferredBackBufferWidth - 48, game.graphics.PreferredBackBufferHeight - 48);
+            // draw title
+            string title = "LEADER BOARD";
+            int yOffset = 40;
+            int centerOffset = 500;
+            int numChars = title.Length;
+            spriteBatch.DrawString(game.pressStart2PFont, title, new Vector2((int)(centerOffset - (10.5 * numChars)), yOffset), Color.White);
 
-            //Place sprites of the player in the corners of the screen
-            spriteBatch.Draw(game.Player.Sprite, topLeft, Color.White);
-            spriteBatch.Draw(game.Player.Sprite, topRight, Color.White);
-            spriteBatch.Draw(game.Player.Sprite, bottomLeft, Color.White);
-            spriteBatch.Draw(game.Player.Sprite, bottomRight, Color.White);
 
-            spriteBatch.DrawString(game.mainFont, "-LEADERBOARD-", new Vector2(80, 25), Color.White);
-
+            // draw high scores
+            yOffset = 120;
+            int xOffset = 20;
             foreach(Entry entry in leaderboard)
             {
-                string message1 = "[ " + entry.Glory + " Glory ]";
-                string message2 = "|   " + entry.Name + " was killed on level " + entry.Level + " by a " + entry.KilledBy + " on " + entry.Date;
-                spriteBatch.DrawString(game.mainFont, message1, new Vector2(xOffset, yOffset), Color.White);
-                spriteBatch.DrawString(game.mainFont, message2, new Vector2(xOffset + 100, yOffset), Color.White);
+                string message1 = "[" + entry.Glory + " GLORY] ";
+                string message2 = entry.Name + " was killed on level " + entry.Level + " by a " + entry.KilledBy + " on " + entry.Date;
+                spriteBatch.DrawString(game.pressStart2PSmallFont, message1 + message2, new Vector2(xOffset, yOffset), Color.White);
                 yOffset += 18;
             }
 
-            spriteBatch.DrawString(game.mainFont, "Press <SPACE> to go to Main Menu.", new Vector2(xOffset, yOffset + 300), Color.White);
+            // draw continue message
+            string continueMsg = "Press <SPACE> to go to Main Menu.";
+            yOffset = 800;
+            numChars = continueMsg.Length;
+            spriteBatch.DrawString(game.pressStart2PFont, continueMsg, new Vector2((int)(centerOffset - (10.5 * numChars)), yOffset), Color.White);
         }
     }
 }
+
+
+

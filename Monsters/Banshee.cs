@@ -30,7 +30,7 @@ namespace Capstonia.Monsters
             Name = "Banshee";
             // every point above 10 gives a dmg bonus
             Strength = 10 + Level;
-            Level = 6;
+            //Level = 6;
             MinGlory = 1;
             MaxGlory = 3;
             Sprite = game.banshee;

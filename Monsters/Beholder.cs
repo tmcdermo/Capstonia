@@ -30,7 +30,7 @@ namespace Capstonia.Monsters
             Name = "Beholder";
             // every point above 10 gives a dmg bonus
             Strength = 10 + Level;
-            //Level = 3;
+            //Level = 5;
             MinGlory = 1;
             MaxGlory = 3;
             Sprite = game.beholder;

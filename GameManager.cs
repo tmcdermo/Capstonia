@@ -704,7 +704,13 @@ namespace Capstonia
             Player.CheckLevelUp();
             
             Level.SetIsWalkable(monster.X, monster.Y, true);
-            Monsters.Remove(monster);            
+            //10% drop//
+            int rng = Capstonia.GameManager.Random.Next(1, 100);
+            if (rng >= 90)
+            {
+                DropItemOnDeath(monster.X, monster.Y);
+            }
+            Monsters.Remove(monster);
         }
 
         // HandlePlayerDeath()
@@ -759,6 +765,28 @@ namespace Capstonia
         public void PlayRandomFromList(List<SoundEffect> list)
         {
             list[Random.Next(0, list.Count - 1)].Play();
+        }
+
+        private void DropItemOnDeath(int x, int y)
+        {
+            ItemType itemIndex;
+            Item item = null;
+
+            itemIndex = (ItemType)GameManager.Random.Next(0,1);
+
+            switch (itemIndex)
+            {
+                case ItemType.Potion:
+                    item = new Potion(this);
+                    break;
+                case ItemType.Food:
+                    item = new Food(this);
+                    break;
+            }
+
+            item.X = x;
+            item.Y = y;
+            Level.AddItem(item);
         }
     }
 }

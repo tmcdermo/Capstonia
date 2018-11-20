@@ -46,6 +46,8 @@ namespace Capstonia.Systems
             Instruct.Add(Environment.NewLine);
             Instruct.Add("Drop item: Hold d + #");
             Instruct.Add(Environment.NewLine);
+            Instruct.Add("Move to next level: 5 on the NumPad or .");
+            Instruct.Add(Environment.NewLine);
 
         }
 

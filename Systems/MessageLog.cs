@@ -51,8 +51,31 @@ namespace Capstonia.Systems
 
             foreach(string message in messageList)
             {
-                spriteBatch.DrawString(gameObj.mainFont, message, new Vector2(20, baseLog + offset), Color.White);
-                offset += 18;
+                if(message.Contains("dodges") || message.Contains("blocks"))
+                {
+                    //Print blue
+                    spriteBatch.DrawString(gameObj.mainFont, message, new Vector2(20, baseLog + offset), Color.RoyalBlue);
+                    offset += 18;
+                }
+                else if(message.Contains("dmg"))
+                {
+                    //Print red
+                    spriteBatch.DrawString(gameObj.mainFont, message, new Vector2(20, baseLog + offset), Color.Red);
+                    offset += 18;
+                }
+                else if(message.Contains("%") || message.Contains("#") || message.Contains("feel") || 
+                        message.Contains("Lose") || message.Contains("Feasted"))
+                {
+                    //Print green
+                    spriteBatch.DrawString(gameObj.mainFont, message, new Vector2(20, baseLog + offset), Color.Green);
+                    offset += 18;
+                }
+                else
+                {
+                    //Print white
+                    spriteBatch.DrawString(gameObj.mainFont, message, new Vector2(20, baseLog + offset), Color.White);
+                    offset += 18;
+                }
             }
         }
     }

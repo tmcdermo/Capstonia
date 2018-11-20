@@ -99,7 +99,15 @@ namespace Capstonia.Systems
 
             // place exit
             SelectExitRoom();
-            PlaceExit();
+            if (game.mapLevel != game.maxLevel)
+            {
+                PlaceExit();
+            }
+            else
+            {
+                PlaceChest();
+            }
+                
 
             // place doors between player start and exit
             FindExitPath();
@@ -298,6 +306,30 @@ namespace Capstonia.Systems
             level.LevelExit.X = randomPoint.X;
             level.LevelExit.Y = randomPoint.Y;
         }
+
+        //PlaceChest()
+        // DESC:    Adds the final chest to the game where the exit would normally go
+        // PARAMS:  None
+        // Returns: None.  Modifies exit room.
+        public void PlaceChest()
+        {
+            Point randomPoint = GetRandomPointInRoom(exitRoom);
+
+            //Ensures that the selected tile is walkable (i.e. not a wall or door)
+            while (!level.IsWalkable(randomPoint.X, randomPoint.Y))
+            {
+                randomPoint = GetRandomPointInRoom(exitRoom);
+            }
+
+            Item item = new Chest(game)
+            {
+                X = randomPoint.X,
+                Y = randomPoint.Y
+            };
+
+            level.AddItem(item);
+        }
+
 
         // GetRandomPointInRoom()
         // DESC:    Gets and returns a random coordinate within a given room.

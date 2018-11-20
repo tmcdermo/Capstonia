@@ -76,7 +76,11 @@ namespace Capstonia.Core
                 }
             }
 
-            LevelExit.Draw(spriteBatch);
+            if(game.mapLevel != game.maxLevel)
+            {
+                LevelExit.Draw(spriteBatch);
+            }
+            
         }
 
         // OldDraw()
@@ -167,6 +171,10 @@ namespace Capstonia.Core
                         //Actor is standing on item
                         if(item.X == actor.X && item.Y == actor.Y)
                         {
+                            if(item.Name == "Chest")
+                            {
+                                game.PlayerWinCondition();
+                            }
                             //Attempt to add item
                             if(game.Inventory.AddItem(item))
                             {
@@ -221,42 +229,6 @@ namespace Capstonia.Core
             Cell cell = GetCell(x, y) as Cell;
             SetCellProperties(cell.X, cell.Y, cell.IsTransparent, isWalkable, cell.IsExplored);
         }
-
-        //public void UpdatePlayerFieldOfView(Player player)
-        //{
-        //    ComputeFov(player.X, player.Y, 40, true);
-        //    foreach(Cell cell in GetAllCells())
-        //    {
-        //        if(IsInFov(cell.X, cell.Y))
-        //        {
-        //            SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
-        //        }
-        //    }
-        //}
-
-        //public bool IsInRoomWithPlayer(int x, int y)
-        //{
-        //    // get room player is in
-        //    int RoomIndex;
-        //    for (RoomIndex = 0; RoomIndex < Rooms.Count; RoomIndex++)
-        //    {
-        //        if (Rooms[RoomIndex].Contains(game.Player.X, game.Player.Y))
-        //        {
-        //            // found player room, now check if passed in coordinates exist within it
-        //            if (Rooms[RoomIndex].Contains(x, y))
-        //            {
-        //                return true;
-        //            }
-        //            else
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-
-        //    // player should always be located in the list of Rooms so we should never reach this point
-        //    return false;
-        //}
 
         // IsMonster()
         // DESC:    Checks if Monster is standing in location             

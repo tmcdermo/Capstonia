@@ -118,9 +118,7 @@ namespace Capstonia.Systems
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int xOffset = 80;
-            int yOffset = 80;
-            string message2;
+            string message1, message2;
 
             // draw title
             string title = "LEADER BOARD";
@@ -135,20 +133,16 @@ namespace Capstonia.Systems
             int xOffset = 20;
             foreach(Entry entry in leaderboard)
             {
-                string message1 = "[ " + entry.Glory + " Glory ]";
+                message1 = "[ " + entry.Glory + " Glory ]  ";
                 if(entry.KilledBy != null)
                 {
-                    message2 = "|   " + entry.Name + " was killed on level " + entry.Level + " by a " + entry.KilledBy + " on " + entry.Date;
+                    message2 = entry.Name + " was killed on level " + entry.Level + " by a " + entry.KilledBy + " on " + entry.Date;
                 }
                 else
                 {
-                    message2 = "|   " + entry.Name + " found the lost treasure on " + entry.Date;
+                    message2 = entry.Name + " found the lost treasure on " + entry.Date;
                 }
-                
-                spriteBatch.DrawString(game.mainFont, message1, new Vector2(xOffset, yOffset), Color.White);
-                spriteBatch.DrawString(game.mainFont, message2, new Vector2(xOffset + 100, yOffset), Color.White);
-                string message1 = "[" + entry.Glory + " GLORY] ";
-                string message2 = entry.Name + " was killed on level " + entry.Level + " by a " + entry.KilledBy + " on " + entry.Date;
+
                 spriteBatch.DrawString(game.pressStart2PSmallFont, message1 + message2, new Vector2(xOffset, yOffset), Color.White);
                 yOffset += 18;
             }

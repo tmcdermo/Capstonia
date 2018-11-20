@@ -35,6 +35,7 @@ namespace Capstonia
         public readonly int levelHeight = 70;
         public readonly int levelRows = 5;
         public readonly int levelCols = 5;
+        public readonly int maxLevel = 10;
         public int mapLevel = 1;
         public readonly int tileSize = 48;
         public float scale = 1.0f;
@@ -45,6 +46,7 @@ namespace Capstonia
         public readonly int BaseConstitution = 10;
 
         // used for game resetting checks
+        public bool PlayerWin = false;
         public bool PlayerDead = false;
 
 
@@ -279,6 +281,7 @@ namespace Capstonia
         public void Reinitialize()
         {
             PlayerDead = false;
+            PlayerWin = false;
 
             Monsters.Clear();
             Items.Clear();
@@ -310,7 +313,9 @@ namespace Capstonia
             exit = Content.Load<Texture2D>("Art/Sprites/floor_set_grey_8");
 
             // load item textures - gameboard
-            
+
+            //chest
+            chest = Content.Load<Texture2D>("Art/Sprites/chest_gold_open");
             //armor
             armor = Content.Load<Texture2D>("Art/Sprites/armor");
             armor_leather_chest = Content.Load<Texture2D>("Art/Sprites/armor_leather_chest");
@@ -508,7 +513,7 @@ namespace Capstonia
             bool playerHasMoved = false;
             bool monstersHaveMoved = false;
 
-            if (Player.CurrHealth > 0)
+            if (Player.CurrHealth > 0 && !PlayerWin)
             {
                 while (turnComplete == false)
                 {
@@ -721,6 +726,28 @@ namespace Capstonia
 
             
 
+        }
+
+        // CheckPlayerWin()
+        // DESC:    Checks if the player has found the treasure chest.  Ends game if so.
+        // PARAMS:  x and y location of treasure chest
+        // RETURNS: None
+        public void PlayerWinCondition()
+        {
+            PlayerWin = true;
+
+            Player.Glory += 100;
+
+            gameMusic.Stop();
+
+            Messages.AddMessage("You found the lost treasure!!!! You Win!!!!");
+            Messages.AddMessage("Press <ESC> to Exit Game.");
+
+            DateTime today = DateTime.Now;
+
+            string date = today.Month + "/" + today.Day + "/" + today.Year;
+
+            Leaderboard.AddToLeaderboard(Player.Name, Player.Glory, mapLevel, null, date);
         }
 
         // PlayRandomFromList()

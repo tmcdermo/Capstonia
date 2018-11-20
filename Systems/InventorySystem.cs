@@ -121,7 +121,11 @@ namespace Capstonia.Systems
                         }
 
                         //Add message for successfully adding item to inventory
-                        game.Messages.AddMessage("You picked up " + iType.Name);
+                        if(iType.Name != "Chest")
+                        {
+                            game.Messages.AddMessage("You picked up " + iType.Name);
+                        }
+                        
 
                         itemAdded = true;
                     }
@@ -153,7 +157,10 @@ namespace Capstonia.Systems
                             }
 
                             //Add message for successfully adding item to inventory
-                            game.Messages.AddMessage("You picked up " + iType.Name);
+                            if (iType.Name != "Chest")
+                            {
+                                game.Messages.AddMessage("You picked up " + iType.Name);
+                            }
 
                             itemAdded = true;
                             break;

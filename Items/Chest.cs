@@ -19,7 +19,7 @@ namespace Capstonia.Items
             Interactive = true;
             Consumable = false;
             MaxStack = 1;
-            //Sprite = game.chest;
+            Sprite = game.chest;
         }
 
         private int ValuePoints()

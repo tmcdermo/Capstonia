@@ -13,7 +13,7 @@ namespace Capstonia.Monsters
         // constructor
         public Lizardman(GameManager game) : base(game)
         {
-            Level = 1;
+            Level = 3;
             // every point above 10 gives a health bonus
             Constitution = 10;
             // every point above 10 gives a dodge bonus
@@ -30,7 +30,7 @@ namespace Capstonia.Monsters
             Name = "Lizardman";
             // every point above 10 gives a dmg bonus
             Strength = 10;
-            Level = 3;
+            //Level = 3;
             MinGlory = 1;
             MaxGlory = 3;
             Sprite = game.lizardman;

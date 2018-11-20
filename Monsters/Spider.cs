@@ -13,7 +13,7 @@ namespace Capstonia.Monsters
         // constructor
         public Spider(GameManager game) : base(game)
         {
-            Level = 1;
+            Level = 3;
             // every point above 10 gives a health bonus
             Constitution = 10 + Level;
             // every point above 10 gives a dodge bonus

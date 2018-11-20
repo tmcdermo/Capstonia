@@ -15,24 +15,24 @@ namespace Capstonia.Monsters
         {
             Level = 8;
             // every point above 10 gives a health bonus
-            Constitution = 10 + Level;
+            Constitution = 10;
             // every point above 10 gives a dodge bonus
-            Dexterity = 10 + Level;
+            Dexterity = 14;
             // health total for Capstonian; if the values reaches 0, the Capstonain is killed
-            MaxHealth = 10 * Level;
+            MaxHealth = 24;
             // current health for Capstonian; if the values reaches 0, the Capstonain is killed
-            CurrHealth = 10 * Level;
+            CurrHealth = 24;
             // max dmg Capstonian can cause
-            MaxDamage = 3 * Level;
+            MaxDamage = 16;
             // min dmg Capstonain can cause
-            MinDamage = 1;
+            MinDamage = 10;
             // name of monster
             Name = "Valkyrie";
             // every point above 10 gives a dmg bonus
-            Strength = 10 + Level;
-            //Level = 8;
-            MinGlory = 1;
-            MaxGlory = 3;
+            Strength = 15;
+
+            MinGlory = 10;
+            MaxGlory = 14;
             Sprite = game.valkyrie;
             oldPlayerX = game.Player.X;
             oldPlayerY = game.Player.Y;

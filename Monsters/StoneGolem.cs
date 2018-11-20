@@ -15,24 +15,24 @@ namespace Capstonia.Monsters
         {
             Level = 6;
             // every point above 10 gives a health bonus
-            Constitution = 10 + Level;
+            Constitution = 15;
             // every point above 10 gives a dodge bonus
-            Dexterity = 10 + Level;
+            Dexterity = 6;
             // health total for Capstonian; if the values reaches 0, the Capstonain is killed
-            MaxHealth = 10 * Level;
+            MaxHealth = 20;
             // current health for Capstonian; if the values reaches 0, the Capstonain is killed
-            CurrHealth = 10 * Level;
+            CurrHealth = 20;
             // max dmg Capstonian can cause
-            MaxDamage = 3 * Level;
+            MaxDamage = 11;
             // min dmg Capstonain can cause
-            MinDamage = 1;
+            MinDamage = 7;
             // name of monster
             Name = "Stone Golem";
             // every point above 10 gives a dmg bonus
-            Strength = 10 + Level;
-            //Level = 6;
-            MinGlory = 1;
-            MaxGlory = 3;
+            Strength = 16;
+
+            MinGlory = 6;
+            MaxGlory = 10;
             Sprite = game.stonegolem;
             oldPlayerX = game.Player.X;
             oldPlayerY = game.Player.Y;

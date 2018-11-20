@@ -69,9 +69,10 @@ namespace Capstonia
         public Texture2D exit;
         public SpriteFont mainFont;
         public SpriteFont pressStart2PFont;
+        public SpriteFont pressStart2PSmallFont;
 
         // Items - Gameboard
-            // Armor
+        // Armor
         public Texture2D armor;
         public Texture2D armor_leather_chest;
         public Texture2D armor_steel_chest;
@@ -441,6 +442,7 @@ namespace Capstonia
             // load fonts
             mainFont = Content.Load<SpriteFont>("Fonts/MainFont");
             pressStart2PFont = Content.Load<SpriteFont>("Fonts/PressStart2P");
+            pressStart2PSmallFont = Content.Load<SpriteFont>("Fonts/PressStart2PSMall");
 
             //Drawing black screen for inventory inspired by: https://stackoverflow.com/questions/5751732/draw-rectangle-in-xna-using-spritebatch
             emptyTexture = new Texture2D(GraphicsDevice, 1, 1);

@@ -855,6 +855,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/PressStart2P.spritefont
 
+#begin Fonts/PressStart2PSmall.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/PressStart2PSmall.spritefont
+
 #begin Sounds/Music/MS-AmbientDungeon.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

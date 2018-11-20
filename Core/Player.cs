@@ -698,36 +698,49 @@ namespace Capstonia.Core
             if (Hunger == 50 && OldHunger != 50)
             {
                 OldHunger = Hunger;
+                game.Messages.AddMessage("#################################################");
                 game.Messages.AddMessage("You start to feel hungry.  Stats decreased by 10%");
+                game.Messages.AddMessage("#################################################");
             }
             else if (Hunger == 25 && OldHunger != 25)
             {
                 OldHunger = Hunger;
+                game.Messages.AddMessage("#################################################");
                 game.Messages.AddMessage("You start to feel the onset of starvation.  Stats decreased by 50%");
+                game.Messages.AddMessage("#################################################");
             }
             else if (Hunger == 0 && OldHunger != 0)
             {
                 OldHunger = Hunger;
+                game.Messages.AddMessage("#################################################");
                 game.Messages.AddMessage("You are famished. Stats decreased by 90%");
+                game.Messages.AddMessage("#################################################");
             }
             else if(Hunger > 50 && OldHunger <= 50)
             {
                 OldHunger = Hunger;
+                game.Messages.AddMessage("#################################################");
                 game.Messages.AddMessage("You feel a lot stronger after consuming some food");
                 game.Messages.AddMessage("Stats restored to 100%");
+                game.Messages.AddMessage("#################################################");
+
             }
             else if (Hunger > 25 && OldHunger <= 25)
             {
                 OldHunger = Hunger;
+                game.Messages.AddMessage("#################################################");
                 game.Messages.AddMessage("You feel a little bit stronger after consuming some food");
                 game.Messages.AddMessage("Stats restored to 90%");
+                game.Messages.AddMessage("#################################################");
 
             }
             else if (Hunger > 0 && OldHunger == 0)
             {
                 OldHunger = Hunger;
+                game.Messages.AddMessage("#################################################");
                 game.Messages.AddMessage("You feel a tiny bit stronger after consuming some food");
                 game.Messages.AddMessage("Stats restored to 50%");
+                game.Messages.AddMessage("#################################################");
 
             }
         }
@@ -743,7 +756,7 @@ namespace Capstonia.Core
 
                 //Update constitution, dexterity, and strength accordingly
                 Constitution = (int)(BaseConstitution * NewHungerPenalty);
-                game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
+                //game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
                 Dexterity = (int)(BaseDexterity * NewHungerPenalty);
                 Strength = (int)(BaseStrength * NewHungerPenalty);
 
@@ -785,7 +798,9 @@ namespace Capstonia.Core
                 if (x == 0)
                 {
                     LoseTurn = true;
+                    game.Messages.AddMessage("#################################################");
                     game.Messages.AddMessage("You are too hungry to move. Lose a turn");
+                    game.Messages.AddMessage("#################################################");
                 }
 
             }

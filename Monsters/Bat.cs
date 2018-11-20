@@ -15,24 +15,24 @@ namespace Capstonia.Monsters
         {
             Level = 1;
             // every point above 10 gives a health bonus
-            Constitution = 10 + Level;
+            Constitution = 10;
             // every point above 10 gives a dodge bonus
-            Dexterity = 10 + Level;
+            Dexterity = 15;
             // health total for Capstonian; if the values reaches 0, the Capstonain is killed
-            MaxHealth = 10 * Level;
+            MaxHealth = 5;
             // current health for Capstonian; if the values reaches 0, the Capstonain is killed
-            CurrHealth = 10 * Level;
+            CurrHealth = 5;
             // max dmg Capstonian can cause
-            MaxDamage = 3 * Level;
+            MaxDamage = 2;
             // min dmg Capstonain can cause
             MinDamage = 1;
             // name of monster
             Name = "Giant Bat";
             // every point above 10 gives a dmg bonus
-            Strength = 10 + Level;
-            //Level = 1;
+            Strength = 10;
+
             MinGlory = 1;
-            MaxGlory = 3;
+            MaxGlory = 2;
             Sprite = game.bat;
             oldPlayerX = game.Player.X;
             oldPlayerY = game.Player.Y;

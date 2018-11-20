@@ -15,24 +15,24 @@ namespace Capstonia.Monsters
         {
             Level = 5;
             // every point above 10 gives a health bonus
-            Constitution = 10 + Level;
+            Constitution = 12;
             // every point above 10 gives a dodge bonus
-            Dexterity = 10 + Level;
+            Dexterity = 12;
             // health total for Capstonian; if the values reaches 0, the Capstonain is killed
-            MaxHealth = 10 * Level;
+            MaxHealth = 16;
             // current health for Capstonian; if the values reaches 0, the Capstonain is killed
-            CurrHealth = 10 * Level;
+            CurrHealth = 16;
             // max dmg Capstonian can cause
-            MaxDamage = 3 * Level;
+            MaxDamage = 10;
             // min dmg Capstonain can cause
             MinDamage = 1;
             // name of monster
             Name = "Beholder";
             // every point above 10 gives a dmg bonus
-            Strength = 10 + Level;
-            //Level = 5;
-            MinGlory = 1;
-            MaxGlory = 3;
+            Strength = 10;
+
+            MinGlory = 5;
+            MaxGlory = 9;
             Sprite = game.beholder;
             oldPlayerX = game.Player.X;
             oldPlayerY = game.Player.Y;

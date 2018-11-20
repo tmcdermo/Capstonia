@@ -75,10 +75,11 @@ namespace Capstonia.Core
 
                 // calculate base Player dmg
                 int dmgRoll = GameManager.Random.Next(MinDamage, MaxDamage);
-                int dmgValue = dmgRoll + getDamageBonus();
+                int dmgValue = 2 * dmgRoll + getDamageBonus();
 
                 // calculate total dmg
-                int totalDmg = dmgValue - defenseValue;
+                int mitigationValue = GameManager.Random.Next(MinDamage, MaxDamage);
+                int totalDmg = dmgValue - mitigationValue;
 
                 if (totalDmg <= 0)
                 {

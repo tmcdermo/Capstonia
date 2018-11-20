@@ -15,24 +15,24 @@ namespace Capstonia.Monsters
         {
             Level = 8;
             // every point above 10 gives a health bonus
-            Constitution = 10 + Level;
+            Constitution = 12;
             // every point above 10 gives a dodge bonus
-            Dexterity = 10 + Level;
+            Dexterity = 20;
             // health total for Capstonian; if the values reaches 0, the Capstonain is killed
-            MaxHealth = 10 * Level;
+            MaxHealth = 20;
             // current health for Capstonian; if the values reaches 0, the Capstonain is killed
-            CurrHealth = 10 * Level;
+            CurrHealth = 20;
             // max dmg Capstonian can cause
-            MaxDamage = 3 * Level;
+            MaxDamage = 16;
             // min dmg Capstonain can cause
-            MinDamage = 1;
+            MinDamage = 4;
             // name of monster
             Name = "Wraith";
             // every point above 10 gives a dmg bonus
-            Strength = 10 + Level;
-            //Level = 8;
-            MinGlory = 1;
-            MaxGlory = 3;
+            Strength = 12;
+
+            MinGlory = 9;
+            MaxGlory = 13;
             Sprite = game.wraith;
             oldPlayerX = game.Player.X;
             oldPlayerY = game.Player.Y;

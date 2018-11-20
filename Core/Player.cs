@@ -495,7 +495,7 @@ namespace Capstonia.Core
 
                 // calculate rolls for battle
                 int hitRoll = GameManager.Random.Next(1, 20);
-                int defenseRoll = GameManager.Random.Next(1, 20);
+                int defenseRoll = GameManager.Random.Next(1, 10);
 
                 // calculate attack & defense rolls
                 int hitValue = hitRoll + GetHitBonus();
@@ -511,10 +511,11 @@ namespace Capstonia.Core
 
                 // calculate base Player dmg
                 int dmgRoll = GameManager.Random.Next(MinDamage, MaxDamage);
-                int dmgValue = dmgRoll + GetDamageBonus();
+                int dmgValue = 2 * dmgRoll + GetDamageBonus();
 
                 // calculate total dmg
-                int totalDmg = dmgValue - defenseValue;
+                int mitigationValue = GameManager.Random.Next(MinDamage, MaxDamage);
+                int totalDmg = dmgValue - mitigationValue;
 
                 if (totalDmg <= 0)
                 {

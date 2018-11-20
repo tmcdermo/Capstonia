@@ -15,28 +15,27 @@ namespace Capstonia.Monsters
         {
             Level = 3;
             // every point above 10 gives a health bonus
-            Constitution = 10;
+            Constitution = 13;
             // every point above 10 gives a dodge bonus
             Dexterity = 10;
             // health total for Capstonian; if the values reaches 0, the Capstonain is killed
-            MaxHealth = 10 * Level;
+            MaxHealth = 12;
             // current health for Capstonian; if the values reaches 0, the Capstonain is killed
-            CurrHealth = 10 * Level;
+            CurrHealth = 12;
             // max dmg Capstonian can cause
-            MaxDamage = 3 * Level;
+            MaxDamage = 6;
             // min dmg Capstonain can cause
-            MinDamage = 1;
+            MinDamage = 3;
             // name of monster
             Name = "Lizardman";
             // every point above 10 gives a dmg bonus
             Strength = 10;
-            //Level = 3;
-            MinGlory = 1;
-            MaxGlory = 3;
+
+            MinGlory = 3;
+            MaxGlory = 6;
             Sprite = game.lizardman;
             oldPlayerX = game.Player.X;
-            oldPlayerY = game.Player.Y;
-            
+            oldPlayerY = game.Player.Y;            
         }
     }
 }

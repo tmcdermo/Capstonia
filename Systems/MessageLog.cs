@@ -51,7 +51,7 @@ namespace Capstonia.Systems
 
             foreach(string message in messageList)
             {
-                if(message.Contains("dodges") || message.Contains("blocks"))
+                if(message.Contains("dodge") || message.Contains("block"))
                 {
                     //Print blue
                     spriteBatch.DrawString(gameObj.mainFont, message, new Vector2(20, baseLog + offset), Color.RoyalBlue);

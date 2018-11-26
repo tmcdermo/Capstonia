@@ -753,12 +753,34 @@ namespace Capstonia.Core
         {
             if (NewHungerPenalty != OldHungerPenalty)
             {
-
                 //Update constitution, dexterity, and strength accordingly
-                Constitution = (int)(BaseConstitution * NewHungerPenalty);
-                //game.Messages.AddMessage("Constitution: " + Constitution + " HungerPenalty: " + NewHungerPenalty);
+                
+                int NewConstitution = (int)(BaseConstitution * NewHungerPenalty);
                 Dexterity = (int)(BaseDexterity * NewHungerPenalty);
                 Strength = (int)(BaseStrength * NewHungerPenalty);
+
+                //Update health accordingly
+                if(NewConstitution > Constitution)
+                {
+                    //Max health is increased by however many constitution points were gained
+                    int y = NewConstitution - Constitution;
+                    game.Player.MaxHealth += y;
+                }
+                else
+                {
+                    //Max health is decreased by however many constitution points were lost
+                    int z = Constitution - NewConstitution;
+                    game.Player.MaxHealth -= z;
+                }
+
+                //Check currHealth isn't more than MaxHealth
+                if (game.Player.CurrHealth > game.Player.MaxHealth)
+                {
+                    game.Player.CurrHealth = game.Player.MaxHealth;
+                }
+
+                Constitution = NewConstitution;
+                //BaseConstitution = NewConstitution;
 
                 //Set old penalty to new penalty for next check
                 OldHungerPenalty = NewHungerPenalty;

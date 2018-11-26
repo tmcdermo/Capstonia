@@ -64,21 +64,56 @@ namespace Capstonia.Items
             {
                 case DeweyDecimal.Constitution:
                     game.Player.Constitution += Value;
-                    int y = game.Player.Constitution - 10; // every point above 10
-                    game.Player.MaxHealth += y;
+                    game.Player.BaseConstitution += Value;  //NEW
+                    //int y = game.Player.Constitution - 10; // every point above 10
+                    //game.Player.MaxHealth += y;
+                    game.Player.MaxHealth += Value; //NEW
                     break;
                 case DeweyDecimal.Dexterity:
                     game.Player.Dexterity += Value;
+                    game.Player.BaseDexterity += Value; //NEW
                     break;
                 case DeweyDecimal.Strength:
                     game.Player.Strength += Value;
+                    game.Player.BaseStrength += Value;  //NEW
                     break;
                 case DeweyDecimal.Evil:
-                    game.Player.Dexterity -= Value;
-                    game.Player.Strength -= Value;
-                    game.Player.Constitution -= Value;
-                    int z = game.Player.Constitution - 10;
-                    game.Player.MaxHealth = 100 + z;
+
+                    if(game.Player.Dexterity > 0)
+                    {
+                        game.Player.Dexterity -= Value;
+
+                    }
+                    if (game.Player.Strength > 0)
+                    {
+                        game.Player.Strength -= Value;
+                    }
+                    if(game.Player.Constitution > 0)
+                    {
+                        game.Player.Constitution -= Value;
+                        game.Player.MaxHealth -= Value; //NEW
+
+                    }
+                    if (game.Player.BaseDexterity > 0)
+                    {
+                        game.Player.BaseDexterity -= Value; //NEW
+
+                    }
+                    if (game.Player.BaseStrength > 0)
+                    {
+                        game.Player.BaseStrength -= Value;  //NEW
+                    }
+                    if (game.Player.BaseConstitution > 0)
+                    {
+                        game.Player.BaseConstitution -= Value;  //NEW
+
+                    }
+                    //int z = game.Player.Constitution - 10;
+                    //game.Player.MaxHealth = 100 + z;
+
+                    //Player lost 1 constitution, so player loses 1 max health
+                    //game.Player.MaxHealth -= Value; //NEW
+
                     if(game.Player.CurrHealth > game.Player.MaxHealth)
                     {
                         game.Player.CurrHealth = game.Player.MaxHealth;

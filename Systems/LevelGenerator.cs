@@ -1,13 +1,7 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Linq;
-using System.Collections;
+
 using System.Collections.Generic;
-using RogueSharp;
 using Rectangle = RogueSharp.Rectangle;
 using Point = RogueSharp.Point;
-using Capstonia;
 using Capstonia.Core;
 using Capstonia.Monsters;
 using Capstonia.Items;
@@ -15,7 +9,6 @@ using Capstonia.Items.ArmorTier;
 using Capstonia.Items.WeaponTier;
 using Capstonia.Items.BookTier;
 using System;
-using System.Diagnostics;
 
 namespace Capstonia.Systems
 {
@@ -147,14 +140,6 @@ namespace Capstonia.Systems
             }
         }
 
-        // CreateDoor()
-        // DESC:    Creates a door at location in room defined by x and y
-        // PARAMS:  x(int), y(int)
-        // RETURNS: None.
-        public void CreateDoor(int x, int y)
-        {
-            // TODO
-        }
 
         // SelectRandomRoom()
         // DESC:    Chooses a random room from level.Rooms

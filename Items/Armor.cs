@@ -1,5 +1,4 @@
-﻿using System;
-using RogueSharp;
+﻿
 using Capstonia.Core;
 
 namespace Capstonia.Items

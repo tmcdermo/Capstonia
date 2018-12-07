@@ -56,7 +56,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\Standard.cs" />
     <Compile Include="Core\Actor.cs" />
     <Compile Include="Core\GameState.cs" />
     <Compile Include="Items\ArmorTier\BloodChest.cs" />
@@ -138,7 +137,6 @@
     <Compile Include="Systems\MainMenu.cs" />
     <Compile Include="Systems\MessageLog.cs" />
     <Compile Include="Core\UserInputCommands.cs" />
-    <Compile Include="Systems\UserInputKeyboard.cs" />
     <Compile Include="Monsters\Beholder.cs" />
     <Compile Include="Core\MapLevel.cs" />
     <Compile Include="Items\BookTier\StrengthBook.cs" />

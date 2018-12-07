@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Capstonia.Interfaces;
-using RogueSharp;
 using IDrawable = Capstonia.Interfaces.IDrawable;
 using Rectangle = RogueSharp.Rectangle;
 

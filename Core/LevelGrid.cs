@@ -1,14 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using RogueSharp;
 using Rectangle = RogueSharp.Rectangle;
-using Point = RogueSharp.Point;
-using Capstonia;
 using Capstonia.Systems;
-using Capstonia.Monsters;
 
 namespace Capstonia.Core
 {
@@ -16,7 +11,6 @@ namespace Capstonia.Core
     {
 
         private GameManager game;
-        private LevelGenerator levelGenerator;
 
         public Exit LevelExit { get; set; }
 
@@ -188,13 +182,6 @@ namespace Capstonia.Core
                     }
                 }
 
-                //game.Messages.AddMessage(game.Player.X + ", " + game.Player.Y);
-
-                // Update FOV if Player was just repositioned
-                //if (actor is Player)
-                //{
-                //    UpdatePlayerFieldOfView(actor as Player);
-                //}
                 return true;
             }
             return false;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using RogueSharp;
 using RogueSharp.Random;
 using System;
@@ -156,11 +155,8 @@ namespace Capstonia
 
         // sfx
         public SoundEffect BlockAttack;
-        //public SoundEffectInstance BlockInst;
         public SoundEffect DodgeAttack;
-        //public SoundEffectInstance DodgeInst;
         public SoundEffect MonsterDeath;
-        //public SoundEffectInstance MonsterDeathInst;
         public List<SoundEffect> MonsterHit;
         public List<SoundEffect> PlayerHit;
         public SoundEffect BookSound;

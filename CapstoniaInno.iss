@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Dungeons of Capstonia"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.01"
 #define MyAppPublisher "Octans Capstone Group"
 #define MyAppExeName "Capstonia.exe"
 
@@ -31,8 +31,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "Z:\Google Drive\_Capstone\Capstonia\Capstonia\bin\DesktopGL\AnyCPU\Release\Capstonia.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Z:\Google Drive\_Capstone\Capstonia\Capstonia\bin\DesktopGL\AnyCPU\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "bin\DesktopGL\AnyCPU\Release\Capstonia.exe"; DestDir: "{app}"; Flags: ignoreversion; Permissions: users-full
+Source: "bin\DesktopGL\AnyCPU\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Permissions: users-full
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

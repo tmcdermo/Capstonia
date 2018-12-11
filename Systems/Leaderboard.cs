@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -16,6 +16,7 @@ namespace Capstonia.Systems
         private FileStream file;
         private StreamWriter sw;
         private StreamReader sr;
+        private string path;
 
         public struct Entry
         {
@@ -43,7 +44,11 @@ namespace Capstonia.Systems
             this.game = game;  
             leaderboard = new List<Entry>();
 
-            file = new FileStream("leaderboard.txt", FileMode.OpenOrCreate, FileAccess.Read);
+            path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Dungeons of Capstonia\\";
+
+            Directory.CreateDirectory(path);
+
+            file = new FileStream(path + "leaderboard.txt", FileMode.OpenOrCreate, FileAccess.Read);
             
             sr = new StreamReader(file);
 
@@ -94,7 +99,7 @@ namespace Capstonia.Systems
 
         public void CloseFile()
         {
-            file = new FileStream("leaderboard.txt", FileMode.Truncate, FileAccess.Write);
+            file = new FileStream(path + "leaderboard.txt", FileMode.Truncate, FileAccess.Write);
             sw = new StreamWriter(file);
 
             foreach (Entry entry in leaderboard)

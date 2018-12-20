@@ -17,7 +17,7 @@ namespace Capstonia.Items
             History = "ChittyChittyBangBang";
             Interactive = true;
             Consumable = true;
-            MaxStack = 5;
+            MaxStack = 20;
             Sprite = game.food;
         }
         

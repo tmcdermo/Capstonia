@@ -87,7 +87,7 @@ namespace Capstonia.Systems
 
                     if (leaderboard.Count > 10)
                     {
-                        leaderboard.RemoveAt(9);
+                        leaderboard.RemoveAt(10);
                     }
                 }
             }

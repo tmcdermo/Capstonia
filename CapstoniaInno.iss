@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Dungeons of Capstonia"
-#define MyAppVersion "1.01"
+#define MyAppVersion "1.02"
 #define MyAppPublisher "Octans Capstone Group"
 #define MyAppExeName "Capstonia.exe"
 
@@ -18,7 +18,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=Z:\Google Drive\_Capstone\Capstonia\Capstonia\License.txt
+LicenseFile=Z:\Google Drive\School\_Capstone\Capstonia\Capstonia\License.txt
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes

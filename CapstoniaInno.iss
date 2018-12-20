@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Dungeons of Capstonia"
-#define MyAppVersion "1.01"
+#define MyAppVersion "1.02"
 #define MyAppPublisher "Octans Capstone Group"
 #define MyAppExeName "Capstonia.exe"
 
